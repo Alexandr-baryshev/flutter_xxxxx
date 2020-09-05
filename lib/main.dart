@@ -61,9 +61,7 @@ class MyHomePage extends StatelessWidget {
 
 
 
-void x(){
-  print('reports[1].opisanieText');
-}
+
 
 
 
@@ -79,8 +77,7 @@ class ReportsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    //print(reports[1].id);
-    //jsonPOST();
+
 
     return ListView.builder(
 
@@ -89,10 +86,11 @@ class ReportsList extends StatelessWidget {
         return ListTile(
           leading: Text(reports[index].serialNumber),
           title: Text(reports[index].opisanieText),
-          subtitle: Text(reports[index].id),
+          subtitle:  Text(reports[index].id),
           dense: true,
           onTap: () {
-              print(reports[index].opisanieText);
+              print(reports[index].id);
+              // на страницу ввода, передается id и данный грузятся по ...GetById
           },
         );
       },

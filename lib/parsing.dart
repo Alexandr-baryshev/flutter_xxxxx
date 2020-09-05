@@ -13,7 +13,6 @@ class Tessst extends ChangeNotifier {
 
   setN({String n}) {
     nn = n;
-    fetchReports();
     print(nn);
     notifyListeners();
 
@@ -21,7 +20,7 @@ class Tessst extends ChangeNotifier {
 
 
   Future<List<Report>> fetchReports() async {
-    final response = await http.get('http://localhost:8888/ppoGetF?serialNumber=$nn');
+    final response = await http.get('http://localhost:8888/profRabGetF?serialNumber=$nn');
     String responseBody = utf8.decode(response.bodyBytes);
     //print('\n responseBody == $responseBody');
 
