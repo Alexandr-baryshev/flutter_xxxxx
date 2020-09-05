@@ -91,6 +91,7 @@ class ReportsList extends StatelessWidget {
           onTap: () {
               print(reports[index].id);
               // на страницу ввода, передается id и данный грузятся по ...GetById
+              // osnovanieText - сделать проверку на null
           },
         );
       },
