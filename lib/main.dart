@@ -37,7 +37,7 @@ class MyHomePage extends StatelessWidget {
           Expanded(child: TextField(
             onChanged: (val) {
 
-              context.read<Tessst>().setN(n: val);
+              context.read<Tessst>().setN(x: val);
 
             },
           )),

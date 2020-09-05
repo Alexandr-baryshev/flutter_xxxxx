@@ -9,29 +9,24 @@ import 'package:provider/provider.dart';
 
 class Tessst extends ChangeNotifier {
 
-  String nn = '';
+  String nx = '';
 
-  setN({String n}) {
-    nn = n;
-    print(nn);
+  setN({String x}) {
+    nx = x;
+    print(nx);
     notifyListeners();
 
   }
 
 
   Future<List<Report>> fetchReports() async {
-    final response = await http.get('http://localhost:8888/profRabGetF?serialNumber=$nn');
+    final response = await http.get('http://localhost:8888/profRabGetF?serialNumber=$nx');
     String responseBody = utf8.decode(response.bodyBytes);
-    //print('\n responseBody == $responseBody');
-
     return compute(parseReports, responseBody);
   }
 
   List<Report> parseReports(String responseBody) {
     final parsed = jsonDecode(responseBody).cast<Map<dynamic, dynamic>>();
-
-    print('\n parsed == $parsed');
-
     return parsed.map<Report>((json) => Report.fromJson(json)).toList();
   }
 
@@ -52,8 +47,9 @@ class Report {
         this.opisanieText,
         this.resultatText});
 
+
   factory Report.fromJson(Map<String, dynamic> json) {
-    return Report(
+      return Report(
       id: json['id'] as String,
       serialNumber: json['serialNumber'] as String,
       reportNumber: json['reportNumber'] as String,
