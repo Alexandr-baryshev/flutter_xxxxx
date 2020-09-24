@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'web.dart';
-import 'parsing.dart';
+
 
 import 'dart:async';
 import 'dart:convert';
@@ -11,90 +12,84 @@ import 'package:http/http.dart' as http;
 
 import 'package:provider/provider.dart';
 
+
+
 void main() => runApp(MyApp());
 
+
 class MyApp extends StatelessWidget {
+
+
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<Tessst>(
-    create: (context) => Tessst(),
-      child: MaterialApp(
-        home: MyHomePage(),
+    return MaterialApp(
+
+      home: Scaffold(
+        body: Center(
+          child: MyStatefulWidget(),
+        ),
       ),
     );
   }
 }
 
-class MyHomePage extends StatelessWidget {
+class MyStatefulWidget extends StatefulWidget {
+
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children:[
-          Expanded(child: TextField(
-            onChanged: (val) {
-
-              context.read<Tessst>().setN(x: val);
-
-            },
-          )),
-          Expanded(
-            child: FutureBuilder<List<Report>>(
-              future:context.watch<Tessst>().fetchReports(/*http.Client()*/),
-              builder: (context, snapshot) {
-                if (snapshot.hasError) print(snapshot.error);
-
-                return snapshot.hasData
-                    ? ReportsList(reports: snapshot.data)
-                    : Center(child: CircularProgressIndicator());
-              },
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+  _MyStatefulWidgetState createState() => _MyStatefulWidgetState();
 }
 
+class _MyStatefulWidgetState extends State<MyStatefulWidget> {
+
+  String dropdownValue = 'One';
+
+  var countries= [
+    {"countryId":"9b259d48-3eb6-46c5-83fa-cd1516da294c","countryName":"Россия"},
+    {"countryId":"bedcda67-712f-442a-8b85-8d488973361f","countryName":"США"}
+    ];
 
 
-
-
-
-
-
-
-
-class ReportsList extends StatelessWidget {
-  final List<Report> reports;
-
-
-  ReportsList({this.reports});
+  Future<List> fetchCountry() async {
+    final response = await http.get('http://localhost:8888/Country');
+    countries = jsonDecode(utf8.decode(response.bodyBytes));
+    print(countries);
+    return countries;
+  }
 
   @override
   Widget build(BuildContext context) {
 
 
 
-    return ListView.builder(
-
-      itemCount: reports.length,
-      itemBuilder: (context, index) {
-        return ListTile(
-          leading: Text(reports[index].serialNumber),
-          title: Text(reports[index].opisanieText),
-          subtitle:  Text(reports[index].id),
-          dense: true,
-          onTap: () {
-              print(reports[index].id);
-              // на страницу ввода, передается id и данный грузятся по ...GetById
-              // osnovanieText - сделать проверку на null
-          },
-        );
+    return DropdownButton<String>(
+      value: dropdownValue,
+      icon: Icon(Icons.arrow_downward),
+      iconSize: 24,
+      elevation: 16,
+      style: TextStyle(color: Colors.deepPurple),
+      underline: Container(
+        height: 2,
+        color: Colors.deepPurpleAccent,
+      ),
+      onChanged: (String newValue) {
+        setState(() {
+          dropdownValue = newValue;
+        });
       },
+      items: <String>['One', 'Two', 'Free', 'Four']
+          .map<DropdownMenuItem<String>>((String value) {
+        return DropdownMenuItem<String>(
+          value: value,
+          child: Text(value),
+        );
+      }).toList(),
     );
   }
 }
+
+
+
+
+
+
