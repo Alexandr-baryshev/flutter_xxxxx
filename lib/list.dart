@@ -25,8 +25,7 @@ class ListPage extends StatelessWidget {
                       onPressed: () {
                         Navigator.pushNamed(context, Home.rout);
                       },
-                    ),
-                    // Назад
+                    ), // Назад
                     FlatButton(
                       child: Icon(
                         Icons.update,
@@ -35,11 +34,11 @@ class ListPage extends StatelessWidget {
                         context.read<TextWidgetState>().textNumberCount();
                       },
                     ),
+                    TextWidget(),
                   ],
                 ),
               ),
             ),
-            TextWidget(),
           ],
         ),
       ),
@@ -56,18 +55,16 @@ class TextWidgetState extends ChangeNotifier {
   }
 }
 
-// ignore: must_be_immutable
+
 class TextWidget extends StatelessWidget {
   int test = 0;
 
   @override
   Widget build(BuildContext context) {
+
     print('>>>>>> test  ${test += 1}');
 
-    return Expanded(
-        child: Center(
-            child: Text(
-                "${context.watch<TextWidgetState>().textNumber == null ? ''
-                    : context.watch<TextWidgetState>().textNumber}")));
+    return Text(
+        "${context.watch<TextWidgetState>().textNumber == null ? '' : context.watch<TextWidgetState>().textNumber}");
   }
 }
