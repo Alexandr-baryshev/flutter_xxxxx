@@ -1,5 +1,6 @@
-name: flutter_xxxxx
-description: A new Flutter application.
+name: reports_flutter
+description: Отчеты flutter client
+
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
@@ -14,11 +15,14 @@ dependencies:
     sdk: flutter
 
 
-  cupertino_icons: ^0.1.3
+  cupertino_icons: ^1.0.0
   provider: ^4.3.2+1
   http: ^0.12.2
   intl: ^0.16.1
   shared_preferences: ^0.5.10
+  flutter_datetime_picker: ^1.4.0
+  font_awesome_flutter: ^8.10.0
+  change_app_package_name: ^0.1.2
 
 
 
