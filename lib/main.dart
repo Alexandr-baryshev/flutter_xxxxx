@@ -1,51 +1,46 @@
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'list.dart';
-import 'home.dart';
-
 
 
 void main() => runApp(ReportsMain());
 
 class ReportsMain extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
-
-    print(
-        '\n--------------------------------------------------------------------\n'
-            '   >>> >>> START APPLICATION !!!!!!!!!! START APPLICATION <<< <<<   \n'
-            '--------------------------------------------------------------------');
-
-
+    print('\n--------------------------------------------------------------------\n'
+        '   >>> >>> START APPLICATION !!!!!!!!!! START APPLICATION <<< <<<   \n'
+        '--------------------------------------------------------------------');
 
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider<ListState>(create: (context) => ListState()),
-
+        ChangeNotifierProvider<TextWidgetState>(create: (context) => TextWidgetState()),
       ],
       child: MaterialApp(
         theme: ThemeData.light(),
-        initialRoute: HomePageTest.rout,
+        initialRoute: Home.rout,
         routes: {
-
-          HomePageTest.rout: (context) => HomePageTest(),
-          ListPageLayout.rout: (context) => ListPageLayout(),
-
-
+          Home.rout: (context) => Home(),
+          ListPage.rout: (context) => ListPage(),
         },
-        onUnknownRoute: (RouteSettings settings) {
-          return MaterialPageRoute<void>(
-              settings: settings,
-              builder: (BuildContext context) {
-                return Scaffold(
-                  body: Center(
-                    child: Text('НЕИЗВЕСТНАЯ ОШИБКА'),
-                  ),
-                );
-              });
-        },
+      ),
+    );
+  }
+}
+
+class Home extends StatelessWidget {
+  static String rout = 'HomePage';
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: ListTile(
+          title: Text('GO NEXT'),
+          onTap: () {
+            Navigator.pushNamed(context, ListPage.rout);
+          },
+        ),
       ),
     );
   }
