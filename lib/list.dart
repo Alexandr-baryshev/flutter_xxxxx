@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
 import 'package:provider/provider.dart';
 
 import 'main.dart';
@@ -23,7 +24,16 @@ class ListPage extends StatelessWidget {
                         Icons.keyboard_return,
                       ),
                       onPressed: () {
-                        Navigator.pushNamed(context, Home.rout);
+                        //Navigator.pushNamed(context, Home.rout);
+
+                        Navigator.of(context).push(new MaterialPageRoute<Null>(
+                          //maintainState: false,
+                          builder: (BuildContext context) {
+
+                            return new Home();
+                          },
+                        ));
+
                       },
                     ), // Назад
                     FlatButton(
@@ -55,13 +65,11 @@ class TextWidgetState extends ChangeNotifier {
   }
 }
 
-
 class TextWidget extends StatelessWidget {
   int test = 0;
 
   @override
   Widget build(BuildContext context) {
-
     print('>>>>>> test  ${test += 1}');
 
     return Text(
