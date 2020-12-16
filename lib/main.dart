@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'list.dart';
@@ -38,9 +39,9 @@ class Home extends StatelessWidget {
         child: ListTile(
           title: Text('GO NEXT'),
           onTap: () {
-            //avigator.pushNamed(context, ListPage.rout);
+            Navigator.pushNamed(context,  ListPage.rout);
 
-            Navigator.of(context).push(new MaterialPageRoute<Null>(
+            Navigator.of(context).push(new CupertinoPageRoute<Null>(
               maintainState: false,
               builder: (BuildContext context) {
 

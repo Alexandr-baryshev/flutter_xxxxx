@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -26,7 +27,8 @@ class ListPage extends StatelessWidget {
                       onPressed: () {
                         //Navigator.pushNamed(context, Home.rout);
 
-                        Navigator.of(context).push(new MaterialPageRoute<Null>(
+                        Navigator.of(context).push(new CupertinoPageRoute<Null>(
+
                           //maintainState: false,
                           builder: (BuildContext context) {
 
