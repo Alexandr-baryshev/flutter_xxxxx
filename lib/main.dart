@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'utility/constant.dart';
+import '1_home/home_pg_layout.dart';
+import '2_list/list_func.dart';
 
 void main() => runApp(ReportsMain());
 
@@ -16,13 +19,13 @@ class ReportsMain extends StatelessWidget {
 
     return MultiProvider(
       providers: [
-        // ChangeNotifierProvider<ListTableState>(create: (context) => ListTableState()),
+         ChangeNotifierProvider<ListTableState>(create: (context) => ListTableState()),
       ],
       child: MaterialApp(
         theme: ThemeData.light(),
-        //initialRoute: RoutNameStorage.home,
+        initialRoute: PageRout.HOME,
         routes: {
-          // RoutNameStorage.home: (context) => HomePageLayout(),
+           PageRout.HOME: (context) => HomePgLayout(),
         },
         onUnknownRoute: (RouteSettings settings) {
           return MaterialPageRoute<void>(
