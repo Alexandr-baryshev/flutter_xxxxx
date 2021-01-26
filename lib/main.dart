@@ -1,43 +1,31 @@
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-
-
-
-
+import 'utility/constant.dart';
+import '1_home/home_pg_layout.dart';
+import '2_list/list_func.dart';
 
 void main() => runApp(ReportsMain());
 
 class ReportsMain extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     String funcName = 'Widget build';
 
-    print(
-        '\n--------------------------------------------------------------------\n'
+    print('\n--------------------------------------------------------------------\n'
         '   >>> >>> START APPLICATION !!!!!!!!!! START APPLICATION <<< <<<   \n'
         '--------------------------------------------------------------------');
     // Logger.loggerOnOff = true;
     // Logger.events(widget: '${context.widget}', func: funcName, event: '');
 
-
-
-
     return MultiProvider(
       providers: [
-        // ChangeNotifierProvider<ListTableState>(create: (context) => ListTableState()),
-
+         ChangeNotifierProvider<ListTableState>(create: (context) => ListTableState()),
       ],
       child: MaterialApp(
         theme: ThemeData.light(),
-        //initialRoute: RoutNameStorage.home,
+        initialRoute: PageRout.HOME,
         routes: {
-
-          // RoutNameStorage.home: (context) => HomePageLayout(),
-
-
+           PageRout.HOME: (context) => HomePgLayout(),
         },
         onUnknownRoute: (RouteSettings settings) {
           return MaterialPageRoute<void>(
