@@ -1,0 +1,11 @@
+import 'package:intl/intl.dart';
+
+/// Принимает время в миллисекундах, и временной паттрн. Возвращает строку времени.
+String time(int milliseconds, String pattern) {
+  if (milliseconds == null) {
+    milliseconds = DateTime.now().millisecondsSinceEpoch;
+  }
+  DateTime newDate = DateTime.fromMillisecondsSinceEpoch(milliseconds);
+  var format = new DateFormat(pattern);
+  return format.format(newDate);
+}

@@ -5,8 +5,6 @@ import 'package:flutter/cupertino.dart';
 import 'local_storage.dart';
 import '../utility/logger.dart';
 
-
-
 class PageRout {
   static const String HOME = 'home';
   static const String LIST = 'list';
@@ -16,8 +14,6 @@ class PageRout {
   static goTo(BuildContext context, rout) {
     Navigator.pushNamed(context, rout);
   }
-
-
 }
 
 class ReportKEY {
@@ -52,35 +48,24 @@ class ReportKEY {
     if (reportKEY != null) {
       await locStor.save(key: 'reportKEY', value: reportKEY);
     }
-    Logger.events(widget: '', func: 'setReportKEY', event: reportKEY);
+    Logger.events(func: 'setReportKEY', event: reportKEY);
   }
-
-
-
-
-
 
   static _getKEYFromLocal(String rKEY) {
     _reportLocalKEY = rKEY;
   }
 
-
-
-  static  getReportKEY() async {
+  static getReportKEY() async {
     if (reportKEY == null) {
       await locStor.load(key: 'reportKEY', setFromLocal: _getKEYFromLocal);
       reportKEY = _reportLocalKEY;
       _setBaseParameters(rKEY: reportKEY);
     }
 
-    Logger.events(widget: '', func: 'getReportKEY', event: reportKEY);
-
+    Logger.events(func: 'getReportKEY', event: reportKEY);
 
     //logger.events(func: 'getCollection()', event: '$collection');
   }
-
-
-
 
   static _setBaseParameters({@required String rKEY}) {
     switch (reportKEY) {
@@ -108,14 +93,11 @@ class ReportKEY {
         reportCOLL = ACTIVE_Z_COLL;
         reportNAME = ACTIVE_Z_NAME;
         break;
-
     }
 
     ConstructorURI.setBaseURI(collection: reportCOLL);
   }
 }
-
-
 
 class ConstructorURI {
   static const String _host2 = '/';
@@ -128,16 +110,53 @@ class ConstructorURI {
 
   static int _start = 0;
   static int _end = 9999999999999;
-  static String _countryId = '';
-  static String _regionId = '';
+  static String _subyektId = '';
+  static String _rayonId = '';
   static String _sluzhbaId = '';
   static int _activeSign = 0;
-
 
   static setBaseURI({@required String collection}) {
     byIdURI = '$_host/ByID?collectionX=$collection&idX=';
     saveURI = '$_host/SAVE?collectionX=$collection';
     getAllURI = '$_host/ALL?collectionX=$collection';
+    listURI = '$_host/Replace?collectionX=$collection';
+    setRequestFilter();
   }
 
+  static setRequestFilter({
+    String subyekt,
+    String rayon,
+    String sluzhba,
+    int start,
+    int end,
+    int activeSign,
+  }) {
+    if (subyekt != null) {
+      _subyektId = subyekt;
+    }
+
+    if (rayon != null) {
+      _rayonId = rayon;
+    }
+
+    if (sluzhba != null) {
+      _sluzhbaId = sluzhba;
+    }
+
+    if (start != null) {
+      _start = start;
+    }
+
+    if (end != null) {
+      _end = end;
+    }
+
+    if (activeSign != null) {
+      _activeSign = activeSign;
+    }
+
+    listURI =
+        '$listURI&activeSign=$_activeSign&start=$_start&end=$_end&subyektId=$_subyektId&rayonId=$_rayonId&sluzhbaId=$_sluzhbaId';
+    print('listURI $listURI');
+  }
 }

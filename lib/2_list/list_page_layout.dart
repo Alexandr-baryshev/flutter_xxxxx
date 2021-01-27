@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import '../utility/style.dart';
 import '../utility/constant.dart';
 import '../utility/logger.dart';
+import 'list_table.dart';
 
 import 'package:reports_flutter/z_prototype/top_bar.dart';
 
-class ListPaLayout extends StatelessWidget {
+class ListPgLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Logger.events(widget: '${context.widget}', func: 'build', event: '');
@@ -27,7 +28,7 @@ class ListPaLayout extends StatelessWidget {
                       TopBar(ReportKEY.reportNAME, PageRout.HOME),
                       // DateFilter(),
                       // LocationDicLayout(type: 'filter'),
-                      // ListTable(),
+                       ListTable(),
                       // ListBottom(),
                     ],
                   );
@@ -40,6 +41,16 @@ class ListPaLayout extends StatelessWidget {
     );
   }
 }
+
+
+
+
+
+
+
+
+
+
 
 class VoidLocalCLASS extends StatelessWidget {
   @override

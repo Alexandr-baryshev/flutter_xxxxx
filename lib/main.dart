@@ -27,8 +27,8 @@ class ReportsMain extends StatelessWidget {
         initialRoute: PageRout.HOME,
         routes: {
            PageRout.HOME: (context) => HomePgLayout(),
-           PageRout.LIST: (context) => ListPaLayout(),
-           //PageRout.VOID: (context) => VoidMainCLASS(),
+           PageRout.LIST: (context) => ListPgLayout(),
+           PageRout.VOID: (context) => VoidMainCLASS(),
         },
         onUnknownRoute: (RouteSettings settings) {
           return MaterialPageRoute<void>(
