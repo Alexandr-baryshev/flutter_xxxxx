@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'utility/constant.dart';
 import '1_home/home_pg_layout.dart';
+import '2_list/list_page_layout.dart';
 import '2_list/list_func.dart';
 
 void main() => runApp(ReportsMain());
@@ -26,6 +27,8 @@ class ReportsMain extends StatelessWidget {
         initialRoute: PageRout.HOME,
         routes: {
            PageRout.HOME: (context) => HomePgLayout(),
+           PageRout.LIST: (context) => ListPaLayout(),
+           PageRout.VOID: (context) => VoidMainCLASS(),
         },
         onUnknownRoute: (RouteSettings settings) {
           return MaterialPageRoute<void>(
@@ -39,6 +42,17 @@ class ReportsMain extends StatelessWidget {
               });
         },
       ),
+    );
+  }
+}
+
+
+class VoidMainCLASS extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 100,
+      color: Colors.green,
     );
   }
 }

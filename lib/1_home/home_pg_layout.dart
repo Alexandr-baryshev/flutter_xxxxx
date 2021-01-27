@@ -1,20 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:reports_flutter/utility/constant.dart';
-import 'package:reports_flutter/utility/style.dart';
+import '../utility/constant.dart';
+import '../utility/style.dart';
 
 
 
-
-class QQQ extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: Colors.red,
-      height: 100,
-      width: 100,
-    );
-  }
-}
 
 
 
@@ -69,7 +58,10 @@ class HomePgLayout extends StatelessWidget {
         contentPadding: const EdgeInsets.all(0),
         title: Text(name),
         onTap: () {
-          setCollect();
+          // ignore: unnecessary_statements
+          setCollect;
+          Navigator.pushNamed(context, PageRout.LIST);
+
         },
       ),
     );

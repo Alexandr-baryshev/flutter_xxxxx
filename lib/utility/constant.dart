@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 
 import 'local_storage.dart';
@@ -8,6 +10,13 @@ class PageRout {
   static const String HOME = 'home';
   static const String LIST = 'list';
   static const String INPUT = 'input';
+  static const String VOID = 'void';
+
+  static goTo(BuildContext context, rout) {
+    Navigator.pushNamed(context, rout);
+  }
+
+
 }
 
 class ReportKEY {
@@ -37,6 +46,7 @@ class ReportKEY {
   static String reportNAME = 'нет данных';
 
   static setReportKEY({String rKEY}) {
+    log('setReportKEY');
     _setBaseParameters(rKEY: reportKEY);
     reportKEY = rKEY;
     _saveLocalReportKEY(save: rKEY);
@@ -52,9 +62,9 @@ class ReportKEY {
     _reportLocalKEY = rKEY;
   }
 
-  static getCollection() async {
+  static getReportKEY() async {
     if (reportKEY == null) {
-      await locStor.load(key: 'coll', setFromLocal: _getKEYFromLocal);
+      await locStor.load(key: 'reportKEY', setFromLocal: _getKEYFromLocal);
       reportKEY = _reportLocalKEY;
       _setBaseParameters(rKEY: reportKEY);
     }
@@ -91,13 +101,13 @@ class ReportKEY {
 
     }
 
-    RequestLinker.setBaseLink(collection: reportCOLL);
+    ConstructorURI.setBaseURI(collection: reportCOLL);
   }
 }
 
 
 
-class RequestLinker {
+class ConstructorURI {
   static const String _host2 = '/';
   static const String _host = 'http://localhost:9999';
 
@@ -114,7 +124,7 @@ class RequestLinker {
   static int _activeSign = 0;
 
 
-  static setBaseLink({@required String collection}) {
+  static setBaseURI({@required String collection}) {
     byIdURI = '$_host/ByID?collectionX=$collection&idX=';
     saveURI = '$_host/SAVE?collectionX=$collection';
     getAllURI = '$_host/ALL?collectionX=$collection';
