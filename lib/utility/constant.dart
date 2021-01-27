@@ -104,6 +104,7 @@ class ConstructorURI {
   static const String _host = 'http://localhost:9999';
 
   static String listURI;
+  static String listURIBase;
   static String byIdURI;
   static String saveURI;
   static String getAllURI;
@@ -119,7 +120,7 @@ class ConstructorURI {
     byIdURI = '$_host/ByID?collectionX=$collection&idX=';
     saveURI = '$_host/SAVE?collectionX=$collection';
     getAllURI = '$_host/ALL?collectionX=$collection';
-    listURI = '$_host/Replace?collectionX=$collection';
+    listURIBase = '$_host/Replace?collectionX=$collection';
     setRequestFilter();
   }
 
@@ -155,8 +156,8 @@ class ConstructorURI {
       _activeSign = activeSign;
     }
 
-    listURI =
-        '$listURI&activeSign=$_activeSign&start=$_start&end=$_end&subyektId=$_subyektId&rayonId=$_rayonId&sluzhbaId=$_sluzhbaId';
+    listURI = listURIBase + '&activeSign=$_activeSign&start=$_start&end=$_end&subyektId=$_subyektId&rayonId=$_rayonId&sluzhbaId=$_sluzhbaId';
+
     print('listURI $listURI');
   }
 }

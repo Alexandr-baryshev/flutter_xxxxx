@@ -3,8 +3,9 @@ import '../utility/style.dart';
 import '../utility/constant.dart';
 import '../utility/logger.dart';
 import 'list_table.dart';
+import 'date_filter.dart';
 
-import 'package:reports_flutter/z_prototype/top_bar.dart';
+import '../z_prototype/top_bar.dart';
 
 class ListPgLayout extends StatelessWidget {
   @override
@@ -26,7 +27,7 @@ class ListPgLayout extends StatelessWidget {
                     children: [
                       //VoidLocalCLASS(),
                       TopBar(ReportKEY.reportNAME, PageRout.HOME),
-                      // DateFilter(),
+                       DateFilter(),
                       // LocationDicLayout(type: 'filter'),
                        ListTable(),
                       // ListBottom(),

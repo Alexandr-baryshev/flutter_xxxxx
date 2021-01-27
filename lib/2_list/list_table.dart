@@ -12,7 +12,7 @@ import 'list_func.dart';
 
 
 
-
+// TODO сохранить id в локал стораж
 
 
 class ListTable extends StatelessWidget {
