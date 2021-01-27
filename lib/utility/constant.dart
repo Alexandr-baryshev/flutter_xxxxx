@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 
 import 'local_storage.dart';
+import '../utility/logger.dart';
 
 
 
@@ -45,32 +46,41 @@ class ReportKEY {
   static String reportCOLL;
   static String reportNAME = 'нет данных';
 
-  static setReportKEY({String rKEY}) {
-    log('setReportKEY');
-    _setBaseParameters(rKEY: reportKEY);
+  static setReportKEY({String rKEY}) async {
     reportKEY = rKEY;
-    _saveLocalReportKEY(save: rKEY);
-  }
-
-  static _saveLocalReportKEY({String save}) async {
+    _setBaseParameters(rKEY: reportKEY);
     if (reportKEY != null) {
       await locStor.save(key: 'reportKEY', value: reportKEY);
     }
+    Logger.events(widget: '', func: 'setReportKEY', event: reportKEY);
   }
+
+
+
+
+
 
   static _getKEYFromLocal(String rKEY) {
     _reportLocalKEY = rKEY;
   }
 
-  static getReportKEY() async {
+
+
+  static  getReportKEY() async {
     if (reportKEY == null) {
       await locStor.load(key: 'reportKEY', setFromLocal: _getKEYFromLocal);
       reportKEY = _reportLocalKEY;
       _setBaseParameters(rKEY: reportKEY);
     }
 
+    Logger.events(widget: '', func: 'getReportKEY', event: reportKEY);
+
+
     //logger.events(func: 'getCollection()', event: '$collection');
   }
+
+
+
 
   static _setBaseParameters({@required String rKEY}) {
     switch (reportKEY) {

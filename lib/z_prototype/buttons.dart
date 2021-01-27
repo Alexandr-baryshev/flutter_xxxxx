@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 
 
-FlatButton barsIconFlatBtn({BuildContext context, IconData icon, String rout}) {
+FlatButton barsIconFlatBtn({BuildContext context, IconData icon, String rout }) {
   return FlatButton(
     onPressed: () =>  Navigator.pushNamed(context, rout),
     child: Column(
