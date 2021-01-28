@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:reports_flutter/utility/key_controller.dart';
-import 'package:reports_flutter/utility/style.dart';
+import '../utility/style.dart';
 import '../utility/logger.dart';
-
-
 
 class TopBar extends StatelessWidget {
   final String _reportNAME;
   final String _rout;
-
 
   TopBar(this._reportNAME, this._rout);
 
@@ -48,5 +44,27 @@ class TopBar extends StatelessWidget {
                 ), // NAME
               ),
             ]));
+  }
+}
+
+class BottomBar extends StatelessWidget {
+  final List<FlatButton> _buttonsList;
+
+  BottomBar(this._buttonsList);
+
+  @override
+  Widget build(BuildContext context) {
+    Logger.events(widget: '${context.widget}', func: 'build', event: '');
+
+    return Container(
+        padding: EdgeInsets.only(left: 10, right: 20),
+        height: 80,
+        color: barBgColor,
+        child: Row(
+          mainAxisSize: MainAxisSize.max,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: _buttonsList
+        ));
   }
 }

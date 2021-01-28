@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 
-import 'local_storage.dart';
+import '../utility/local_storage.dart';
 import '../utility/logger.dart';
 
 class PageRout {
@@ -56,7 +56,7 @@ class ReportKEY {
   }
 
   static getReportKEY() async {
-    if (reportKEY == null) {
+    if (reportKEY == null && _reportLocalKEY == null) {
       await locStor.load(key: 'reportKEY', setFromLocal: _getKEYFromLocal);
       reportKEY = _reportLocalKEY;
       _setBaseParameters(rKEY: reportKEY);
@@ -99,6 +99,21 @@ class ReportKEY {
 
   static _getIDFromLocal(String rID) {
     _reportLocalID = rID;
+  }
+
+
+  static deleteReportID()  {
+
+    reportID = null;
+    _reportLocalID = '-';
+    ConstructorURI.setReportIdURI(rID: reportID);
+
+    locStor.remove(key: 'reportID');
+
+
+    Logger.events(func: 'deleteReportID', event: reportID);
+
+    print('byIdURI ${ConstructorURI.byIdURI}');
   }
 
 
@@ -165,7 +180,7 @@ class ConstructorURI {
   static setReportIdURI({String rID}) {
     if (rID != null) {
       byIdURI = _byIdURIBase+rID;
-    }
+    } else byIdURI = _byIdURIBase;
 
   }
 

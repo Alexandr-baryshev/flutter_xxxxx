@@ -1,11 +1,9 @@
-import 'package:reports_flutter/utility/style.dart';
 import 'package:flutter/material.dart';
+import '../utility/style.dart';
 
-
-
-FlatButton barsIconFlatBtn({BuildContext context, IconData icon, String rout }) {
+FlatButton barsIconFlatBtn({BuildContext context, IconData icon, String rout}) {
   return FlatButton(
-    onPressed: () =>  Navigator.pushNamed(context, rout),
+    onPressed: () => Navigator.pushNamed(context, rout),
     child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -19,11 +17,7 @@ FlatButton barsIconFlatBtn({BuildContext context, IconData icon, String rout }) 
   );
 }
 
-
-
-
-
-FlatButton barsIconTxtFlatBtn({String text, IconData icon, Function fun}) {
+FlatButton bottomBarButton({ String text, IconData icon, Function fun}) {
   return FlatButton(
     onPressed: fun,
     child: Column(
@@ -36,7 +30,8 @@ FlatButton barsIconTxtFlatBtn({String text, IconData icon, Function fun}) {
         ),
         Text(
           text,
-          style: TextStyle(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w400),
+          style:
+              TextStyle(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w400),
         ),
       ],
     ),

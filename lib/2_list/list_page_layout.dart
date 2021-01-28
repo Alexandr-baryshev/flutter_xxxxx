@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import '../model/key_controller.dart';
 import '../utility/style.dart';
-import '../utility/key_controller.dart';
 import '../utility/logger.dart';
+import 'list_func.dart';
 import 'list_table.dart';
 import 'date_filter.dart';
 
-import '../z_prototype/top_bar.dart';
+import '../z_prototype/bars.dart';
 
 class ListPgLayout extends StatelessWidget {
   @override
@@ -30,7 +31,7 @@ class ListPgLayout extends StatelessWidget {
                        DateFilter(),
                       // LocationDicLayout(type: 'filter'),
                        ListTable(),
-                      // ListBottom(),
+                      BottomBar(ListPgButtons.buttonsList(context)),
                     ],
                   );
                 } else {

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../utility/key_controller.dart';
+import '../model/key_controller.dart';
 import '../utility/style.dart';
 import '../utility/logger.dart';
 
