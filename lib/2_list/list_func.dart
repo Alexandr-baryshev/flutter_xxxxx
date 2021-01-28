@@ -17,66 +17,38 @@ class ListTableState extends ChangeNotifier {
   }
 }
 
-class ListPgNetwork{
-
+class ListPgNetwork {
   static Future<List<Report>> fetchReports({String call}) async {
-
-
     final response = await http.get(ConstructorURI.listURI);
     String responseBody = utf8.decode(response.bodyBytes);
 
     final parsed = jsonDecode(responseBody).cast<Map<dynamic, dynamic>>();
     allReports = parsed.map<Report>((json) => Report.fromJson(json)).toList();
 
-    Logger.events(widget:call, func: 'fetchReports', event: 'length ${allReports.length}');
+    Logger.events(
+        widget: call, func: 'fetchReports', event: 'length ${allReports.length}');
     //print(allReports[0].osnovanieText);
     return allReports;
-
+  }
 }
-
-
-
-}
-
 
 class ListPgButtons {
 
-  static List<FlatButton> buttonsList(BuildContext context){
-
-    newReport(){
+  static List<FlatButton> buttonsList(BuildContext context) {
+    newReport() {
       print('Новый');
       ReportKEY.deleteReportID();
-      Navigator.pushNamed(context,  PageRout.VOID);
+      Navigator.pushNamed(context, PageRout.VOID);
     }
 
-    updatePg(){
+    updatePg() {
       print('Обновить');
       context.read<ListTableState>().listTableUpdate();
     }
 
     return [
-      bottomBarButton(text: 'Новый', icon: Icons.add_box_outlined, fun:  newReport ),
-      bottomBarButton(text: 'Обновить', icon: Icons.update_outlined, fun:  updatePg  ),
+      bottomBarButton(text: 'Новый', icon: Icons.add_box_outlined, fun: newReport),
+      bottomBarButton(text: 'Обновить', icon: Icons.update_outlined, fun: updatePg),
     ];
   }
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
