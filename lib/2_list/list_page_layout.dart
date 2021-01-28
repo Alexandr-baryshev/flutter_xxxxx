@@ -36,7 +36,8 @@ class ListPgLayout extends StatelessWidget {
                 } else {
                   return Center(child: Text('Нет данных'));
                 }
-              }),
+              }
+              ),
         ),
       ),
     );

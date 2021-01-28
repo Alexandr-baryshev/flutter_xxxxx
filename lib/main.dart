@@ -50,9 +50,25 @@ class ReportsMain extends StatelessWidget {
 class VoidMainCLASS extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 100,
-      color: Colors.green,
+
+    return FutureBuilder(
+        future: ReportKEY.getReportID(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(child: CircularProgressIndicator());
+          } else if (snapshot.connectionState == ConnectionState.done) {
+            return Container(
+              height: 100,
+              color: Colors.green,
+              child: Text('byIdURI ${ConstructorURI.byIdURI}'),
+            );
+          } else {
+            return Center(child: Text('Нет данных'));
+          }
+        }
     );
   }
 }
+
+
+

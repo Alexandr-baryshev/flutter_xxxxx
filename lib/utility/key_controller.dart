@@ -42,6 +42,10 @@ class ReportKEY {
   static String reportCOLL;
   static String reportNAME = 'нет данных';
 
+  static String reportID;
+  static String _reportLocalID;
+
+
   static setReportKEY({String rKEY}) async {
     reportKEY = rKEY;
     _setBaseParameters(rKEY: reportKEY);
@@ -49,10 +53,6 @@ class ReportKEY {
       await locStor.save(key: 'reportKEY', value: reportKEY);
     }
     Logger.events(func: 'setReportKEY', event: reportKEY);
-  }
-
-  static _getKEYFromLocal(String rKEY) {
-    _reportLocalKEY = rKEY;
   }
 
   static getReportKEY() async {
@@ -66,6 +66,41 @@ class ReportKEY {
 
     //logger.events(func: 'getCollection()', event: '$collection');
   }
+
+  static _getKEYFromLocal(String rKEY) {
+    _reportLocalKEY = rKEY;
+  }
+
+
+
+  static setReportID({String rID}) async {
+    reportID = rID;
+
+    if (reportID != null) {
+      await locStor.save(key: 'reportID', value: reportID);
+    }
+
+    Logger.events(func: 'setReportID', event: reportID);
+  }
+
+  static getReportID() async {
+
+    if (reportID == null) {
+      await getReportKEY();
+      await locStor.load(key: 'reportID', setFromLocal: _getIDFromLocal);
+      reportID = _reportLocalID;
+
+    }
+    ConstructorURI.setReportIdURI(rID: reportID);
+    Logger.events(func: 'getReportID', event: reportID);
+
+    print('byIdURI ${ConstructorURI.byIdURI}');
+  }
+
+  static _getIDFromLocal(String rID) {
+    _reportLocalID = rID;
+  }
+
 
   static _setBaseParameters({@required String rKEY}) {
     switch (reportKEY) {
@@ -99,13 +134,16 @@ class ReportKEY {
   }
 }
 
+
+
 class ConstructorURI {
   static const String _host2 = '/';
   static const String _host = 'http://localhost:9999';
 
   static String listURI;
-  static String listURIBase;
+  static String _listURIBase;
   static String byIdURI;
+  static String _byIdURIBase;
   static String saveURI;
   static String getAllURI;
 
@@ -116,12 +154,19 @@ class ConstructorURI {
   static String _sluzhbaId = '';
   static int _activeSign = 0;
 
-  static setBaseURI({@required String collection}) {
-    byIdURI = '$_host/ByID?collectionX=$collection&idX=';
+  static setBaseURI({String collection}) {
+    _byIdURIBase = '$_host/ByID?collectionX=$collection&idX=';
     saveURI = '$_host/SAVE?collectionX=$collection';
     getAllURI = '$_host/ALL?collectionX=$collection';
-    listURIBase = '$_host/Replace?collectionX=$collection';
+    _listURIBase = '$_host/Replace?collectionX=$collection';
     setRequestFilter();
+  }
+
+  static setReportIdURI({String rID}) {
+    if (rID != null) {
+      byIdURI = _byIdURIBase+rID;
+    }
+
   }
 
   static setRequestFilter({
@@ -156,8 +201,9 @@ class ConstructorURI {
       _activeSign = activeSign;
     }
 
-    listURI = listURIBase + '&activeSign=$_activeSign&start=$_start&end=$_end&subyektId=$_subyektId&rayonId=$_rayonId&sluzhbaId=$_sluzhbaId';
+    listURI = _listURIBase + '&activeSign=$_activeSign&start=$_start&end=$_end&subyektId=$_subyektId&rayonId=$_rayonId&sluzhbaId=$_sluzhbaId';
 
     print('listURI $listURI');
+
   }
 }

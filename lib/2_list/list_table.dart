@@ -12,7 +12,7 @@ import 'list_func.dart';
 
 
 
-// TODO сохранить id в локал стораж
+
 
 
 class ListTable extends StatelessWidget {
@@ -109,7 +109,7 @@ class _ListTableBodyState extends State<ListTableBody> {
           rows: widget.reports
               .map((data) => DataRow(
                       onSelectChanged: (bool selected) {
-                        oneReport.id = data.id;
+                        ReportKEY.setReportID(rID: data.id);
                         Navigator.pushNamed(context,  PageRout.VOID);
                       },
                       cells: [
@@ -138,6 +138,7 @@ class _ListTableBodyState extends State<ListTableBody> {
 
 
 
+/*
 
 // ignore: must_be_immutable
 class ListFUTURE extends StatelessWidget {
@@ -221,6 +222,7 @@ class ListNOuture extends StatelessWidget {
 }
 
 
+*/
 
 
 
