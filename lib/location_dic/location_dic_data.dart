@@ -10,6 +10,7 @@ import 'location_dic_model.dart';
 
 import '../2_list/list_data.dart';
 
+/*
 class SubyektState with ChangeNotifier {
   int xUp = 0;
 
@@ -37,6 +38,7 @@ class SluzhbaState with ChangeNotifier {
     notifyListeners();
   }
 }
+ */
 
 class LocationState with ChangeNotifier {
   bool subyektState = false;

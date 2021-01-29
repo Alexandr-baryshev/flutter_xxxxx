@@ -28,10 +28,10 @@ class ReportsMain extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<ListTableState>(create: (context) => ListTableState()),
-        ChangeNotifierProvider<SubyektState>(create: (context) => SubyektState()),
-        ChangeNotifierProvider<RayonState>(create: (context) => RayonState()),
-        ChangeNotifierProvider<SluzhbaState>(create: (context) => SluzhbaState()),
         ChangeNotifierProvider<LocationState>(create: (context) => LocationState()),
+        //ChangeNotifierProvider<SubyektState>(create: (context) => SubyektState()),
+        //ChangeNotifierProvider<RayonState>(create: (context) => RayonState()),
+        //ChangeNotifierProvider<SluzhbaState>(create: (context) => SluzhbaState()),
       ],
       child: MaterialApp(
         theme: ThemeData.light(),
