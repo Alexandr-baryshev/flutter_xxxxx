@@ -13,6 +13,7 @@ import '../2_list/list_data.dart';
 class SubyektState with ChangeNotifier {
   int xUp = 0;
 
+
   subyektUpdate() {
     xUp = null;
     notifyListeners();
@@ -21,12 +22,53 @@ class SubyektState with ChangeNotifier {
 
 class RayonState with ChangeNotifier {
   int xUp = 0;
+  int test = 0;
 
   rayonUpdate() {
     xUp = null;
     notifyListeners();
   }
 }
+
+class SluzhbaState with ChangeNotifier {
+  int xUp = 0;
+
+  sluzhbaUpdate() {
+    xUp = null;
+    notifyListeners();
+  }
+}
+
+class LocationState with ChangeNotifier {
+
+  int subyektState = 0;
+  int rayonState = 0;
+  int sluzhbaState = 0;
+
+  int allLocationState = 0;
+
+
+  subyektUpdate() {
+    subyektState = null;
+    notifyListeners();
+  }
+
+  rayonUpdate() {
+    rayonState = null;
+    notifyListeners();
+  }
+
+  sluzhbaUpdate() {
+    sluzhbaState = null;
+    notifyListeners();
+  }
+
+  allLocationStateUpdate() {
+    allLocationState = null;
+    notifyListeners();
+  }
+}
+
 
 class LocationData {
   static const String _HOST = 'http://localhost:9999';
@@ -84,7 +126,7 @@ class LocationData {
   static loadLocationDic() async {
     await loadSubyekt();
     await loadRayons();
-    // await loadSluzhba();
+    await loadSluzhba();
     await Future.delayed(Duration(milliseconds: 300));
 
     dicLoadStatus = true;
@@ -107,5 +149,13 @@ class LocationData {
 
     final parsed = jsonDecode(responseBody).cast<Map<dynamic, dynamic>>();
     allRayons = parsed.map<Rayon>((json) => Rayon.fromJson(json)).toList();
+  }
+
+  static loadSluzhba() async {
+    final response = await http.get(ALL_Sluzhba_URI);
+    String responseBody = utf8.decode(response.bodyBytes);
+
+    final parsed = jsonDecode(responseBody).cast<Map<dynamic, dynamic>>();
+    allSluzhba = parsed.map<Sluzhba>((json) => Sluzhba.fromJson(json)).toList();
   }
 }

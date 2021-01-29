@@ -24,8 +24,8 @@ class TopBar extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               FlatButton(
-                //onPressed: () => Navigator.pushNamed(context, _rout),
-                onPressed: () => PageRout.goToPage(context, _rout),
+                onPressed: () => Navigator.pushNamed(context, _rout),
+                //onPressed: () => PageRout.goToPage(context, _rout),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

@@ -18,13 +18,13 @@ class _RayonDicState extends State<RayonDic> {
   String currentItemID;
   Rayon currentValue;
 
-  loadAsFilter() {
+  _loadAsFilter() {
     currentItemID = LocationData.rayonIdF;
     currentValue = LocationData.rayonValueF;
     print('RayonDic - loadAsFilter');
   }
 
-  loadAsInput() {
+  _loadAsInput() {
     currentItemID = oneReport.rayonID;
 
     int x = 0;
@@ -48,23 +48,23 @@ class _RayonDicState extends State<RayonDic> {
     print('RayonDic - loadAsInput');
   }
 
-  setChangeAsFilter() {
+  _setChangeAsFilter() {
     LocationData.rayonValueF = currentValue;
     LocationData.rayonIdF = currentValue.rayonId;
     ConstructorURI.setRequestFilter(rayon: LocationData.rayonIdF);
     context.read<ListTableState>().listTableUpdate();
   }
 
-  setChangeAsInput() {
+  _setChangeAsInput() {
     oneReport.rayonID = currentValue.rayonId;
   }
 
-  setChange(Rayon newValue) {
+  _setChange(Rayon newValue) {
     setState(() {
       currentValue = newValue;
     });
 
-    LocationData.funcTypeSelector(setChangeAsFilter, setChangeAsInput);
+    LocationData.funcTypeSelector(_setChangeAsFilter, _setChangeAsInput);
 
     LocationData.sluzhbaCLEAR();
   }
@@ -89,13 +89,15 @@ class _RayonDicState extends State<RayonDic> {
   @override
   Widget build(BuildContext context) {
     Logger.events(widget: '${context.widget}', func: 'Widget build', event: '');
-    int xUp = context.watch<RayonState>().xUp;
+    //int xUp = context.watch<RayonState>().xUp;
+    int test = context.select((LocationState ls) => ls.rayonState);
+    print('>>> rayonState >>>>>>>>>>>>>>>>>>> $test');
 
     return FutureBuilder(
         future: _filterLocation(),
         builder: (context, snapshot) {
           if (snapshot.hasData == true) {
-            LocationData.funcTypeSelector(loadAsFilter, loadAsInput);
+            LocationData.funcTypeSelector(_loadAsFilter, _loadAsInput);
 
             return Container(
               decoration: dicBoxDecor(),
@@ -106,7 +108,7 @@ class _RayonDicState extends State<RayonDic> {
                   value: currentValue,
                   style: dropDownStyle(),
                   onChanged: (Rayon newValue) {
-                    setChange(newValue);
+                    _setChange(newValue);
                   },
                   items: filterRayons.map((Rayon rayon) {
                     return DropdownMenuItem<Rayon>(

@@ -20,8 +20,8 @@ class ReportsMain extends StatelessWidget {
 
     // TODO тут разобраться
     PageRout.currentRout == null
-        ? PageRout.getCurrentRout()
-        : PageRout.currentRout = PageRout.HOME;
+        ? PageRout.currentRout = PageRout.HOME
+        : 'нехуя';
 
     Future.delayed(Duration(milliseconds: 500));
 
@@ -30,6 +30,8 @@ class ReportsMain extends StatelessWidget {
         ChangeNotifierProvider<ListTableState>(create: (context) => ListTableState()),
         ChangeNotifierProvider<SubyektState>(create: (context) => SubyektState()),
         ChangeNotifierProvider<RayonState>(create: (context) => RayonState()),
+        ChangeNotifierProvider<SluzhbaState>(create: (context) => SluzhbaState()),
+        ChangeNotifierProvider<LocationState>(create: (context) => LocationState()),
       ],
       child: MaterialApp(
         theme: ThemeData.light(),

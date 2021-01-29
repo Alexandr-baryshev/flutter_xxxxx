@@ -71,15 +71,9 @@ class HomePgLayout extends StatelessWidget {
         title: Text(name),
         onTap: () {
           setCollect();
-          //Navigator.pushNamed(context, PageRout.LIST);
-          PageRout.goToPage(context, PageRout.LIST);
-/*          Navigator.of(context).push( MaterialPageRoute<Null>(
-            maintainState: false,
-            builder: (BuildContext context) {
-              return new ListPgLayout();
+          Navigator.pushNamed(context, PageRout.LIST);
+          //PageRout.goToPage(context, PageRout.LIST);
 
-            },
-          ));*/
         },
       ),
     );
