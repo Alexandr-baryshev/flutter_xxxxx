@@ -12,26 +12,32 @@ void main() => runApp(ReportsMain());
 class ReportsMain extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-
-
     print('\n--------------------------------------------------------------------\n'
         '   >>> >>> START APPLICATION !!!!!!!!!! START APPLICATION <<< <<<   \n'
         '--------------------------------------------------------------------');
     // Logger.loggerOnOff = true;
     // Logger.events(widget: '${context.widget}', func: funcName, event: '');
 
+    // TODO тут разобраться
+    PageRout.currentRout == null
+        ? PageRout.getCurrentRout()
+        : PageRout.currentRout = PageRout.HOME;
+
+    Future.delayed(Duration(milliseconds: 500));
+
     return MultiProvider(
       providers: [
-         ChangeNotifierProvider<ListTableState>(create: (context) => ListTableState()),
-         ChangeNotifierProvider<SubyektState>(create: (context) => SubyektState()),
+        ChangeNotifierProvider<ListTableState>(create: (context) => ListTableState()),
+        ChangeNotifierProvider<SubyektState>(create: (context) => SubyektState()),
+        ChangeNotifierProvider<RayonState>(create: (context) => RayonState()),
       ],
       child: MaterialApp(
         theme: ThemeData.light(),
-        initialRoute: PageRout.HOME,
+        initialRoute: PageRout.currentRout,
         routes: {
-           PageRout.HOME: (context) => HomePgLayout(),
-           PageRout.LIST: (context) => ListPgLayout(),
-           PageRout.VOID: (context) => VoidMainCLASS(),
+          PageRout.HOME: (context) => HomePgLayout(),
+          PageRout.LIST: (context) => ListPgLayout(),
+          PageRout.VOID: (context) => VoidMainCLASS(),
         },
         onUnknownRoute: (RouteSettings settings) {
           return MaterialPageRoute<void>(
@@ -49,11 +55,9 @@ class ReportsMain extends StatelessWidget {
   }
 }
 
-
 class VoidMainCLASS extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-
     return FutureBuilder(
         future: ReportKEY.getReportID(),
         builder: (context, snapshot) {
@@ -68,10 +72,6 @@ class VoidMainCLASS extends StatelessWidget {
           } else {
             return Center(child: Text('Нет данных'));
           }
-        }
-    );
+        });
   }
 }
-
-
-

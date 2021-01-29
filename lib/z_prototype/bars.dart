@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+
+
+import '../model/key_controller.dart';
 import '../utility/style.dart';
 import '../utility/logger.dart';
 
@@ -21,7 +24,8 @@ class TopBar extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               FlatButton(
-                onPressed: () => Navigator.pushNamed(context, _rout),
+                //onPressed: () => Navigator.pushNamed(context, _rout),
+                onPressed: () => PageRout.goToPage(context, _rout),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

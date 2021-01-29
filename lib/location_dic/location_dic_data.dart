@@ -19,6 +19,15 @@ class SubyektState with ChangeNotifier {
   }
 }
 
+class RayonState with ChangeNotifier {
+  int xUp = 0;
+
+  rayonUpdate() {
+    xUp = null;
+    notifyListeners();
+  }
+}
+
 class LocationData {
   static const String _HOST = 'http://localhost:9999';
 
@@ -30,7 +39,7 @@ class LocationData {
   static const String _FILTER = 'filter';
   static const String _INPUT = 'input';
 
-  static dicTypeSelector(Function filter, Function input) {
+  static funcTypeSelector(Function filter, Function input) {
     if (dicType == _FILTER) {
       filter();
     } else if (dicType == _INPUT) {
@@ -49,23 +58,23 @@ class LocationData {
   static Sluzhba sluzhbaValueF;
   static String sluzhbaIdF;
 
-  allLocationCLEAR() {
+  static allLocationCLEAR() {
     subyektCLEAR();
     rayonCLEAR();
     sluzhbaCLEAR();
   }
 
-  subyektCLEAR() {
+  static subyektCLEAR() {
     subyektValueF = null;
     subyektIdF = null;
   }
 
-  rayonCLEAR() {
+  static rayonCLEAR() {
     rayonValueF = null;
     rayonIdF = null;
   }
 
-  sluzhbaCLEAR() {
+  static sluzhbaCLEAR() {
     sluzhbaValueF = null;
     sluzhbaIdF = null;
   }
@@ -73,87 +82,30 @@ class LocationData {
   static bool dicLoadStatus = false;
 
   static loadLocationDic() async {
-    Logger.events(func: 'loadDictionary', event: 'dicLoadStatus - $dicLoadStatus');
-    if (dicLoadStatus == false) {
-      await loadSubyekt();
-      // await loadRayons();
-      // await loadSluzhba();
-      await Future.delayed(Duration(milliseconds: 300));
-      Logger.events(func: 'loadDictionary', event: 'ALL LOAD');
-      dicLoadStatus = true;
-    }
+    await loadSubyekt();
+    await loadRayons();
+    // await loadSluzhba();
+    await Future.delayed(Duration(milliseconds: 300));
 
+    dicLoadStatus = true;
+    Logger.events(func: 'loadDictionary', event: 'ALL LOAD');
 
     return dicLoadStatus;
   }
 
   static loadSubyekt() async {
-
-    final response = await http.get(allSubyektsURI);
+    final response = await http.get(ALL_Subyekts_URI);
     String responseBody = utf8.decode(response.bodyBytes);
 
     final parsed = jsonDecode(responseBody).cast<Map<dynamic, dynamic>>();
     allSubyekt = parsed.map<Subyekt>((json) => Subyekt.fromJson(json)).toList();
   }
-}
 
-String dicType;
-String filterType = 'filter';
-String inputType = 'input';
+  static loadRayons() async {
+    final response = await http.get(ALL_Rayons_URI);
+    String responseBody = utf8.decode(response.bodyBytes);
 
-String host = 'http://localhost:9999';
-
-String allSubyektsURI = '$host/SubyektAll';
-String allRayonsURI = '$host/RayonAll';
-String allSluzhbaURI = '$host/SluzhbaAll';
-
-/// #######################
-Subyekt subyektValueF;
-String subyektIdF;
-
-Rayon rayonValueF;
-String rayonIdF;
-
-Sluzhba sluzhbaValueF;
-String sluzhbaIdF;
-
-allLocationCLEAR() {
-  subyektCLEAR();
-  rayonCLEAR();
-  sluzhbaCLEAR();
-}
-
-subyektCLEAR() {
-  subyektValueF = null;
-  subyektIdF = null;
-}
-
-rayonCLEAR() {
-  rayonValueF = null;
-  rayonIdF = null;
-}
-
-sluzhbaCLEAR() {
-  sluzhbaValueF = null;
-  sluzhbaIdF = null;
-}
-
-bool dicLoadStatus = false;
-
-loadLocationDic() async {
-  await loadSubyekt();
-  // await loadRayons();
-  // await loadSluzhba();
-  Logger.events(func: 'loadDictionary()', event: '');
-  dicLoadStatus = true;
-  return dicLoadStatus;
-}
-
-loadSubyekt() async {
-  //await Future.delayed(Duration(seconds: 1));
-  final response = await http.get(allSubyektsURI);
-  String responseBody = utf8.decode(response.bodyBytes);
-
-  final parsed = jsonDecode(responseBody).cast<Map<dynamic, dynamic>>();
-  allSubyekt = parsed.map<Subyekt>((json) => Subyekt.fromJson(json)).toList();
+    final parsed = jsonDecode(responseBody).cast<Map<dynamic, dynamic>>();
+    allRayons = parsed.map<Rayon>((json) => Rayon.fromJson(json)).toList();
+  }
 }

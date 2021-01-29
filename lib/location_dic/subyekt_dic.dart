@@ -18,21 +18,36 @@ class _SubyektDicState extends State<SubyektDic> {
   String currentItemID;
   Subyekt currentValue;
 
-  filterFunc() {
+  loadAsFilter() {
     currentItemID = LocationData.subyektIdF;
     currentValue = LocationData.subyektValueF;
-    print('dicTypeSelector - filterFunc');
+    print('SubyektDic - loadAsFilter');
   }
 
-  inputFunc() {
+  loadAsInput() {
     currentItemID = oneReport.subyektID;
-    print('dicTypeSelector - inputFunc');
+
     for (var oneData in allSubyekt) {
       if (oneData.subyektId == currentItemID) {
         currentValue = oneData;
         break;
       }
     }
+    print('SubyektDic - loadAsInput');
+  }
+
+  setChangeAsFilter() {
+    LocationData.subyektValueF = currentValue;
+    LocationData.subyektIdF = currentValue.subyektId;
+
+    ConstructorURI.setRequestFilter(
+        subyekt: LocationData.subyektIdF, rayon: '', sluzhba: '');
+    context.read<ListTableState>().listTableUpdate();
+  }
+
+  setChangeAsInput() {
+    oneReport.subyektID = currentValue.subyektId;
+    oneReport.rayonID = null;
   }
 
   setChange(Subyekt newValue) {
@@ -40,25 +55,16 @@ class _SubyektDicState extends State<SubyektDic> {
       currentValue = newValue;
     });
 
-    if (LocationData.dicType == filterType) {
-      LocationData.subyektValueF = newValue;
-      LocationData.subyektIdF = newValue.subyektId;
+    LocationData.funcTypeSelector(setChangeAsFilter, setChangeAsInput);
 
-      ConstructorURI.setRequestFilter(subyekt: LocationData.subyektIdF, rayon: '', sluzhba: '');
-      context.read<ListTableState>().listTableUpdate();
-    }
-    else if (LocationData.dicType == inputType) {
-      oneReport.subyektID = currentValue.subyektId;
-      oneReport.rayonID = null;
-    }
-    rayonCLEAR();
-    //context.read<RayonState>().rayonUpdate();
+    LocationData.rayonCLEAR();
+    context.read<RayonState>().rayonUpdate();
   }
 
   @override
   Widget build(BuildContext context) {
     Logger.events(widget: '${context.widget}', func: 'Widget build', event: '');
-    LocationData.dicTypeSelector(filterFunc, inputFunc);
+    LocationData.funcTypeSelector(loadAsFilter, loadAsInput);
 
     int xUp = context.watch<SubyektState>().xUp;
 

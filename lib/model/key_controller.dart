@@ -1,19 +1,69 @@
-import 'dart:developer';
-
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 import '../utility/local_storage.dart';
 import '../utility/logger.dart';
+import '../utility/all_page.dart';
 
 class PageRout {
   static const String HOME = 'home';
   static const String LIST = 'list';
   static const String INPUT = 'input';
   static const String VOID = 'void';
+  static String currentRout;
+  static String _currentLocalRout;
 
-  static goTo(BuildContext context, rout) {
-    Navigator.pushNamed(context, rout);
+  static _setCurrentRout({String cRout}) async {
+
+    if (cRout != null) {
+      currentRout = cRout;
+      await locStor.save(key: 'currentRout', value: currentRout);
+    }
+    Logger.events(func: 'setCurrentRout', event: currentRout);
   }
+
+
+
+
+
+  static goToPage(BuildContext context, rout) {
+    _setCurrentRout(cRout: rout);
+    Navigator.of(context).push(MaterialPageRoute<Null>(
+      maintainState: false,
+      builder: (BuildContext context) {
+        return _pageSelector(rout);
+      },
+    ));
+  }
+
+  static _pageSelector(String rout) {
+    switch (rout) {
+      case HOME:
+        return HomePgLayout();
+        break;
+      case LIST:
+        return ListPgLayout();
+        break;
+    }
+  }
+
+
+  static getCurrentRout() async {
+    if (currentRout == null) {
+      await locStor.load(key: 'currentRout', setFromLocal: _getRoutFromLocal);
+      currentRout = _currentLocalRout;
+
+    }
+
+    Logger.events(func: 'currentRout', event: currentRout);
+
+ return currentRout;
+  }
+
+  static _getRoutFromLocal(String cRout) {
+    _currentLocalRout = cRout;
+  }
+
 }
 
 class ReportKEY {
@@ -45,7 +95,6 @@ class ReportKEY {
   static String reportID;
   static String _reportLocalID;
 
-
   static setReportKEY({String rKEY}) async {
     reportKEY = rKEY;
     _setBaseParameters(rKEY: reportKEY);
@@ -71,8 +120,6 @@ class ReportKEY {
     _reportLocalKEY = rKEY;
   }
 
-
-
   static setReportID({String rID}) async {
     reportID = rID;
 
@@ -84,12 +131,10 @@ class ReportKEY {
   }
 
   static getReportID() async {
-
     if (reportID == null) {
       await getReportKEY();
       await locStor.load(key: 'reportID', setFromLocal: _getIDFromLocal);
       reportID = _reportLocalID;
-
     }
     ConstructorURI.setReportIdURI(rID: reportID);
     Logger.events(func: 'getReportID', event: reportID);
@@ -101,21 +146,17 @@ class ReportKEY {
     _reportLocalID = rID;
   }
 
-
-  static deleteReportID()  {
-
+  static deleteReportID() {
     reportID = null;
     _reportLocalID = '-';
     ConstructorURI.setReportIdURI(rID: reportID);
 
     locStor.remove(key: 'reportID');
 
-
     Logger.events(func: 'deleteReportID', event: reportID);
 
     print('byIdURI ${ConstructorURI.byIdURI}');
   }
-
 
   static _setBaseParameters({@required String rKEY}) {
     switch (reportKEY) {
@@ -149,8 +190,6 @@ class ReportKEY {
   }
 }
 
-
-
 class ConstructorURI {
   static const String _host2 = '/';
   static const String _HOST = 'http://localhost:9999';
@@ -179,9 +218,9 @@ class ConstructorURI {
 
   static setReportIdURI({String rID}) {
     if (rID != null) {
-      byIdURI = _byIdURIBase+rID;
-    } else byIdURI = _byIdURIBase;
-
+      byIdURI = _byIdURIBase + rID;
+    } else
+      byIdURI = _byIdURIBase;
   }
 
   static setRequestFilter({
@@ -216,9 +255,9 @@ class ConstructorURI {
       _activeSign = activeSign;
     }
 
-    listURI = _listURIBase + '&activeSign=$_activeSign&start=$_start&end=$_end&subyektId=$_subyektId&rayonId=$_rayonId&sluzhbaId=$_sluzhbaId';
+    listURI = _listURIBase +
+        '&activeSign=$_activeSign&start=$_start&end=$_end&subyektId=$_subyektId&rayonId=$_rayonId&sluzhbaId=$_sluzhbaId';
 
     print('listURI $listURI');
-
   }
 }

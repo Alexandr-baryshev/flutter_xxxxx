@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import '../model/key_controller.dart';
 import '../utility/style.dart';
 import '../utility/logger.dart';
+import '../2_list/list_page_layout.dart';
 
 class HomePgLayout extends StatelessWidget {
-
   _ppo() {
     ReportKEY.setReportKEY(rKEY: ReportKEY.PPO_KEY);
   }
@@ -24,7 +24,6 @@ class HomePgLayout extends StatelessWidget {
   _active() {
     ReportKEY.setReportKEY(rKEY: ReportKEY.ACTIVE_Z_KEY);
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +71,15 @@ class HomePgLayout extends StatelessWidget {
         title: Text(name),
         onTap: () {
           setCollect();
-          Navigator.pushNamed(context, PageRout.LIST);
+          //Navigator.pushNamed(context, PageRout.LIST);
+          PageRout.goToPage(context, PageRout.LIST);
+/*          Navigator.of(context).push( MaterialPageRoute<Null>(
+            maintainState: false,
+            builder: (BuildContext context) {
+              return new ListPgLayout();
+
+            },
+          ));*/
         },
       ),
     );

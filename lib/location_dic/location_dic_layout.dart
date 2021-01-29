@@ -8,9 +8,9 @@ import '../utility/style.dart';
 import '../2_list/list_data.dart';
 import 'location_dic_data.dart';
 import 'subyekt_dic.dart';
-// import 'rayon_dic.dart';
-// import 'sluzhba_dic.dart';
 
+import 'rayon_dic.dart';
+// import 'sluzhba_dic.dart';
 
 class LocationDicLayout extends StatelessWidget {
   final String type;
@@ -19,7 +19,10 @@ class LocationDicLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Logger.events(widget: '${context.widget}', func: 'Widget build', event: type);
+    Logger.events(
+        widget: '${context.widget}',
+        func: 'Widget build',
+        event: 'type $type | dicLoadStatus - ${LocationData.dicLoadStatus}');
 
     LocationData.dicType = type;
 
@@ -39,12 +42,12 @@ class LocationDicLayout extends StatelessWidget {
 
   Container dictionaryContainer(BuildContext context) {
     clearLocationFilter() {
-      if (LocationData.dicType == filterType) {
+      if (LocationData.dicType == 'filter') {
         ConstructorURI.setRequestFilter(subyekt: '', rayon: '', sluzhba: '');
-        allLocationCLEAR();
+        LocationData.allLocationCLEAR();
         context.read<ListTableState>().listTableUpdate();
         context.read<SubyektState>().subyektUpdate();
-        //context.read<RayonState>().rayonUpdate();
+        context.read<RayonState>().rayonUpdate();
         //context.read<SluzhbaState>().sluzhbaUpdate();
       }
     }
@@ -61,16 +64,16 @@ class LocationDicLayout extends StatelessWidget {
             child: SubyektDic(),
           ),
           SizedBox(width: 5),
-/*          Expanded(
+          Expanded(
             child: RayonDic(),
           ),
           SizedBox(width: 5),
-          Expanded(
+/*          Expanded(
             //child: CityDic(),
             child: SluzhbaDic(),
           ),*/
           Visibility(
-            visible: LocationData.dicType == filterType,
+            visible: LocationData.dicType == 'filter',
             child: IconButton(
               iconSize: 40,
               icon: Icon(

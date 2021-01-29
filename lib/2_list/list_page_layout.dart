@@ -27,19 +27,17 @@ class ListPgLayout extends StatelessWidget {
                 } else if (snapshot.connectionState == ConnectionState.done) {
                   return Column(
                     children: [
-                      //VoidLocalCLASS(),
                       TopBar(ReportKEY.reportNAME, PageRout.HOME),
-                       DateFilter(),
-                       LocationDicLayout(type: 'filter'),
-                       ListTable(),
+                      DateFilter(),
+                      LocationDicLayout(type: 'filter'),
+                      ListTable(),
                       BottomBar(ListPgButtons.buttonsList(context)),
                     ],
                   );
                 } else {
                   return Center(child: Text('Нет данных'));
                 }
-              }
-              ),
+              }),
         ),
       ),
     );
@@ -47,21 +45,3 @@ class ListPgLayout extends StatelessWidget {
 }
 
 
-
-
-
-
-
-
-
-
-
-class VoidLocalCLASS extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 100,
-      color: Colors.green,
-    );
-  }
-}
