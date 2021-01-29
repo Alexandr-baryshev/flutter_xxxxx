@@ -63,7 +63,7 @@ class _SluzhbaDicState extends State<SluzhbaDic> {
   Widget build(BuildContext context) {
     Logger.events(widget: '${context.widget}', func: 'Widget build', event: '');
 
-    int xUp = context.watch<SluzhbaState>().xUp;
+    bool sluzhbaState = context.select((LocationState ls) => ls.sluzhbaState);
 
     LocationData.funcTypeSelector(_loadAsFilter, _loadAsInput);
 

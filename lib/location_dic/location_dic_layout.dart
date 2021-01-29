@@ -46,9 +46,12 @@ class LocationDicLayout extends StatelessWidget {
         ConstructorURI.setRequestFilter(subyekt: '', rayon: '', sluzhba: '');
         LocationData.allLocationCLEAR();
         context.read<ListTableState>().listTableUpdate();
-        context.read<SubyektState>().subyektUpdate();
-        context.read<RayonState>().rayonUpdate();
-        context.read<SluzhbaState>().sluzhbaUpdate();
+        context.read<LocationState>().allLocDicUpdate();
+        //context.read<LocationState>().rayonUpdate();
+        //context.read<LocationState>().sluzhbaUpdate();
+        //context.read<SubyektState>().subyektUpdate();
+        //context.read<RayonState>().rayonUpdate();
+        //context.read<SluzhbaState>().sluzhbaUpdate();
       }
     }
 

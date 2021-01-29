@@ -66,7 +66,7 @@ class _RayonDicState extends State<RayonDic> {
 
     LocationData.funcTypeSelector(_setChangeAsFilter, _setChangeAsInput);
 
-    LocationData.sluzhbaCLEAR();
+    //LocationData.sluzhbaCLEAR();
   }
 
 
@@ -89,9 +89,10 @@ class _RayonDicState extends State<RayonDic> {
   @override
   Widget build(BuildContext context) {
     Logger.events(widget: '${context.widget}', func: 'Widget build', event: '');
-    //int xUp = context.watch<RayonState>().xUp;
-    int test = context.select((LocationState ls) => ls.rayonState);
-    print('>>> rayonState >>>>>>>>>>>>>>>>>>> $test');
+
+
+    bool rayonState = context.select((LocationState ls) => ls.rayonState);
+    print('>>> rayonState >>>>>>>>>>>>>>>>>>> $rayonState');
 
     return FutureBuilder(
         future: _filterLocation(),

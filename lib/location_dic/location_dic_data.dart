@@ -13,7 +13,6 @@ import '../2_list/list_data.dart';
 class SubyektState with ChangeNotifier {
   int xUp = 0;
 
-
   subyektUpdate() {
     xUp = null;
     notifyListeners();
@@ -21,11 +20,11 @@ class SubyektState with ChangeNotifier {
 }
 
 class RayonState with ChangeNotifier {
-  int xUp = 0;
-  int test = 0;
+  bool xUp = false;
+
 
   rayonUpdate() {
-    xUp = null;
+    xUp = !xUp;
     notifyListeners();
   }
 }
@@ -40,35 +39,32 @@ class SluzhbaState with ChangeNotifier {
 }
 
 class LocationState with ChangeNotifier {
-
-  int subyektState = 0;
-  int rayonState = 0;
-  int sluzhbaState = 0;
-
-  int allLocationState = 0;
-
+  bool subyektState = false;
+  bool rayonState = false;
+  bool sluzhbaState = false;
 
   subyektUpdate() {
-    subyektState = null;
+    subyektState = !subyektState;
     notifyListeners();
   }
 
   rayonUpdate() {
-    rayonState = null;
+    rayonState = !rayonState;
     notifyListeners();
   }
 
   sluzhbaUpdate() {
-    sluzhbaState = null;
+    sluzhbaState = !sluzhbaState;
     notifyListeners();
   }
 
-  allLocationStateUpdate() {
-    allLocationState = null;
+  allLocDicUpdate() {
+    subyektState = !subyektState;
+    rayonState = !rayonState;
+    sluzhbaState = !sluzhbaState;
     notifyListeners();
   }
 }
-
 
 class LocationData {
   static const String _HOST = 'http://localhost:9999';

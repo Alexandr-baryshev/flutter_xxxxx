@@ -58,7 +58,8 @@ class _SubyektDicState extends State<SubyektDic> {
     LocationData.funcTypeSelector(setChangeAsFilter, setChangeAsInput);
 
     LocationData.rayonCLEAR();
-    context.read<RayonState>().rayonUpdate();
+    context.read<LocationState>().rayonUpdate();
+
   }
 
   @override
@@ -66,7 +67,8 @@ class _SubyektDicState extends State<SubyektDic> {
     Logger.events(widget: '${context.widget}', func: 'Widget build', event: '');
     LocationData.funcTypeSelector(loadAsFilter, loadAsInput);
 
-    int xUp = context.watch<SubyektState>().xUp;
+    bool subyektState = context.select((LocationState ls) => ls.subyektState);
+    print('>>> rayonState >>>>>>>>>>>>>>>>>>> $subyektState');
 
     return Container(
       decoration: dicBoxDecor(),
