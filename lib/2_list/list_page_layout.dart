@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import '../model/key_controller.dart';
 import '../utility/style.dart';
 import '../utility/logger.dart';
-import 'list_func.dart';
+import 'list_data.dart';
 import 'list_table.dart';
 import 'date_filter.dart';
+import '../location_dic/location_dic_layout.dart';
 
 import '../z_prototype/bars.dart';
 
@@ -29,7 +30,7 @@ class ListPgLayout extends StatelessWidget {
                       //VoidLocalCLASS(),
                       TopBar(ReportKEY.reportNAME, PageRout.HOME),
                        DateFilter(),
-                      // LocationDicLayout(type: 'filter'),
+                       LocationDicLayout(type: 'filter'),
                        ListTable(),
                       BottomBar(ListPgButtons.buttonsList(context)),
                     ],

@@ -153,7 +153,7 @@ class ReportKEY {
 
 class ConstructorURI {
   static const String _host2 = '/';
-  static const String _host = 'http://localhost:9999';
+  static const String _HOST = 'http://localhost:9999';
 
   static String listURI;
   static String _listURIBase;
@@ -170,10 +170,10 @@ class ConstructorURI {
   static int _activeSign = 0;
 
   static setBaseURI({String collection}) {
-    _byIdURIBase = '$_host/ByID?collectionX=$collection&idX=';
-    saveURI = '$_host/SAVE?collectionX=$collection';
-    getAllURI = '$_host/ALL?collectionX=$collection';
-    _listURIBase = '$_host/Replace?collectionX=$collection';
+    _byIdURIBase = '$_HOST/ByID?collectionX=$collection&idX=';
+    saveURI = '$_HOST/SAVE?collectionX=$collection';
+    getAllURI = '$_HOST/ALL?collectionX=$collection';
+    _listURIBase = '$_HOST/Replace?collectionX=$collection';
     setRequestFilter();
   }
 

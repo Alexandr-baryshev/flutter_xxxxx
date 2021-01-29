@@ -8,7 +8,7 @@ import '../utility/logger.dart';
 import '../model/key_controller.dart';
 import '../utility/style.dart';
 import '../utility/time_convert.dart';
-import 'list_func.dart';
+import 'list_data.dart';
 
 
 
@@ -33,6 +33,7 @@ class ListTable extends StatelessWidget {
             return Center(child: CircularProgressIndicator());
           }
           else if (snapshot.connectionState == ConnectionState.done) {
+
             return ListTableBody(reports: snapshot.data);
           } 
           else   {

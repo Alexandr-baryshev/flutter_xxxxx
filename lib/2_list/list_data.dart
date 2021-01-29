@@ -1,8 +1,8 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
+
 import '../model/report.dart';
 import '../utility/logger.dart';
 import '../model/key_controller.dart';
@@ -18,6 +18,7 @@ class ListTableState extends ChangeNotifier {
 }
 
 class ListPgNetwork {
+
   static Future<List<Report>> fetchReports({String call}) async {
     final response = await http.get(ConstructorURI.listURI);
     String responseBody = utf8.decode(response.bodyBytes);
@@ -28,7 +29,9 @@ class ListPgNetwork {
     Logger.events(
         widget: call, func: 'fetchReports', event: 'length ${allReports.length}');
     //print(allReports[0].osnovanieText);
+    await Future.delayed(Duration(seconds: 1));
     return allReports;
+
   }
 }
 
