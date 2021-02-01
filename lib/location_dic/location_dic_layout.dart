@@ -53,7 +53,7 @@ class LocationDicLayout extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
       height: 70,
-      color: Colors.amberAccent,
+      //color: Colors.amberAccent,
       child: Row(
         //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -99,7 +99,7 @@ class LocationDicLayout extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
 
-      color: Colors.amberAccent,
+      //color: Colors.amberAccent,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [

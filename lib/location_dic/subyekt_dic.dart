@@ -70,23 +70,23 @@ class _SubyektDicState extends State<SubyektDic> {
     bool subyektState = context.select((LocationState ls) => ls.subyektState);
 
     return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10),
       decoration: dicBoxDecor(),
-      child: Center(
-        child: DropdownButton(
-          hint: Text('Субъект'),
-          underline: Container(),
-          value: currentValue,
-          style: dropDownStyle(),
-          onChanged: (Subyekt newValue) {
-            setChange(newValue);
-          },
-          items: allSubyekt.map((Subyekt subyekt) {
-            return DropdownMenuItem<Subyekt>(
-              value: subyekt,
-              child: Text(subyekt.subyektName),
-            );
-          }).toList(),
-        ),
+      child: DropdownButton(
+        isExpanded: true,
+        hint: Text('Субъект'),
+        underline: Container(),
+        value: currentValue,
+        style: dropDownStyle(),
+        onChanged: (Subyekt newValue) {
+          setChange(newValue);
+        },
+        items: allSubyekt.map((Subyekt subyekt) {
+          return DropdownMenuItem<Subyekt>(
+            value: subyekt,
+            child: Text(subyekt.subyektName),
+          );
+        }).toList(),
       ),
     );
   }

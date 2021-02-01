@@ -68,23 +68,23 @@ class _SluzhbaDicState extends State<SluzhbaDic> {
     LocationData.funcTypeSelector(_loadAsFilter, _loadAsInput);
 
     return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10),
       decoration: dicBoxDecor(),
-      child: Center(
-        child: DropdownButton(
-          hint: Text('Служба'),
-          underline: Container(),
-          value: currentValue,
-          style: dropDownStyle(),
-          onChanged: (Sluzhba newValue) {
-            _setChange(newValue);
-          },
-          items: allSluzhba.map((Sluzhba sluzhba) {
-            return DropdownMenuItem<Sluzhba>(
-              value: sluzhba,
-              child: Text(sluzhba.sluzhbaName),
-            );
-          }).toList(),
-        ),
+      child: DropdownButton(
+        isExpanded: true,
+        hint: Text('Служба'),
+        underline: Container(),
+        value: currentValue,
+        style: dropDownStyle(),
+        onChanged: (Sluzhba newValue) {
+          _setChange(newValue);
+        },
+        items: allSluzhba.map((Sluzhba sluzhba) {
+          return DropdownMenuItem<Sluzhba>(
+            value: sluzhba,
+            child: Text(sluzhba.sluzhbaName),
+          );
+        }).toList(),
       ),
     );
   }

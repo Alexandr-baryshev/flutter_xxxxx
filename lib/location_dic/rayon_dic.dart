@@ -100,23 +100,23 @@ class _RayonDicState extends State<RayonDic> {
             LocationData.funcTypeSelector(_loadAsFilter, _loadAsInput);
 
             return Container(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
               decoration: dicBoxDecor(),
-              child: Center(
-                child: DropdownButton(
-                  hint: Text('Район'),
-                  underline: Container(),
-                  value: currentValue,
-                  style: dropDownStyle(),
-                  onChanged: (Rayon newValue) {
-                    _setChange(newValue);
-                  },
-                  items: filterRayons.map((Rayon rayon) {
-                    return DropdownMenuItem<Rayon>(
-                      value: rayon,
-                      child: Text(rayon.rayonName),
-                    );
-                  }).toList(),
-                ),
+              child: DropdownButton(
+                isExpanded: true,
+                hint: Text('Район'),
+                underline: Container(),
+                value: currentValue,
+                style: dropDownStyle(),
+                onChanged: (Rayon newValue) {
+                  _setChange(newValue);
+                },
+                items: filterRayons.map((Rayon rayon) {
+                  return DropdownMenuItem<Rayon>(
+                    value: rayon,
+                    child: Text(rayon.rayonName),
+                  );
+                }).toList(),
               ),
             );
           } else

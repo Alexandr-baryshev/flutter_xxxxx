@@ -11,7 +11,8 @@ InputDecoration bigInputDecoration(text, size) {
 
 BoxDecoration dicBoxDecor() {
   return BoxDecoration(
-      color: Color.fromARGB(255, 250, 250, 250), borderRadius: BorderRadius.circular(5));
+      color: Color.fromARGB(255, 250, 250, 250),
+      borderRadius: BorderRadius.circular(5));
 }
 
 BoxDecoration widgetContainerDecor() {
