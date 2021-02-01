@@ -39,9 +39,9 @@ class _DateFilterState extends State<DateFilter> {
     return Container(
       padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
       height: 50,
-      //color: Colors.amberAccent,
+      //color: Colors.blue,
       child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Expanded(

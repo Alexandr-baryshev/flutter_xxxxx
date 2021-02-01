@@ -125,7 +125,7 @@ class LocationData {
     await loadSubyekt();
     await loadRayons();
     await loadSluzhba();
-    await Future.delayed(Duration(milliseconds: 300));
+    await Future.delayed(Duration(milliseconds: 250));
 
     dicLoadStatus = true;
     Logger.events(func: 'loadDictionary', event: 'ALL LOAD');

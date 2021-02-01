@@ -39,3 +39,14 @@ const Color barIconColor = Color.fromARGB(255, 255, 255, 255);
 
 const Color mainBgColor = Color.fromARGB(255, 230, 230, 230);
 const Color mainTextColor = Color(0xFFF7F7F7);
+
+
+
+Widget getScreenSize (BuildContext context, Widget vertical, Widget horizontal) {
+  var screenWidth = MediaQuery.of(context).size.width;
+  int smallWidth = 600;
+  //int bigWidth = 1000;
+
+  return screenWidth < smallWidth ?   vertical : horizontal;
+
+}

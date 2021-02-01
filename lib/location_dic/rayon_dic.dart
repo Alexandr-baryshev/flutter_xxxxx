@@ -92,7 +92,6 @@ class _RayonDicState extends State<RayonDic> {
 
 
     bool rayonState = context.select((LocationState ls) => ls.rayonState);
-    print('>>> rayonState >>>>>>>>>>>>>>>>>>> $rayonState');
 
     return FutureBuilder(
         future: _filterLocation(),

@@ -68,7 +68,6 @@ class _SubyektDicState extends State<SubyektDic> {
     LocationData.funcTypeSelector(loadAsFilter, loadAsInput);
 
     bool subyektState = context.select((LocationState ls) => ls.subyektState);
-    print('>>> rayonState >>>>>>>>>>>>>>>>>>> $subyektState');
 
     return Container(
       decoration: dicBoxDecor(),

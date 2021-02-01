@@ -29,7 +29,7 @@ class ListPgNetwork {
     Logger.events(
         widget: call, func: 'fetchReports', event: 'length ${allReports.length}');
     //print(allReports[0].osnovanieText);
-    await Future.delayed(Duration(seconds: 1));
+    await Future.delayed(Duration(milliseconds: 500));
     return allReports;
 
   }

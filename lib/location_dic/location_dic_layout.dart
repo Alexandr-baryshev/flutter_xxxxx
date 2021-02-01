@@ -32,35 +32,30 @@ class LocationDicLayout extends StatelessWidget {
           future: LocationData.loadLocationDic(),
           builder: (context, snapshot) {
             if (snapshot.hasData == true) {
-              return dictionaryContainer(context);
+              return getScreenSize(context, vertical(context), horizontal(context));
             } else
               return Center(child: CircularProgressIndicator());
           });
     } else
-      return dictionaryContainer(context);
+      return getScreenSize(context, vertical(context), horizontal(context));
   }
 
-  Container dictionaryContainer(BuildContext context) {
+  Container horizontal(BuildContext context) {
     clearLocationFilter() {
       if (LocationData.dicType == 'filter') {
         ConstructorURI.setRequestFilter(subyekt: '', rayon: '', sluzhba: '');
         LocationData.allLocationCLEAR();
         context.read<ListTableState>().listTableUpdate();
         context.read<LocationState>().allLocDicUpdate();
-        //context.read<LocationState>().rayonUpdate();
-        //context.read<LocationState>().sluzhbaUpdate();
-        //context.read<SubyektState>().subyektUpdate();
-        //context.read<RayonState>().rayonUpdate();
-        //context.read<SluzhbaState>().sluzhbaUpdate();
       }
     }
 
     return Container(
       padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
       height: 70,
-      //color: Colors.amberAccent,
+      color: Colors.amberAccent,
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Expanded(
@@ -87,6 +82,52 @@ class LocationDicLayout extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Container vertical(BuildContext context) {
+    clearLocationFilter() {
+      if (LocationData.dicType == 'filter') {
+        ConstructorURI.setRequestFilter(subyekt: '', rayon: '', sluzhba: '');
+        LocationData.allLocationCLEAR();
+        context.read<ListTableState>().listTableUpdate();
+        context.read<LocationState>().allLocDicUpdate();
+      }
+    }
+
+    return Container(
+      padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+
+      color: Colors.amberAccent,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SubyektDic(),
+                SizedBox(height: 5),
+                RayonDic(),
+                SizedBox(height: 5),
+                SluzhbaDic(),
+              ],
+            ),
+          ),
+          Visibility(
+            visible: LocationData.dicType == 'filter',
+            child: IconButton(
+              iconSize: 40,
+              icon: Icon(
+                Icons.clear,
+                color: barBgColor,
+              ),
+              onPressed: clearLocationFilter,
+            ),
+          ),
+        ],
+
       ),
     );
   }
