@@ -181,7 +181,7 @@ class ReportKEY {
         break;
 
       case ACTIVE_Z_KEY:
-        reportCOLL = ACTIVE_Z_COLL;
+        reportCOLL = TEH112_COLL;
         reportNAME = ACTIVE_Z_NAME;
         break;
     }

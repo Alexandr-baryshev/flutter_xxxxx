@@ -112,7 +112,7 @@ class _ListTableBodyState extends State<ListTableBody> {
               .map((data) => DataRow(
                       onSelectChanged: (bool selected) {
                         ReportKEY.setReportID(rID: data.id);
-                        Navigator.pushNamed(context,  PageRout.VOID);
+                        Navigator.pushNamed(context,  PageRout.INPUT);
                       },
                       cells: [
                         DataCell(
