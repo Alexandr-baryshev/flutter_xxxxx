@@ -57,6 +57,7 @@ class InputFieldsBody extends StatelessWidget {
       child: Column(
         children: [
           infoLine(),
+          // TODO добавить if else или visible на "reportKEY", для основной выкладки
           Expanded(
             flex: 5,
             child: Container(
