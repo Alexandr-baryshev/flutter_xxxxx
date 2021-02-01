@@ -46,24 +46,6 @@ Container infoLine() {
 
 
 
-Container inputField(Function setText, String ctr, String name, double top) {
-  return Container(
-    padding: EdgeInsets.fromLTRB(10, top, 10, 10),
-    child: TextField(
-      controller: TextEditingController(text: ctr),
-      decoration: bigInputDecoration(name, 20),
-      onChanged: (val) {
-        setText(val);
-      },
-      minLines: 5,
-      maxLines: 8,
-    ),
-  );
-}
-
-
-
-
 
 
 
@@ -76,21 +58,30 @@ class InputFieldsBody extends StatelessWidget {
         children: [
           infoLine(),
           Expanded(
+            flex: 5,
             child: Container(
               decoration: widgetContainerDecor(),
             margin: const EdgeInsets.fromLTRB(10, 0, 10, 10),
             padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-            child: ListView(
-              children: [
-                inputField(
-                    InputPgData.xxxSET(), 'oneReport.opisanieZadachi', 'Описание задачи', 10),
-                inputField(
-                    InputPgData.xxxSET(), oneReport.opisanieZadachi, 'Описание задачи2', 10),
-
-              ],
+             child: ListView(
+              children: InputFieldVisibly.fieldListONE(context),
             ),
         ),
-          ),],
+          ),
+          Expanded(
+            flex: 2,
+            child: Container(
+              decoration: widgetContainerDecor(),
+              margin: const EdgeInsets.fromLTRB(10, 0, 10, 10),
+              padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+              child: ListView(
+                children: InputFieldVisibly.fieldListTWO(context),
+              ),
+            ),
+          ),
+
+
+        ],
       ),
     );
   }
