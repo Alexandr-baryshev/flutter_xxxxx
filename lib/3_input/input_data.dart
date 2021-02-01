@@ -5,9 +5,30 @@ import 'package:provider/provider.dart';
 import '../model/key_controller.dart';
 import '../z_prototype/buttons.dart';
 
-class ListPgButtons {
+
+class InputState with ChangeNotifier {
+  bool infoLineSate = false;
+  bool inputFieldState = false;
+
+
+  infoLineUpdate() {
+    infoLineSate = !infoLineSate;
+    notifyListeners();
+  }
+
+  inputFieldUpdate() {
+    inputFieldState = !inputFieldState;
+    notifyListeners();
+  }
+
+
+}
+
+
+class InputPgButtons {
   static List<FlatButton> buttonsList(BuildContext context) {
     saveReport() {
+      context.read<InputState>().inputFieldUpdate();
       print('Отчет сохранен');
     }
 
@@ -44,5 +65,22 @@ class ListPgButtons {
     }
 
 
+  }
+}
+
+
+
+class InputFieldVisibly {
+// TODO: продолжить тут
+}
+
+
+
+
+
+class InputPgData  {
+
+  static xxxSET() {
+    print('============= InputPgData xxx SET');
   }
 }

@@ -21,7 +21,7 @@ class ListTable extends StatelessWidget {
     String callName = '${context.widget}';
     Logger.events(widget: callName, func: 'Widget build');
 
-    int xUp = context.watch<ListTableState>().xUp;
+    bool listTableState = context.select((ListPgState ls) => ls.listTableState);
 
     return Expanded(
       child: FutureBuilder<List<Report>>(

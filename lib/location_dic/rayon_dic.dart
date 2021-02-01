@@ -52,7 +52,7 @@ class _RayonDicState extends State<RayonDic> {
     LocationData.rayonValueF = currentValue;
     LocationData.rayonIdF = currentValue.rayonId;
     ConstructorURI.setRequestFilter(rayon: LocationData.rayonIdF);
-    context.read<ListTableState>().listTableUpdate();
+    context.read<ListPgState>().listTableUpdate();
   }
 
   _setChangeAsInput() {

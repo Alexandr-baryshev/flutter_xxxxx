@@ -45,7 +45,7 @@ class LocationDicLayout extends StatelessWidget {
       if (LocationData.dicType == 'filter') {
         ConstructorURI.setRequestFilter(subyekt: '', rayon: '', sluzhba: '');
         LocationData.allLocationCLEAR();
-        context.read<ListTableState>().listTableUpdate();
+        context.read<ListPgState>().listTableUpdate();
         context.read<LocationState>().allLocDicUpdate();
       }
     }
@@ -91,7 +91,7 @@ class LocationDicLayout extends StatelessWidget {
       if (LocationData.dicType == 'filter') {
         ConstructorURI.setRequestFilter(subyekt: '', rayon: '', sluzhba: '');
         LocationData.allLocationCLEAR();
-        context.read<ListTableState>().listTableUpdate();
+        context.read<ListPgState>().listTableUpdate();
         context.read<LocationState>().allLocDicUpdate();
       }
     }

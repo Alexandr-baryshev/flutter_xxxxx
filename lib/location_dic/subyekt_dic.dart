@@ -42,7 +42,7 @@ class _SubyektDicState extends State<SubyektDic> {
 
     ConstructorURI.setRequestFilter(
         subyekt: LocationData.subyektIdF, rayon: '', sluzhba: '');
-    context.read<ListTableState>().listTableUpdate();
+    context.read<ListPgState>().listTableUpdate();
   }
 
   setChangeAsInput() {

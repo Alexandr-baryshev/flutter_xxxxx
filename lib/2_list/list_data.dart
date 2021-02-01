@@ -8,11 +8,11 @@ import '../utility/logger.dart';
 import '../model/key_controller.dart';
 import '../z_prototype/buttons.dart';
 
-class ListTableState extends ChangeNotifier {
-  int xUp = 0;
+class ListPgState extends ChangeNotifier {
+  bool listTableState = false;
 
   listTableUpdate() {
-    xUp += 1;
+    listTableState = !listTableState;
     notifyListeners();
   }
 }
@@ -46,7 +46,7 @@ class ListPgButtons {
 
     updatePg() {
       print('Обновить');
-      context.read<ListTableState>().listTableUpdate();
+      context.read<ListPgState>().listTableUpdate();
     }
 
     return [

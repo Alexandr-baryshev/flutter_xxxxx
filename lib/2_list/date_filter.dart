@@ -32,7 +32,7 @@ class _DateFilterState extends State<DateFilter> {
         start = 0;
         end = 9999999999999;
         ConstructorURI.setRequestFilter(start: start, end: end);
-        context.read<ListTableState>().listTableUpdate();
+        context.read<ListPgState>().listTableUpdate();
       });
     }
 
@@ -71,7 +71,7 @@ class _DateFilterState extends State<DateFilter> {
                           initStart = date;
                           start = date.millisecondsSinceEpoch;
                           ConstructorURI.setRequestFilter(start: start);
-                          context.read<ListTableState>().listTableUpdate();
+                          context.read<ListPgState>().listTableUpdate();
                         }
                       });
                     });
@@ -101,7 +101,7 @@ class _DateFilterState extends State<DateFilter> {
                           initEnd = date;
                           end = date.millisecondsSinceEpoch;
                           ConstructorURI.setRequestFilter(end: end);
-                          context.read<ListTableState>().listTableUpdate();
+                          context.read<ListPgState>().listTableUpdate();
                         }
                       });
                     });

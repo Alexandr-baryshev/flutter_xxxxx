@@ -44,7 +44,7 @@ class _SluzhbaDicState extends State<SluzhbaDic> {
     LocationData.sluzhbaValueF = currentValue;
     LocationData.sluzhbaIdF = currentValue.sluzhbaId;
     ConstructorURI.setRequestFilter(sluzhba: LocationData.sluzhbaIdF);
-    context.read<ListTableState>().listTableUpdate();
+    context.read<ListPgState>().listTableUpdate();
   }
 
   _setChangeAsInput() {

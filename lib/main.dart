@@ -6,6 +6,7 @@ import '1_home/home_pg_layout.dart';
 import '2_list/list_page_layout.dart';
 import '2_list/list_data.dart';
 import '3_input/input_page_layout.dart';
+import '3_input/input_data.dart';
 import 'location_dic/location_dic_data.dart';
 
 void main() => runApp(ReportsMain());
@@ -28,7 +29,8 @@ class ReportsMain extends StatelessWidget {
 
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider<ListTableState>(create: (context) => ListTableState()),
+        ChangeNotifierProvider<ListPgState>(create: (context) => ListPgState()),
+        ChangeNotifierProvider<InputState>(create: (context) => InputState()),
         ChangeNotifierProvider<LocationState>(create: (context) => LocationState()),
         //ChangeNotifierProvider<SubyektState>(create: (context) => SubyektState()),
         //ChangeNotifierProvider<RayonState>(create: (context) => RayonState()),
