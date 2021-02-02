@@ -51,9 +51,13 @@ class _TipZadachiDicState extends State<TipZadachiDic> {
             _loadItem();
 
             return Container(
+              height: 40,
+              margin: const EdgeInsets.symmetric(horizontal: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 10),
               decoration: dicBoxDecor(),
               child: Center(
                 child: DropdownButton(
+                  //isExpanded: true,
                   hint: Text('Тип задачи'),
                   underline: Container(),
                   value: currentValue,

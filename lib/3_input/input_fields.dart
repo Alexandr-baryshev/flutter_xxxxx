@@ -7,7 +7,8 @@ import '../utility/style.dart';
 import '../utility/logger.dart';
 import '../utility/time_convert.dart';
 
-Container infoLine() {
+Container infoLine(BuildContext context) {
+  bool infoLineSate = context.select((InputState st) => st.infoLineSate);
   return Container(
     //color: Colors.redAccent,
     margin: const EdgeInsets.fromLTRB(10, 0, 10, 0),
@@ -56,7 +57,7 @@ class InputFieldsBody extends StatelessWidget {
     return Expanded(
       child: Column(
         children: [
-          infoLine(),
+          infoLine(context),
           // TODO добавить if else или visible на "reportKEY", для основной выкладки
           Expanded(
             flex: 5,
@@ -65,12 +66,12 @@ class InputFieldsBody extends StatelessWidget {
             margin: const EdgeInsets.fromLTRB(10, 0, 10, 10),
             padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
              child: ListView(
-              children: InputFieldVisibly.fieldListONE(context),
+              children: InputFieldSelector.fieldsPrimary(context),
             ),
         ),
           ),
           Visibility(
-            visible: InputFieldVisibly.teh112,
+            visible: InputFieldSelector.tehActiveVisible,
             child: Expanded(
               flex: 2,
               child: Container(
@@ -78,7 +79,7 @@ class InputFieldsBody extends StatelessWidget {
                 margin: const EdgeInsets.fromLTRB(10, 0, 10, 10),
                 padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
                 child: ListView(
-                  children: InputFieldVisibly.fieldListTWO(context),
+                  children: InputFieldSelector.fieldsSecondary(context),
                 ),
               ),
             ),

@@ -38,7 +38,7 @@ class InputPgLayout extends StatelessWidget {
               }),
           bottomNavigationBar: BottomAppBar(
             color: Colors.transparent,
-            child: BottomBar(InputPgButtons.buttonsList(context)),
+            child: BottomBar(InputButtonSelector.buttonsList(context)),
 
           ),
         ),
