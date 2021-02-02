@@ -22,14 +22,14 @@ class LocationDicLayout extends StatelessWidget {
     Logger.events(
         widget: '${context.widget}',
         func: 'Widget build',
-        event: 'type $type | dicLoadStatus - ${LocationData.dicLoadStatus}');
+        event: 'type $type | dicLoadStatus - ${LocationDicData.dicLoadStatus}');
 
-    LocationData.dicType = type;
+    LocationDicData.dicType = type;
 
     // Данный if else определяет, загружен ли справочник.
-    if (LocationData.dicLoadStatus == false) {
+    if (LocationDicData.dicLoadStatus == false) {
       return FutureBuilder(
-          future: LocationData.loadLocationDic(),
+          future: LocationDicData.loadLocationDic(),
           builder: (context, snapshot) {
             if (snapshot.hasData == true) {
               return getScreenSize(context, vertical(context), horizontal(context));
@@ -42,9 +42,9 @@ class LocationDicLayout extends StatelessWidget {
 
   Container horizontal(BuildContext context) {
     clearLocationFilter() {
-      if (LocationData.dicType == 'filter') {
+      if (LocationDicData.dicType == 'filter') {
         ConstructorURI.setRequestFilter(subyekt: '', rayon: '', sluzhba: '');
-        LocationData.allLocationCLEAR();
+        LocationDicData.allLocationCLEAR();
         context.read<ListPgState>().listTableUpdate();
         context.read<LocationState>().allLocDicUpdate();
       }
@@ -71,7 +71,7 @@ class LocationDicLayout extends StatelessWidget {
             child: SluzhbaDic(),
           ),
           Visibility(
-            visible: LocationData.dicType == 'filter',
+            visible: LocationDicData.dicType == 'filter',
             child: IconButton(
               iconSize: 40,
               icon: Icon(
@@ -88,9 +88,9 @@ class LocationDicLayout extends StatelessWidget {
 
   Container vertical(BuildContext context) {
     clearLocationFilter() {
-      if (LocationData.dicType == 'filter') {
+      if (LocationDicData.dicType == 'filter') {
         ConstructorURI.setRequestFilter(subyekt: '', rayon: '', sluzhba: '');
-        LocationData.allLocationCLEAR();
+        LocationDicData.allLocationCLEAR();
         context.read<ListPgState>().listTableUpdate();
         context.read<LocationState>().allLocDicUpdate();
       }
@@ -116,7 +116,7 @@ class LocationDicLayout extends StatelessWidget {
             ),
           ),
           Visibility(
-            visible: LocationData.dicType == 'filter',
+            visible: LocationDicData.dicType == 'filter',
             child: IconButton(
               iconSize: 40,
               icon: Icon(

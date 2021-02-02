@@ -18,18 +18,9 @@ class LocalStorage {
   }
 }
 
-LocalStorage locStor = new LocalStorage();
-
-String idLocal;
+LocalStorage localStorage = new LocalStorage();
 
 
 
-
-
-localCLAER({@required String key}) async {
-  idLocal = null;
-  await locStor.remove(key: key);
-
-}
 
 

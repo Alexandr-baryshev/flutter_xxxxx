@@ -19,8 +19,8 @@ class _SubyektDicState extends State<SubyektDic> {
   Subyekt currentValue;
 
   loadAsFilter() {
-    currentItemID = LocationData.subyektIdF;
-    currentValue = LocationData.subyektValueF;
+    currentItemID = LocationDicData.subyektIdF;
+    currentValue = LocationDicData.subyektValueF;
     print('SubyektDic - loadAsFilter');
   }
 
@@ -37,11 +37,11 @@ class _SubyektDicState extends State<SubyektDic> {
   }
 
   setChangeAsFilter() {
-    LocationData.subyektValueF = currentValue;
-    LocationData.subyektIdF = currentValue.subyektId;
+    LocationDicData.subyektValueF = currentValue;
+    LocationDicData.subyektIdF = currentValue.subyektId;
 
     ConstructorURI.setRequestFilter(
-        subyekt: LocationData.subyektIdF, rayon: '', sluzhba: '');
+        subyekt: LocationDicData.subyektIdF, rayon: '', sluzhba: '');
     context.read<ListPgState>().listTableUpdate();
   }
 
@@ -55,9 +55,9 @@ class _SubyektDicState extends State<SubyektDic> {
       currentValue = newValue;
     });
 
-    LocationData.funcTypeSelector(setChangeAsFilter, setChangeAsInput);
+    LocationDicData.funcTypeSelector(setChangeAsFilter, setChangeAsInput);
 
-    LocationData.rayonCLEAR();
+    LocationDicData.rayonCLEAR();
     context.read<LocationState>().rayonUpdate();
 
   }
@@ -65,7 +65,7 @@ class _SubyektDicState extends State<SubyektDic> {
   @override
   Widget build(BuildContext context) {
     Logger.events(widget: '${context.widget}', func: 'Widget build', event: '');
-    LocationData.funcTypeSelector(loadAsFilter, loadAsInput);
+    LocationDicData.funcTypeSelector(loadAsFilter, loadAsInput);
 
     bool subyektState = context.select((LocationState ls) => ls.subyektState);
 

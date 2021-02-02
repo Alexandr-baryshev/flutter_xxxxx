@@ -69,14 +69,17 @@ class InputFieldsBody extends StatelessWidget {
             ),
         ),
           ),
-          Expanded(
-            flex: 2,
-            child: Container(
-              decoration: widgetContainerDecor(),
-              margin: const EdgeInsets.fromLTRB(10, 0, 10, 10),
-              padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-              child: ListView(
-                children: InputFieldVisibly.fieldListTWO(context),
+          Visibility(
+            visible: InputFieldVisibly.teh112,
+            child: Expanded(
+              flex: 2,
+              child: Container(
+                decoration: widgetContainerDecor(),
+                margin: const EdgeInsets.fromLTRB(10, 0, 10, 10),
+                padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                child: ListView(
+                  children: InputFieldVisibly.fieldListTWO(context),
+                ),
               ),
             ),
           ),

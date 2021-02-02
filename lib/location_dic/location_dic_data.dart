@@ -68,12 +68,12 @@ class LocationState with ChangeNotifier {
   }
 }
 
-class LocationData {
-  static const String _HOST = 'http://localhost:9999';
+class LocationDicData {
+  static final String _host = finalHOST;
 
-  static const String ALL_Subyekts_URI = '$_HOST/SubyektAll';
-  static const String ALL_Rayons_URI = '$_HOST/RayonAll';
-  static const String ALL_Sluzhba_URI = '$_HOST/SluzhbaAll';
+  static final String allSubyektsURI = '$_host/SubyektAll';
+  static final String allRayonsURI = '$_host/RayonAll';
+  static final String allSluzhbaURI = '$_host/SluzhbaAll';
 
   static String dicType;
   static const String _FILTER = 'filter';
@@ -134,7 +134,7 @@ class LocationData {
   }
 
   static loadSubyekt() async {
-    final response = await http.get(ALL_Subyekts_URI);
+    final response = await http.get(allSubyektsURI);
     String responseBody = utf8.decode(response.bodyBytes);
 
     final parsed = jsonDecode(responseBody).cast<Map<dynamic, dynamic>>();
@@ -142,7 +142,7 @@ class LocationData {
   }
 
   static loadRayons() async {
-    final response = await http.get(ALL_Rayons_URI);
+    final response = await http.get(allRayonsURI);
     String responseBody = utf8.decode(response.bodyBytes);
 
     final parsed = jsonDecode(responseBody).cast<Map<dynamic, dynamic>>();
@@ -150,7 +150,7 @@ class LocationData {
   }
 
   static loadSluzhba() async {
-    final response = await http.get(ALL_Sluzhba_URI);
+    final response = await http.get(allSluzhbaURI);
     String responseBody = utf8.decode(response.bodyBytes);
 
     final parsed = jsonDecode(responseBody).cast<Map<dynamic, dynamic>>();

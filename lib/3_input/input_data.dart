@@ -62,6 +62,9 @@ class InputPgButtons {
 }
 
 class InputFieldVisibly {
+
+  static bool teh112 = false;
+
   static Container inputField(Function setText, String ctr, String name, double top) {
     return Container(
       padding: EdgeInsets.fromLTRB(10, top, 10, 10),
@@ -82,6 +85,7 @@ class InputFieldVisibly {
   static List<Container> fieldListONE(BuildContext context) {
     switch (ReportKEY.reportKEY) {
       case ReportKEY.TEH112_KEY:
+        teh112 = true;
         return [
           inputField(InputPgData.xxxSET(), 'TEH112', 'Описание задачи', 10),
           inputField(InputPgData.xxxSET(), 'TEH112', 'Описание работ', 10),
@@ -128,7 +132,26 @@ class InputFieldVisibly {
         break;
     }
   }
+  
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 class InputPgData {
   static xxxSET() {

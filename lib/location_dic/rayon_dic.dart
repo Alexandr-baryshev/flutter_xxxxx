@@ -19,8 +19,8 @@ class _RayonDicState extends State<RayonDic> {
   Rayon currentValue;
 
   _loadAsFilter() {
-    currentItemID = LocationData.rayonIdF;
-    currentValue = LocationData.rayonValueF;
+    currentItemID = LocationDicData.rayonIdF;
+    currentValue = LocationDicData.rayonValueF;
     print('RayonDic - loadAsFilter');
   }
 
@@ -49,9 +49,9 @@ class _RayonDicState extends State<RayonDic> {
   }
 
   _setChangeAsFilter() {
-    LocationData.rayonValueF = currentValue;
-    LocationData.rayonIdF = currentValue.rayonId;
-    ConstructorURI.setRequestFilter(rayon: LocationData.rayonIdF);
+    LocationDicData.rayonValueF = currentValue;
+    LocationDicData.rayonIdF = currentValue.rayonId;
+    ConstructorURI.setRequestFilter(rayon: LocationDicData.rayonIdF);
     context.read<ListPgState>().listTableUpdate();
   }
 
@@ -64,7 +64,7 @@ class _RayonDicState extends State<RayonDic> {
       currentValue = newValue;
     });
 
-    LocationData.funcTypeSelector(_setChangeAsFilter, _setChangeAsInput);
+    LocationDicData.funcTypeSelector(_setChangeAsFilter, _setChangeAsInput);
 
     //LocationData.sluzhbaCLEAR();
   }
@@ -76,7 +76,7 @@ class _RayonDicState extends State<RayonDic> {
     //String id;
 
     for (var oneData in allRayons) {
-      if (oneData.subyektId == LocationData.subyektIdF) {
+      if (oneData.subyektId == LocationDicData.subyektIdF) {
         filterRayons.add(oneData);
 
         x++;
@@ -97,7 +97,7 @@ class _RayonDicState extends State<RayonDic> {
         future: _filterLocation(),
         builder: (context, snapshot) {
           if (snapshot.hasData == true) {
-            LocationData.funcTypeSelector(_loadAsFilter, _loadAsInput);
+            LocationDicData.funcTypeSelector(_loadAsFilter, _loadAsInput);
 
             return Container(
               padding: const EdgeInsets.symmetric(horizontal: 10),

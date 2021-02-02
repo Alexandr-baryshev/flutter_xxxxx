@@ -5,6 +5,15 @@ import '../utility/local_storage.dart';
 import '../utility/logger.dart';
 import '../utility/all_page.dart';
 
+/// +++ GLOBAL CONSTANT +++++++++++++++++++++++++++
+
+const String HOST1 = 'http://localhost:9999';
+const String HOST2 = '';
+
+final String finalHOST = HOST1;
+
+/// +++++++++++++++++++++++++++++++++++++++++++++++
+
 class PageRout {
   static const String HOME = 'home';
   static const String LIST = 'list';
@@ -14,17 +23,12 @@ class PageRout {
   static String _currentLocalRout;
 
   static _setCurrentRout({String cRout}) async {
-
     if (cRout != null) {
       currentRout = cRout;
-      await locStor.save(key: 'currentRout', value: currentRout);
+      await localStorage.save(key: 'currentRout', value: currentRout);
     }
     Logger.events(func: 'setCurrentRout', event: currentRout);
   }
-
-
-
-
 
   static goToPage(BuildContext context, rout) {
     _setCurrentRout(cRout: rout);
@@ -47,23 +51,20 @@ class PageRout {
     }
   }
 
-
   static getCurrentRout() async {
     if (currentRout == null) {
-      await locStor.load(key: 'currentRout', setFromLocal: _getRoutFromLocal);
+      await localStorage.load(key: 'currentRout', setFromLocal: _getRoutFromLocal);
       currentRout = _currentLocalRout;
-
     }
 
     Logger.events(func: 'currentRout', event: currentRout);
 
- return currentRout;
+    return currentRout;
   }
 
   static _getRoutFromLocal(String cRout) {
     _currentLocalRout = cRout;
   }
-
 }
 
 class ReportKEY {
@@ -99,14 +100,14 @@ class ReportKEY {
     reportKEY = rKEY;
     _setBaseParameters(rKEY: reportKEY);
     if (reportKEY != null) {
-      await locStor.save(key: 'reportKEY', value: reportKEY);
+      await localStorage.save(key: 'reportKEY', value: reportKEY);
     }
     Logger.events(func: 'setReportKEY', event: reportKEY);
   }
 
   static getReportKEY() async {
     if (reportKEY == null && _reportLocalKEY == null) {
-      await locStor.load(key: 'reportKEY', setFromLocal: _getKEYFromLocal);
+      await localStorage.load(key: 'reportKEY', setFromLocal: _getKEYFromLocal);
       reportKEY = _reportLocalKEY;
       _setBaseParameters(rKEY: reportKEY);
     }
@@ -124,7 +125,7 @@ class ReportKEY {
     reportID = rID;
 
     if (reportID != null) {
-      await locStor.save(key: 'reportID', value: reportID);
+      await localStorage.save(key: 'reportID', value: reportID);
     }
 
     Logger.events(func: 'setReportID', event: reportID);
@@ -133,7 +134,7 @@ class ReportKEY {
   static getReportID() async {
     if (reportID == null) {
       await getReportKEY();
-      await locStor.load(key: 'reportID', setFromLocal: _getIDFromLocal);
+      await localStorage.load(key: 'reportID', setFromLocal: _getIDFromLocal);
       reportID = _reportLocalID;
     }
     ConstructorURI.setReportIdURI(rID: reportID);
@@ -151,7 +152,7 @@ class ReportKEY {
     _reportLocalID = '-';
     ConstructorURI.setReportIdURI(rID: reportID);
 
-    locStor.remove(key: 'reportID');
+    localStorage.remove(key: 'reportID');
 
     Logger.events(func: 'deleteReportID', event: reportID);
 
@@ -191,8 +192,8 @@ class ReportKEY {
 }
 
 class ConstructorURI {
-  static const String _host2 = '/';
-  static const String _HOST = 'http://localhost:9999';
+
+  static final String _host = finalHOST;
 
   static String listURI;
   static String _listURIBase;
@@ -209,10 +210,10 @@ class ConstructorURI {
   static int _activeSign = 0;
 
   static setBaseURI({String collection}) {
-    _byIdURIBase = '$_HOST/ByID?collectionX=$collection&idX=';
-    saveURI = '$_HOST/SAVE?collectionX=$collection';
-    getAllURI = '$_HOST/ALL?collectionX=$collection';
-    _listURIBase = '$_HOST/Replace?collectionX=$collection';
+    _byIdURIBase = '$_host/ByID?collectionX=$collection&idX=';
+    saveURI = '$_host/SAVE?collectionX=$collection';
+    getAllURI = '$_host/ALL?collectionX=$collection';
+    _listURIBase = '$_host/Replace?collectionX=$collection';
     setRequestFilter();
   }
 

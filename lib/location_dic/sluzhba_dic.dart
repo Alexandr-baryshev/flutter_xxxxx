@@ -25,8 +25,8 @@ class _SluzhbaDicState extends State<SluzhbaDic> {
   Sluzhba currentValue;
 
   _loadAsFilter() {
-    currentItemID = LocationData.sluzhbaIdF;
-    currentValue = LocationData.sluzhbaValueF;
+    currentItemID = LocationDicData.sluzhbaIdF;
+    currentValue = LocationDicData.sluzhbaValueF;
     print('SluzhbaDic - loadAsFilter');
   }
 
@@ -41,9 +41,9 @@ class _SluzhbaDicState extends State<SluzhbaDic> {
   }
 
   _setChangeAsFilter() {
-    LocationData.sluzhbaValueF = currentValue;
-    LocationData.sluzhbaIdF = currentValue.sluzhbaId;
-    ConstructorURI.setRequestFilter(sluzhba: LocationData.sluzhbaIdF);
+    LocationDicData.sluzhbaValueF = currentValue;
+    LocationDicData.sluzhbaIdF = currentValue.sluzhbaId;
+    ConstructorURI.setRequestFilter(sluzhba: LocationDicData.sluzhbaIdF);
     context.read<ListPgState>().listTableUpdate();
   }
 
@@ -56,7 +56,7 @@ class _SluzhbaDicState extends State<SluzhbaDic> {
       currentValue = newValue;
     });
 
-    LocationData.funcTypeSelector(_setChangeAsFilter, _setChangeAsInput);
+    LocationDicData.funcTypeSelector(_setChangeAsFilter, _setChangeAsInput);
   }
 
   @override
@@ -65,7 +65,7 @@ class _SluzhbaDicState extends State<SluzhbaDic> {
 
     bool sluzhbaState = context.select((LocationState ls) => ls.sluzhbaState);
 
-    LocationData.funcTypeSelector(_loadAsFilter, _loadAsInput);
+    LocationDicData.funcTypeSelector(_loadAsFilter, _loadAsInput);
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10),
