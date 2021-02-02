@@ -32,12 +32,12 @@ class LocationDicLayout extends StatelessWidget {
           future: LocationDicData.loadLocationDic(),
           builder: (context, snapshot) {
             if (snapshot.hasData == true) {
-              return getScreenSize(context, vertical(context), horizontal(context));
+              return getScreenSizeLB(context, vertical(context), horizontal(context));
             } else
               return Center(child: CircularProgressIndicator());
           });
     } else
-      return getScreenSize(context, vertical(context), horizontal(context));
+      return getScreenSizeLB(context, vertical(context), horizontal(context));
   }
 
   Container horizontal(BuildContext context) {

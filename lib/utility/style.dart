@@ -42,8 +42,8 @@ const Color mainBgColor = Color.fromARGB(255, 230, 230, 230);
 const Color mainTextColor = Color(0xFFF7F7F7);
 
 
-
-Widget getScreenSize (BuildContext context, Widget vertical, Widget horizontal) {
+/// UI рендерится при любом изменении разрешения, дроч ебаная
+Widget getScreenSizeMQ (BuildContext context, Widget vertical, Widget horizontal) {
   var screenWidth = MediaQuery.of(context).size.width;
   int smallWidth = 600;
   //int bigWidth = 1000;
@@ -51,3 +51,13 @@ Widget getScreenSize (BuildContext context, Widget vertical, Widget horizontal) 
   return screenWidth < smallWidth ?   vertical : horizontal;
 
 }
+
+/// UI рендерится только когда условие изменяется
+Widget getScreenSizeLB (BuildContext context, Widget vertical, Widget horizontal) {
+  return LayoutBuilder (
+    builder: (context, constraints) {
+      return constraints.maxWidth < 600 ? vertical : horizontal;
+    }
+  );
+}
+
