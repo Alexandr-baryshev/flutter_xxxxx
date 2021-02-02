@@ -156,6 +156,7 @@ class InputFieldSelector {
         break;
 
       case ReportKEY.PPO_KEY:
+        tehActiveVisible = false;
         return [
           inputField(InputPgData.xxxSET(), 'PPO', 'Основание работ', 10),
           inputField(InputPgData.xxxSET(), 'PPO', 'Описание работ', 10),
@@ -165,6 +166,7 @@ class InputFieldSelector {
 
 
       case ReportKEY.ACTIVE_Z_KEY:
+        tehActiveVisible = true;
         return [
           inputField(InputPgData.xxxSET(), 'ACTIVE_Z', 'придумать список!!!', 10),
 
@@ -172,6 +174,7 @@ class InputFieldSelector {
         break;
 
       default:
+        tehActiveVisible = false;
         return [
           inputField(InputPgData.xxxSET(), 'DEFFF', 'Описание работ', 10),
           inputField(InputPgData.xxxSET(), 'DEFFF', 'Результат', 10),
@@ -183,7 +186,7 @@ class InputFieldSelector {
   static List<Container> fieldsSecondary(BuildContext context) {
     switch (ReportKEY.reportKEY) {
       case ReportKEY.ACTIVE_Z_KEY:
-        tehActiveVisible = true;
+
         return [
           activeZ(context, InputPgData.xxxSET(), 'TEH112', 'Описание типа задачи', 10),
 
