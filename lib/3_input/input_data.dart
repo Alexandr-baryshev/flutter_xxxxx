@@ -24,6 +24,16 @@ class InputState with ChangeNotifier {
   }
 }
 
+/*
+
+
+
+
+
+
+
+*/
+
 class InputButtonSelector {
   static List<FlatButton> buttonsList(BuildContext context) {
     saveReport() {
@@ -50,7 +60,8 @@ class InputButtonSelector {
       case ReportKEY.ACTIVE_Z_KEY:
         return [
           bottomBarButton(text: 'Сохранить', icon: Icons.save, fun: saveReport),
-          bottomBarButton(text: 'Завершить', icon: Icons.where_to_vote_rounded, fun: closeActive),
+          bottomBarButton(
+              text: 'Завершить', icon: Icons.where_to_vote_rounded, fun: closeActive),
         ];
         break;
 
@@ -63,29 +74,53 @@ class InputButtonSelector {
   }
 }
 
+/*
 
+
+
+
+
+
+
+*/
 
 class InputFieldSelector {
-
   static bool tehActiveVisible = false;
 
-  static Container inputField(Function setText, String ctr, String name, double top) {
+  static Container inputField(Function setText, String ctrl, String name, double top) {
     return Container(
       padding: EdgeInsets.fromLTRB(10, top, 10, 10),
-      child: TextField(
-        controller: TextEditingController(text: ctr),
-        decoration: bigInputDecoration(name, 20),
-        onChanged: (val) {
-          setText(val);
-        },
-        minLines: 4,
-        maxLines: 8,
+      child: Scrollbar(
+        child: TextField(
+          controller: TextEditingController(text: ctrl),
+          decoration: bigInputDecoration(name, 20),
+          onChanged: (val) {
+            setText(val);
+          },
+          minLines: 4,
+          maxLines: 6,
+        ),
+      ),
+    );
+  }
+
+  static Container outputField(String ctrl, String name, double top) {
+    return Container(
+      padding: EdgeInsets.fromLTRB(10, top, 10, 10),
+      child: Scrollbar(
+        child: TextField(
+          enabled: false,
+          controller: TextEditingController(text: ctrl),
+          decoration: outputDecoration(name, 20),
+          onChanged: (val) {},
+          minLines: 2,
+          maxLines: null,
+        ),
       ),
     );
   }
 
   static Container activeSign(BuildContext context) {
-
     Logger.events(widget: '${context.widget}', func: 'Widget build', event: '');
     bool infoLineSate = context.select((InputState st) => st.infoLineSate);
 
@@ -109,40 +144,33 @@ class InputFieldSelector {
 
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 20),
-
       child: Container(
-          child: Text(active, style: TextStyle(color: colour, fontWeight: FontWeight.w600),)
-      ),
-
+          child: Text(
+        active,
+        style: TextStyle(color: colour, fontWeight: FontWeight.w600),
+      )),
     );
   }
 
-
-  static Container activeZ(BuildContext context, Function setText, String ctr, String name, double top) {
+  static Container activeZ(
+      BuildContext context, Function setText, String ctr, String name, double top) {
     return Container(
-
       decoration: widgetContainerDecor(),
       //margin: const EdgeInsets.fromLTRB(10, 0, 10, 10),
-      child: Column(
+      child: Column(children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Row(
+            TipZadachiDic(),
+            activeSign(context),
+          ],
+        ),
 
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                TipZadachiDic(),
-
-                activeSign(context)
-              ],),
-
-            inputField( setText,  ctr,  name,  top),
-            //inputField(InputPgData.xxxSET(), 'ACTIVE_Z', 'Описание типа задачи', 10),
-          ]),
-
+        inputField(setText, ctr, name, top),
+        //inputField(InputPgData.xxxSET(), 'ACTIVE_Z', 'Описание типа задачи', 10),
+      ]),
     );
   }
-
-
-
 
   static List<Container> fieldsPrimary(BuildContext context) {
     switch (ReportKEY.reportKEY) {
@@ -164,11 +192,13 @@ class InputFieldSelector {
         ];
         break;
 
-
       case ReportKEY.ACTIVE_Z_KEY:
         tehActiveVisible = true;
         return [
-          inputField(InputPgData.xxxSET(), 'ACTIVE_Z', 'придумать список!!!', 10),
+          outputField('текст поля', 'Неисправность ОС, завершено 4.2.2021 12:00', 10),
+          outputField('текст поля', 'Неисправность ОС, завершено 4.2.2021 12:00', 10),
+          outputField('текст поля', 'Неисправность ОС, завершено 4.2.2021 12:00', 10),
+          outputField('текст поля', 'Неисправность ОС, завершено 4.2.2021 12:00', 10),
 
         ];
         break;
@@ -186,17 +216,14 @@ class InputFieldSelector {
   static List<Container> fieldsSecondary(BuildContext context) {
     switch (ReportKEY.reportKEY) {
       case ReportKEY.ACTIVE_Z_KEY:
-
         return [
           activeZ(context, InputPgData.xxxSET(), 'TEH112', 'Описание типа задачи', 10),
-
-
         ];
         break;
 
       case ReportKEY.TEH112_KEY:
         return [
-          activeZ(context , InputPgData.xxxSET(), 'TEH112', 'Описание типа задачи', 10),
+          activeZ(context, InputPgData.xxxSET(), 'TEH112', 'Описание типа задачи', 10),
         ];
         break;
 
@@ -207,26 +234,7 @@ class InputFieldSelector {
         break;
     }
   }
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 class InputPgData {
   static xxxSET() {

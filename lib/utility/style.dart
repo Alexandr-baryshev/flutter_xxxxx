@@ -9,6 +9,24 @@ InputDecoration bigInputDecoration(text, size) {
       border: const OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(5))));
 }
 
+
+
+InputDecoration outputDecoration(text, size) {
+  return InputDecoration(
+      contentPadding: const EdgeInsets.fromLTRB(10, 20, 10, 10),
+      labelText: text,
+      alignLabelWithHint: true,
+      labelStyle: TextStyle(color: Colors.green[900], fontSize: size),
+      filled: true,
+      fillColor: Colors.grey[200],
+
+      border: const OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(5))));
+}
+
+
+
+
+
 BoxDecoration dicBoxDecor() {
   return BoxDecoration(
       color: Color.fromARGB(255, 250, 250, 250),

@@ -35,7 +35,7 @@ class ReportsMain extends StatelessWidget {
       ],
       child: MaterialApp(
         theme: ThemeData.light(),
-        initialRoute: PageRout.currentRout,
+        initialRoute: PageRout.HOME,
         routes: {
           PageRout.HOME: (context) => HomePgLayout(),
           PageRout.LIST: (context) => ListPgLayout(),

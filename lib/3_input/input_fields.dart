@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 
 import '../model/report.dart';
@@ -59,26 +60,30 @@ class InputFieldsBody extends StatelessWidget {
         children: [
           infoLine(context),
           // TODO добавить if else или visible на "reportKEY", для основной выкладки
-          Expanded(
-            flex: 5,
+          Flexible(
+            flex: 4,
             child: Container(
               decoration: widgetContainerDecor(),
             margin: const EdgeInsets.fromLTRB(10, 0, 10, 10),
             padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-             child: ListView(
-              children: InputFieldSelector.fieldsPrimary(context),
+             child: Scrollbar(
+               child: ListView(
+                 shrinkWrap: true,
+                children: InputFieldSelector.fieldsPrimary(context),
             ),
+             ),
         ),
           ),
           Visibility(
             visible: InputFieldSelector.tehActiveVisible,
-            child: Expanded(
+            child: Flexible(
               flex: 2,
               child: Container(
                 decoration: widgetContainerDecor(),
                 margin: const EdgeInsets.fromLTRB(10, 0, 10, 10),
                 padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
                 child: ListView(
+                  shrinkWrap: true,
                   children: InputFieldSelector.fieldsSecondary(context),
                 ),
               ),
