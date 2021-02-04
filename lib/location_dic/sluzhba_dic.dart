@@ -31,6 +31,7 @@ class _SluzhbaDicState extends State<SluzhbaDic> {
   }
 
   _loadAsInput() {
+    currentItemID = oneReport.sluzhbaID;
     for (var oneData in allSluzhba) {
       if (oneData.sluzhbaId == currentItemID) {
         currentValue = oneData;

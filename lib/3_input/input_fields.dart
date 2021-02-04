@@ -55,44 +55,54 @@ Container infoLine(BuildContext context) {
 class InputFieldsBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Column(
-        children: [
-          infoLine(context),
-          // TODO добавить if else или visible на "reportKEY", для основной выкладки
-          Flexible(
-            flex: 4,
-            child: Container(
-              decoration: widgetContainerDecor(),
-            margin: const EdgeInsets.fromLTRB(10, 0, 10, 10),
-            padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-             child: Scrollbar(
-               child: ListView(
-                 shrinkWrap: true,
-                children: InputFieldSelector.fieldsPrimary(context),
-            ),
-             ),
-        ),
-          ),
-          Visibility(
-            visible: InputFieldSelector.tehActiveVisible,
-            child: Flexible(
-              flex: 2,
-              child: Container(
-                decoration: widgetContainerDecor(),
-                margin: const EdgeInsets.fromLTRB(10, 0, 10, 10),
-                padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-                child: ListView(
-                  shrinkWrap: true,
-                  children: InputFieldSelector.fieldsSecondary(context),
-                ),
+    return FutureBuilder(
+        future: InputPgData.fetchReportByID(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(child: CircularProgressIndicator());
+          } else if (snapshot.connectionState == ConnectionState.done) {
+            return        Expanded(
+              child: Column(
+                children: [
+                  infoLine(context),
+
+                  Flexible(
+                    flex: 4,
+                    child: Container(
+                      decoration: widgetContainerDecor(),
+                      margin: const EdgeInsets.fromLTRB(10, 0, 10, 10),
+                      padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                      child: Scrollbar(
+                        child: ListView(
+                          shrinkWrap: true,
+                          children: InputFieldSelector.fieldsPrimary(context),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Visibility(
+                    visible: InputFieldSelector.tehActiveVisible,
+                    child: Flexible(
+                      flex: 2,
+                      child: Container(
+                        decoration: widgetContainerDecor(),
+                        margin: const EdgeInsets.fromLTRB(10, 0, 10, 10),
+                        padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                        child: ListView(
+                          shrinkWrap: true,
+                          children: InputFieldSelector.fieldsSecondary(context),
+                        ),
+                      ),
+                    ),
+                  ),
+
+
+                ],
               ),
-            ),
-          ),
-
-
-        ],
-      ),
-    );
+            );
+          } else {
+          return Center(child: Text('Нет данных'));
+          }
+        });
   }
 }

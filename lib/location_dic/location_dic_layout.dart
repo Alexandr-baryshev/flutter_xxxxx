@@ -34,7 +34,7 @@ class LocationDicLayout extends StatelessWidget {
             if (snapshot.hasData == true) {
               return getScreenSizeLB(context, vertical(context), horizontal(context));
             } else
-              return Center(child: CircularProgressIndicator());
+              return Center(child: LinearProgressIndicator());
           });
     } else
       return getScreenSizeLB(context, vertical(context), horizontal(context));

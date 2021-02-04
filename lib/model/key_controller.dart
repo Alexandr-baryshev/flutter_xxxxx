@@ -136,6 +136,7 @@ class ReportKEY {
       await getReportKEY();
       await localStorage.load(key: 'reportID', setFromLocal: _getIDFromLocal);
       reportID = _reportLocalID;
+
     }
     ConstructorURI.setReportIdURI(rID: reportID);
     Logger.events(func: 'getReportID', event: reportID);

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../info_dic/tip-zadachi_dic.dart';
@@ -74,8 +75,6 @@ class InputButtonSelector {
   }
 }
 
-
-
 /*
 
 
@@ -85,8 +84,6 @@ class InputButtonSelector {
 
 
 */
-
-
 
 class InputFieldSelector {
   static bool tehActiveVisible = false;
@@ -181,18 +178,18 @@ class InputFieldSelector {
       case ReportKEY.TEH112_KEY:
         tehActiveVisible = true;
         return [
-          inputField(InputPgData.xxxSET, oneReport.osnovanieRabot, 'Описание задачи', 10),
-          inputField(InputPgData.xxxSET, oneReport.osnovanieRabot, 'Описание работ', 10),
-          inputField(InputPgData.xxxSET, oneReport.osnovanieRabot, 'Результат', 10),
+          inputField(InputPgData.setOpisanieZadachi, oneReport.opisanieZadachi, 'Описание задачи', 10),
+          inputField(InputPgData.setOpisanieRabot, oneReport.opisanieRabot, 'Описание работ', 10),
+          inputField(InputPgData.setResultatRabot, oneReport.resultat, 'Результат', 10),
         ];
         break;
 
       case ReportKEY.PPO_KEY:
         tehActiveVisible = false;
         return [
-          inputField(InputPgData.xxxSET, oneReport.osnovanieRabot, 'Основание работ', 10),
-          inputField(InputPgData.xxxSET, oneReport.osnovanieRabot, 'Описание работ', 10),
-          inputField(InputPgData.xxxSET, oneReport.osnovanieRabot, 'Результат', 10),
+          inputField(InputPgData.setOsnovanieRabot, oneReport.osnovanieRabot, 'Основание работ', 10),
+          inputField(InputPgData.setOpisanieRabot, oneReport.opisanieRabot, 'Описание работ', 10),
+          inputField(InputPgData.setResultatRabot, oneReport.resultat, 'Результат', 10),
         ];
         break;
 
@@ -203,15 +200,14 @@ class InputFieldSelector {
           outputField('текст поля', 'Неисправность ОС, завершено 4.2.2021 12:00', 10),
           outputField('текст поля', 'Неисправность ОС, завершено 4.2.2021 12:00', 10),
           outputField('текст поля', 'Неисправность ОС, завершено 4.2.2021 12:00', 10),
-
         ];
         break;
 
       default:
         tehActiveVisible = false;
         return [
-          inputField(InputPgData.xxxSET, oneReport.osnovanieRabot, 'Описание работ', 10),
-          inputField(InputPgData.xxxSET, oneReport.osnovanieRabot, 'Результат', 10),
+          inputField(InputPgData.setOpisanieRabot, oneReport.opisanieRabot, 'Описание работ', 10),
+          inputField(InputPgData.setResultatRabot, oneReport.resultat, 'Результат', 10),
         ];
         break;
     }
@@ -221,13 +217,15 @@ class InputFieldSelector {
     switch (ReportKEY.reportKEY) {
       case ReportKEY.ACTIVE_Z_KEY:
         return [
-          activeZ(context, InputPgData.xxxSET, oneReport.osnovanieRabot, 'Описание типа задачи', 10),
+          activeZ(context, InputPgData.setOpisanieTipa, oneReport.opisanieTipa,
+              'Описание типа задачи', 10),
         ];
         break;
 
       case ReportKEY.TEH112_KEY:
         return [
-          activeZ(context, InputPgData.xxxSET, oneReport.osnovanieRabot, 'Описание типа задачи', 10),
+          activeZ(context, InputPgData.setOpisanieTipa, oneReport.opisanieTipa,
+              'Описание типа задачи', 10),
         ];
         break;
 
@@ -242,16 +240,63 @@ class InputFieldSelector {
 
 
 
+
 class InputPgData {
 
-/*  setOsnovanieRabot(String input) {
-    oneReport.osnovanieRabot = input;
-  }*/
 
-
-// TODO добавить
-  static xxxSET(String input) {
+  static setOsnovanieRabot(String input) {
     oneReport.osnovanieRabot = input;
-    print('============= ${oneReport.osnovanieRabot}');
   }
+
+  static setOpisanieRabot(String input) {
+    oneReport.opisanieRabot = input;
+  }
+
+  static setResultatRabot(String input) {
+    oneReport.resultat = input;
+  }
+
+  static setOpisanieZadachi(String input) {
+    oneReport.opisanieZadachi = input;
+  }
+
+  static setOpisanieTipa(String input) {
+    oneReport.opisanieTipa = input;
+  }
+
+  static Future<Report> fetchReportByID({String call}) async {
+
+
+
+    final response = await http.get(ConstructorURI.byIdURI);
+    oneReport = Report.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
+
+    await Future.delayed(Duration(milliseconds: 500));
+
+    return oneReport;
+  }
+
+
+
+  static _getLastNumber() async {
+
+    var response = await http.get(ConstructorURI.getAllURI);
+    List<dynamic> parse = jsonDecode(utf8.decode(response.bodyBytes));
+
+    /// СУТЬ:
+    // берется "parse.length - 1" и устанавливается индексом
+    // в сам массив "parse[...]['serialNumber']"
+    // далее "int.parse(...) + 1" и все это .toString()
+    if (parse.length == 0) {
+      oneReport.serialNumber = '1';
+    } else {
+      int lastIndex = parse.length - 1;
+      oneReport.serialNumber =
+          (int.parse(parse[lastIndex]['serialNumber']) + 1).toString();
+    }
+
+    Logger.events(func: '###WWWWWWWWWWWWWWWWW getLastNumber()', event: '${oneReport.serialNumber}');
+  }
+
+
 }
