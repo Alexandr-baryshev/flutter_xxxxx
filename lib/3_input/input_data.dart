@@ -74,6 +74,8 @@ class InputButtonSelector {
   }
 }
 
+
+
 /*
 
 
@@ -83,6 +85,8 @@ class InputButtonSelector {
 
 
 */
+
+
 
 class InputFieldSelector {
   static bool tehActiveVisible = false;
@@ -177,18 +181,18 @@ class InputFieldSelector {
       case ReportKEY.TEH112_KEY:
         tehActiveVisible = true;
         return [
-          inputField(InputPgData.xxxSET(), 'TEH112', 'Описание задачи', 10),
-          inputField(InputPgData.xxxSET(), 'TEH112', 'Описание работ', 10),
-          inputField(InputPgData.xxxSET(), 'TEH112', 'Результат', 10),
+          inputField(InputPgData.xxxSET, oneReport.osnovanieRabot, 'Описание задачи', 10),
+          inputField(InputPgData.xxxSET, oneReport.osnovanieRabot, 'Описание работ', 10),
+          inputField(InputPgData.xxxSET, oneReport.osnovanieRabot, 'Результат', 10),
         ];
         break;
 
       case ReportKEY.PPO_KEY:
         tehActiveVisible = false;
         return [
-          inputField(InputPgData.xxxSET(), 'PPO', 'Основание работ', 10),
-          inputField(InputPgData.xxxSET(), 'PPO', 'Описание работ', 10),
-          inputField(InputPgData.xxxSET(), 'PPO', 'Результат', 10),
+          inputField(InputPgData.xxxSET, oneReport.osnovanieRabot, 'Основание работ', 10),
+          inputField(InputPgData.xxxSET, oneReport.osnovanieRabot, 'Описание работ', 10),
+          inputField(InputPgData.xxxSET, oneReport.osnovanieRabot, 'Результат', 10),
         ];
         break;
 
@@ -206,8 +210,8 @@ class InputFieldSelector {
       default:
         tehActiveVisible = false;
         return [
-          inputField(InputPgData.xxxSET(), 'DEFFF', 'Описание работ', 10),
-          inputField(InputPgData.xxxSET(), 'DEFFF', 'Результат', 10),
+          inputField(InputPgData.xxxSET, oneReport.osnovanieRabot, 'Описание работ', 10),
+          inputField(InputPgData.xxxSET, oneReport.osnovanieRabot, 'Результат', 10),
         ];
         break;
     }
@@ -217,13 +221,13 @@ class InputFieldSelector {
     switch (ReportKEY.reportKEY) {
       case ReportKEY.ACTIVE_Z_KEY:
         return [
-          activeZ(context, InputPgData.xxxSET(), 'TEH112', 'Описание типа задачи', 10),
+          activeZ(context, InputPgData.xxxSET, oneReport.osnovanieRabot, 'Описание типа задачи', 10),
         ];
         break;
 
       case ReportKEY.TEH112_KEY:
         return [
-          activeZ(context, InputPgData.xxxSET(), 'TEH112', 'Описание типа задачи', 10),
+          activeZ(context, InputPgData.xxxSET, oneReport.osnovanieRabot, 'Описание типа задачи', 10),
         ];
         break;
 
@@ -236,8 +240,18 @@ class InputFieldSelector {
   }
 }
 
+
+
 class InputPgData {
-  static xxxSET() {
-    print('============= InputPgData xxx SET');
+
+/*  setOsnovanieRabot(String input) {
+    oneReport.osnovanieRabot = input;
+  }*/
+
+
+// TODO добавить
+  static xxxSET(String input) {
+    oneReport.osnovanieRabot = input;
+    print('============= ${oneReport.osnovanieRabot}');
   }
 }
