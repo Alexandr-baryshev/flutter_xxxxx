@@ -37,13 +37,24 @@ class InputState with ChangeNotifier {
 
 class InputButtonSelector {
   static List<FlatButton> buttonsList(BuildContext context) {
-    saveReport() {
-      context.read<InputState>().inputFieldUpdate();
+    saveReport() async {
+
+      await InputPgData.saveData(context);
+      context.read<InputState>().infoLineUpdate();
+      Navigator.push(
+          context,
+          PageRouteBuilder(
+              opaque: false,
+              pageBuilder: (BuildContext context, _, __) => SavePopup(InputPgData.saveMessage)));
       print('Отчет сохранен');
+
     }
 
-    saveToActive() {
-      print('Отчет сохранен, задача отпралена в активные');
+    saveToActive() async {
+      await InputPgData.saveToActive(context);
+      context.read<InputState>().infoLineUpdate();
+
+
     }
 
     closeActive() {
@@ -122,7 +133,7 @@ class InputFieldSelector {
   }
 
   static Container activeSign(BuildContext context) {
-    Logger.events(widget: '${context.widget}', func: 'Widget build', event: '');
+    Logger.events(class_: '${context.widget}', func: 'Widget build', data: '');
     bool infoLineSate = context.select((InputState st) => st.infoLineSate);
 
     String active = '';
@@ -178,8 +189,10 @@ class InputFieldSelector {
       case ReportKEY.TEH112_KEY:
         tehActiveVisible = true;
         return [
-          inputField(InputPgData.setOpisanieZadachi, oneReport.opisanieZadachi, 'Описание задачи', 10),
-          inputField(InputPgData.setOpisanieRabot, oneReport.opisanieRabot, 'Описание работ', 10),
+          inputField(InputPgData.setOpisanieZadachi, oneReport.opisanieZadachi,
+              'Описание задачи', 10),
+          inputField(InputPgData.setOpisanieRabot, oneReport.opisanieRabot,
+              'Описание работ', 10),
           inputField(InputPgData.setResultatRabot, oneReport.resultat, 'Результат', 10),
         ];
         break;
@@ -187,8 +200,10 @@ class InputFieldSelector {
       case ReportKEY.PPO_KEY:
         tehActiveVisible = false;
         return [
-          inputField(InputPgData.setOsnovanieRabot, oneReport.osnovanieRabot, 'Основание работ', 10),
-          inputField(InputPgData.setOpisanieRabot, oneReport.opisanieRabot, 'Описание работ', 10),
+          inputField(InputPgData.setOsnovanieRabot, oneReport.osnovanieRabot,
+              'Основание работ', 10),
+          inputField(InputPgData.setOpisanieRabot, oneReport.opisanieRabot,
+              'Описание работ', 10),
           inputField(InputPgData.setResultatRabot, oneReport.resultat, 'Результат', 10),
         ];
         break;
@@ -206,7 +221,8 @@ class InputFieldSelector {
       default:
         tehActiveVisible = false;
         return [
-          inputField(InputPgData.setOpisanieRabot, oneReport.opisanieRabot, 'Описание работ', 10),
+          inputField(InputPgData.setOpisanieRabot, oneReport.opisanieRabot,
+              'Описание работ', 10),
           inputField(InputPgData.setResultatRabot, oneReport.resultat, 'Результат', 10),
         ];
         break;
@@ -238,11 +254,34 @@ class InputFieldSelector {
   }
 }
 
+class SavePopup extends StatelessWidget {
+  final String _text;
+
+  SavePopup(this._text);
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: Text(_text),
+      actions: [
+        FlatButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: Text('ок'),
+        ),
+      ],
+    );
+  }
+}
+
 
 
 
 class InputPgData {
 
+  static String saveMessage = '';
+  static String _activeMessage = '';
 
   static setOsnovanieRabot(String input) {
     oneReport.osnovanieRabot = input;
@@ -265,9 +304,6 @@ class InputPgData {
   }
 
   static Future<Report> fetchReportByID({String call}) async {
-
-
-
     final response = await http.get(ConstructorURI.byIdURI);
     oneReport = Report.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
 
@@ -280,23 +316,131 @@ class InputPgData {
 
   static _getLastNumber() async {
 
-    var response = await http.get(ConstructorURI.getAllURI);
-    List<dynamic> parse = jsonDecode(utf8.decode(response.bodyBytes));
+    if (oneReport.serialNumber == null) {
 
-    /// СУТЬ:
-    // берется "parse.length - 1" и устанавливается индексом
-    // в сам массив "parse[...]['serialNumber']"
-    // далее "int.parse(...) + 1" и все это .toString()
-    if (parse.length == 0) {
-      oneReport.serialNumber = '1';
-    } else {
-      int lastIndex = parse.length - 1;
-      oneReport.serialNumber =
-          (int.parse(parse[lastIndex]['serialNumber']) + 1).toString();
+      var response = await http.get(ConstructorURI.getAllURI);
+      List<dynamic> parse = jsonDecode(utf8.decode(response.bodyBytes));
+
+      /// СУТЬ:
+      // берется "parse.length - 1" и устанавливается индексом
+      // в сам массив "parse[...]['serialNumber']"
+      // далее "int.parse(...) + 1" и все это .toString()
+      if (parse.length == 0) {
+        oneReport.serialNumber = '1';
+      } else {
+        int lastIndex = parse.length - 1;
+        oneReport.serialNumber =
+            (int.parse(parse[lastIndex]['serialNumber']) + 1).toString();
+      }
+
+      oneReport.completedDate = DateTime.now().millisecondsSinceEpoch;
+
+
+
     }
 
-    Logger.events(func: '###WWWWWWWWWWWWWWWWW getLastNumber()', event: '${oneReport.serialNumber}');
+
+
+
+    Logger.events(
+        func: '###WWWWWWWWWWWWWWWWW getLastNumber()', data: '${oneReport.serialNumber}');
+
+
+
   }
+
+
+
+
+  static saveData(BuildContext context) async {
+    await _getLastNumber();
+
+    var jsonObject = jsonEncode({
+      'id': oneReport.id,
+      'serialNumber': oneReport.serialNumber,
+      'osnovanieRabot': oneReport.osnovanieRabot,
+      'opisanieRabot': oneReport.opisanieRabot,
+      'opisanieZadachi': oneReport.opisanieZadachi,
+      'resultat': oneReport.resultat,
+
+      'tipZadachiID': oneReport.tipZadachiID,
+      'opisanieTipa': oneReport.opisanieTipa,
+
+      'opisanieTipaList': oneReport.opisanieTipaList,
+      'activeSign': oneReport.activeSign,
+      'subyektID': oneReport.subyektID,
+      'rayonID': oneReport.rayonID,
+      'sluzhbaID': oneReport.sluzhbaID,
+      'completedDate': oneReport.completedDate,
+    });
+
+    var response = await http.post(
+      ConstructorURI.saveURI,
+      headers: {"Content-Type": "application/json"},
+      body: jsonObject,
+    );
+
+
+
+    response.statusCode == 200
+        ? saveMessage = 'Отчет сохранен$_activeMessage'
+        : saveMessage = 'ОШИБКА ${response.statusCode}' ;
+
+    oneReport = Report.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
+
+
+
+    Logger.events(
+        class_: '${context.widget}',
+        func: 'saveData',
+        data: 'oneReport.id ${oneReport.id}');
+  }
+
+
+
+  static saveToActive(BuildContext context) async {
+    _activeMessage = '';
+    if (oneReport.activeSign == 0) {
+      oneReport.activeSign = 1;
+      _activeMessage = ',\nзадача отправлена в активные';
+      await saveData(context);
+      Navigator.push(
+          context,
+          PageRouteBuilder(
+              opaque: false,
+              pageBuilder: (BuildContext context, _, __) => SavePopup(InputPgData.saveMessage)));
+    }
+
+
+  }
+
+
+
+
+
+  static saveToComplete(BuildContext context) async {
+    _activeMessage = '';
+    if (oneReport.activeSign == 1) {
+      oneReport.activeSign = 2;
+      // newModel.teh112id = oneReport.id,
+      // newModel.tipZadachiID = oneReport.tipZadachiID,
+      // newModel.opisanieTipa = oneReport.opisanieTipa,
+
+
+      _activeMessage = ',\nзадача завершена';
+      //await saveData(context);
+      Navigator.push(
+          context,
+          PageRouteBuilder(
+              opaque: false,
+              pageBuilder: (BuildContext context, _, __) => SavePopup(InputPgData.saveMessage)));
+    }
+
+
+  }
+
+
+
 
 
 }

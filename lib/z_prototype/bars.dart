@@ -13,7 +13,7 @@ class TopBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Logger.events(widget: '${context.widget}', func: 'build', event: _reportNAME);
+    Logger.events(class_: '${context.widget}', func: 'build', data: _reportNAME);
 
     return Container(
         padding: EdgeInsets.only(left: 10, right: 20),
@@ -60,7 +60,7 @@ class BottomBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Logger.events(widget: '${context.widget}', func: 'build', event: '');
+    Logger.events(class_: '${context.widget}', func: 'build', data: '');
 
     return Container(
         padding: EdgeInsets.only(left: 10, right: 20),

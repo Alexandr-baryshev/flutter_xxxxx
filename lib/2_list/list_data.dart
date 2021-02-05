@@ -27,7 +27,7 @@ class ListPgNetwork {
     allReports = parsed.map<Report>((json) => Report.fromJson(json)).toList();
 
     Logger.events(
-        widget: call, func: 'fetchReports', event: 'length ${allReports.length}');
+        class_: call, func: 'fetchReports', data: 'length ${allReports.length}');
     //print(allReports[0].osnovanieText);
     await Future.delayed(Duration(milliseconds: 500));
     return allReports;
@@ -40,8 +40,9 @@ class ListPgButtons {
   static List<FlatButton> buttonsList(BuildContext context) {
     newReport() {
       print('Новый');
+      oneReportCLEAR();
       ReportKEY.deleteReportID();
-      Navigator.pushNamed(context, PageRout.VOID);
+      Navigator.pushNamed(context,  PageRout.INPUT);
     }
 
     updatePg() {

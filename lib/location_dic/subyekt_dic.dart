@@ -64,7 +64,7 @@ class _SubyektDicState extends State<SubyektDic> {
 
   @override
   Widget build(BuildContext context) {
-    Logger.events(widget: '${context.widget}', func: 'Widget build', event: '');
+    Logger.events(class_: '${context.widget}', func: 'Widget build', data: '');
     LocationDicData.funcTypeSelector(loadAsFilter, loadAsInput);
 
     bool subyektState = context.select((LocationState ls) => ls.subyektState);

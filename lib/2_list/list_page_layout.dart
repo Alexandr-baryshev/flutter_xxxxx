@@ -12,7 +12,7 @@ import '../z_prototype/bars.dart';
 class ListPgLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    Logger.events(widget: '${context.widget}', func: 'build', event: '');
+    Logger.events(class_: '${context.widget}', func: 'build', data: '');
 
     return SafeArea(
       child: WillPopScope(

@@ -62,7 +62,7 @@ class _SluzhbaDicState extends State<SluzhbaDic> {
 
   @override
   Widget build(BuildContext context) {
-    Logger.events(widget: '${context.widget}', func: 'Widget build', event: '');
+    Logger.events(class_: '${context.widget}', func: 'Widget build', data: '');
 
     bool sluzhbaState = context.select((LocationState ls) => ls.sluzhbaState);
 

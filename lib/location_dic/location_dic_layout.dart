@@ -20,9 +20,9 @@ class LocationDicLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Logger.events(
-        widget: '${context.widget}',
+        class_: '${context.widget}',
         func: 'Widget build',
-        event: 'type $type | dicLoadStatus - ${LocationDicData.dicLoadStatus}');
+        data: 'type $type | dicLoadStatus - ${LocationDicData.dicLoadStatus}');
 
     LocationDicData.dicType = type;
 

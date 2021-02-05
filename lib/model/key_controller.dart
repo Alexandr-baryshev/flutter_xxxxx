@@ -27,7 +27,7 @@ class PageRout {
       currentRout = cRout;
       await localStorage.save(key: 'currentRout', value: currentRout);
     }
-    Logger.events(func: 'setCurrentRout', event: currentRout);
+    Logger.events(func: 'setCurrentRout', data: currentRout);
   }
 
   static goToPage(BuildContext context, rout) {
@@ -57,7 +57,7 @@ class PageRout {
       currentRout = _currentLocalRout;
     }
 
-    Logger.events(func: 'currentRout', event: currentRout);
+    Logger.events(func: 'currentRout', data: currentRout);
 
     return currentRout;
   }
@@ -102,7 +102,7 @@ class ReportKEY {
     if (reportKEY != null) {
       await localStorage.save(key: 'reportKEY', value: reportKEY);
     }
-    Logger.events(func: 'setReportKEY', event: reportKEY);
+    Logger.events(func: 'setReportKEY', data: reportKEY);
   }
 
   static getReportKEY() async {
@@ -112,7 +112,7 @@ class ReportKEY {
       _setBaseParameters(rKEY: reportKEY);
     }
 
-    Logger.events(func: 'getReportKEY', event: reportKEY);
+    Logger.events(func: 'getReportKEY', data: reportKEY);
 
     //logger.events(func: 'getCollection()', event: '$collection');
   }
@@ -128,7 +128,7 @@ class ReportKEY {
       await localStorage.save(key: 'reportID', value: reportID);
     }
 
-    Logger.events(func: 'setReportID', event: reportID);
+    Logger.events(func: 'setReportID', data: reportID);
   }
 
   static getReportID() async {
@@ -139,7 +139,7 @@ class ReportKEY {
 
     }
     ConstructorURI.setReportIdURI(rID: reportID);
-    Logger.events(func: 'getReportID', event: reportID);
+    Logger.events(func: 'getReportID', data: reportID);
 
     print('byIdURI ${ConstructorURI.byIdURI}');
   }
@@ -155,7 +155,7 @@ class ReportKEY {
 
     localStorage.remove(key: 'reportID');
 
-    Logger.events(func: 'deleteReportID', event: reportID);
+    Logger.events(func: 'deleteReportID', data: reportID);
 
     print('byIdURI ${ConstructorURI.byIdURI}');
   }

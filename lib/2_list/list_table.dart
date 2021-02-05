@@ -19,7 +19,7 @@ class ListTable extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String callName = '${context.widget}';
-    Logger.events(widget: callName, func: 'Widget build');
+    Logger.events(class_: callName, func: 'Widget build');
 
     bool listTableState = context.select((ListPgState ls) => ls.listTableState);
 
@@ -73,7 +73,7 @@ class _ListTableBodyState extends State<ListTableBody> {
   @override
   Widget build(BuildContext context) {
 
-    Logger.events(widget: '${context.widget}', func: 'Widget build');
+    Logger.events(class_: '${context.widget}', func: 'Widget build');
 
     return Container(
       decoration: widgetContainerDecor(),

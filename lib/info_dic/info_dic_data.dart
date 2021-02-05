@@ -16,7 +16,7 @@ class InfoDicData {
     if (_dicLoadStatus == false) {
       await loadTipZadachi();
 
-      Logger.events(func: 'loadInfoDic()', event: '');
+      Logger.events(func: 'loadInfoDic()', data: '');
       _dicLoadStatus = true;
     }
 

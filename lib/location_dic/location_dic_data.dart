@@ -128,7 +128,7 @@ class LocationDicData {
     await Future.delayed(Duration(milliseconds: 250));
 
     dicLoadStatus = true;
-    Logger.events(func: 'loadDictionary', event: 'ALL LOAD');
+    Logger.events(func: 'loadDictionary', data: 'ALL LOAD');
 
     return dicLoadStatus;
   }

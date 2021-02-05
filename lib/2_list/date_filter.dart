@@ -25,7 +25,7 @@ class _DateFilterState extends State<DateFilter> {
 
   @override
   Widget build(BuildContext context) {
-    Logger.events(widget: '${context.widget}', func: 'Widget build', event: '');
+    Logger.events(class_: '${context.widget}', func: 'Widget build', data: '');
 
     clearDateFilter() {
       setState(() {

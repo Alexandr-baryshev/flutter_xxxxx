@@ -88,7 +88,7 @@ class _RayonDicState extends State<RayonDic> {
 
   @override
   Widget build(BuildContext context) {
-    Logger.events(widget: '${context.widget}', func: 'Widget build', event: '');
+    Logger.events(class_: '${context.widget}', func: 'Widget build', data: '');
 
 
     bool rayonState = context.select((LocationState ls) => ls.rayonState);

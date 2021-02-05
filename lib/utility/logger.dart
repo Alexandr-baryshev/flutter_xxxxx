@@ -4,7 +4,7 @@ class Logger {
 
   static bool loggerOnOff = true;
 
-  static String _widget;
+  static String _class;
   static String _func;
 
   static String _temp;
@@ -15,34 +15,34 @@ class Logger {
     return formatter.format(now);
   }
 
-  static events({String widget, String func, String event}) {
+  static events({String class_, String func, String data}) {
 
     if (loggerOnOff == true) {
 
-      if (widget != null) _widget = widget;
+      if (class_ != null) _class = class_;
       if (func != null) _func = func;
-      if (event == null) event = '';
+      if (data == null) data = '';
 
-      if (_temp == null) _temp = _widget;
-      if (_temp != _widget) print('');
-      _temp = _widget;
+      if (_temp == null) _temp = _class;
+      if (_temp != _class) print('');
+      _temp = _class;
 
 
-      print('logger || c: $_widget | f: $_func | e: $event');
+      print('logger || c: $_class | f: $_func | d: $data');
     }
   }
 
 
 
 
-  static stop({String cClass, String cFunc, String event}) {
+  static stop({String class_, String func, String data}) {
 
-    if (cClass != null) _widget = cClass;
-    if (cFunc != null) _func = cFunc;
-    if (event == null) event = '##### STOP';
+    if (class_ != null) _class = class_;
+    if (func != null) _func = func;
+    if (data == null) data = '##### STOP';
 
 
-    print('${timePrint()} | c: $_widget | f: $_func | e: $event');
+    print('${timePrint()} | c: $_class | f: $_func | d: $data');
   }
 
 
