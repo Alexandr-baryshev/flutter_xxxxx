@@ -6,7 +6,7 @@ import 'input_data.dart';
 import 'input_fields.dart';
 
 import '../location_dic/location_dic_layout.dart';
-import '../z_prototype/bars.dart';
+import '../widgets/bars.dart';
 
 class InputPgLayout extends StatelessWidget {
   @override

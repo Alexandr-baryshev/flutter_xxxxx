@@ -7,7 +7,7 @@ import 'list_table.dart';
 import 'date_filter.dart';
 import '../location_dic/location_dic_layout.dart';
 
-import '../z_prototype/bars.dart';
+import '../widgets/bars.dart';
 
 class ListPgLayout extends StatelessWidget {
   @override

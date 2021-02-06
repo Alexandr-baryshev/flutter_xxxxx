@@ -8,7 +8,7 @@ import '../model/key_controller.dart';
 import '../model/report.dart';
 import '../utility/style.dart';
 import '../utility/logger.dart';
-import '../z_prototype/buttons.dart';
+import '../widgets/buttons.dart';
 
 class InputState with ChangeNotifier {
   bool infoLineSate = false;
@@ -25,21 +25,13 @@ class InputState with ChangeNotifier {
   }
 }
 
-/*
 
-
-
-
-
-
-
-*/
 
 class InputButtonSelector {
   static List<FlatButton> buttonsList(BuildContext context) {
     saveReport() async {
 
-      await InputPgData.saveData(context);
+      await InputPgData.saveReportData(context);
       context.read<InputState>().infoLineUpdate();
       Navigator.push(
           context,
@@ -57,8 +49,10 @@ class InputButtonSelector {
 
     }
 
-    closeActive() {
-      print('Активная задача завершена');
+    closeActive() async {
+      await InputPgData.saveToComplete(context);
+      context.read<InputState>().infoLineUpdate();
+
     }
 
     switch (ReportKEY.reportKEY) {
@@ -86,15 +80,7 @@ class InputButtonSelector {
   }
 }
 
-/*
 
-
-
-
-
-
-
-*/
 
 class InputFieldSelector {
   static bool tehActiveVisible = false;
@@ -233,14 +219,14 @@ class InputFieldSelector {
     switch (ReportKEY.reportKEY) {
       case ReportKEY.ACTIVE_Z_KEY:
         return [
-          activeZ(context, InputPgData.setOpisanieTipa, oneReport.opisanieTipa,
+          activeZ(context, InputPgData.setOpisanieTipa, oneReport.activeDescription,
               'Описание типа задачи', 10),
         ];
         break;
 
       case ReportKEY.TEH112_KEY:
         return [
-          activeZ(context, InputPgData.setOpisanieTipa, oneReport.opisanieTipa,
+          activeZ(context, InputPgData.setOpisanieTipa, oneReport.activeDescription,
               'Описание типа задачи', 10),
         ];
         break;
@@ -253,6 +239,7 @@ class InputFieldSelector {
     }
   }
 }
+
 
 class SavePopup extends StatelessWidget {
   final String _text;
@@ -300,7 +287,7 @@ class InputPgData {
   }
 
   static setOpisanieTipa(String input) {
-    oneReport.opisanieTipa = input;
+    oneReport.activeDescription = input;
   }
 
   static Future<Report> fetchReportByID({String call}) async {
@@ -352,7 +339,7 @@ class InputPgData {
 
 
 
-  static saveData(BuildContext context) async {
+  static saveReportData(BuildContext context) async {
     await _getLastNumber();
 
     var jsonObject = jsonEncode({
@@ -363,10 +350,10 @@ class InputPgData {
       'opisanieZadachi': oneReport.opisanieZadachi,
       'resultat': oneReport.resultat,
 
-      'tipZadachiID': oneReport.tipZadachiID,
-      'opisanieTipa': oneReport.opisanieTipa,
+      'activeTypeID': oneReport.activeTypeID,
+      'activeDescription': oneReport.activeDescription,
 
-      'opisanieTipaList': oneReport.opisanieTipaList,
+      'opisanieTipaList': oneReport.reserveField1,
       'activeSign': oneReport.activeSign,
       'subyektID': oneReport.subyektID,
       'rayonID': oneReport.rayonID,
@@ -398,12 +385,52 @@ class InputPgData {
 
 
 
+
+
+  static _saveActiveData(BuildContext context) async {
+
+
+    var jsonObject = jsonEncode({
+      'id': activeComplete.id,
+      'teh112id': activeComplete.teh112id,
+      'activeTypeID': activeComplete.activeTypeID,
+      'activeDescription': activeComplete.activeDescription,
+      'completedDate': DateTime.now().millisecondsSinceEpoch,
+
+    });
+
+    var response = await http.post(
+      ConstructorURI.saveActiveURI,
+      headers: {"Content-Type": "application/json"},
+      body: jsonObject,
+    );
+
+
+
+    response.statusCode == 200
+        ? saveMessage = 'Отчет сохранен$_activeMessage'
+        : saveMessage = 'ОШИБКА ${response.statusCode}' ;
+
+    activeComplete = ActiveComplete.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
+
+
+
+    Logger.events(
+        class_: '${context.widget}',
+        func: 'saveData',
+        data: 'activeComplete.id ${activeComplete.id}');
+  }
+
+
+
+
+
   static saveToActive(BuildContext context) async {
     _activeMessage = '';
     if (oneReport.activeSign == 0) {
       oneReport.activeSign = 1;
       _activeMessage = ',\nзадача отправлена в активные';
-      await saveData(context);
+      await saveReportData(context);
       Navigator.push(
           context,
           PageRouteBuilder(
@@ -421,14 +448,21 @@ class InputPgData {
   static saveToComplete(BuildContext context) async {
     _activeMessage = '';
     if (oneReport.activeSign == 1) {
-      oneReport.activeSign = 2;
-      // newModel.teh112id = oneReport.id,
-      // newModel.tipZadachiID = oneReport.tipZadachiID,
-      // newModel.opisanieTipa = oneReport.opisanieTipa,
+
+      // Данное присвоение можно было не писать, но это что бы не запутапться
+      activeComplete.teh112id = oneReport.id;
+      activeComplete.activeTypeID = oneReport.activeTypeID;
+      activeComplete.activeDescription = oneReport.activeDescription;
+
+      await _saveActiveData(context);
+      oneReport.activeSign = 0;
+      oneReport.activeTypeID = null;
+      oneReport.activeDescription = null;
+      activeComplete.id = null;
 
 
       _activeMessage = ',\nзадача завершена';
-      //await saveData(context);
+      await saveReportData(context);
       Navigator.push(
           context,
           PageRouteBuilder(

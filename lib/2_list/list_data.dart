@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 import '../model/report.dart';
 import '../utility/logger.dart';
 import '../model/key_controller.dart';
-import '../z_prototype/buttons.dart';
+import '../widgets/buttons.dart';
 
 class ListPgState extends ChangeNotifier {
   bool listTableState = false;

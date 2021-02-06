@@ -201,6 +201,7 @@ class ConstructorURI {
   static String byIdURI;
   static String _byIdURIBase;
   static String saveURI;
+  static String saveActiveURI;
   static String getAllURI;
 
   static int _start = 0;
@@ -213,6 +214,7 @@ class ConstructorURI {
   static setBaseURI({String collection}) {
     _byIdURIBase = '$_host/ByID?collectionX=$collection&idX=';
     saveURI = '$_host/SAVE?collectionX=$collection';
+    saveActiveURI = '$_host/SAVE_active';
     getAllURI = '$_host/ALL?collectionX=$collection';
     _listURIBase = '$_host/Replace?collectionX=$collection';
     setRequestFilter();

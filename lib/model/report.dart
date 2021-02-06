@@ -1,19 +1,35 @@
-class OpisanieTipaList {
-  String tipZadachiID;
+class ActiveComplete {
+  String id;
+  String teh112id;
+  String activeTypeID;
+  String activeDescription;
+  int completedDate;
 
-  String opisanieTipa;
 
-
-  OpisanieTipaList({
-   this.tipZadachiID,
-   this.opisanieTipa,
+  ActiveComplete({
+   this.id,
+   this.activeTypeID,
+   this.activeDescription,
+   this.teh112id,
+   this.completedDate,
 });
+
+
+  factory ActiveComplete.fromJson(Map<String, dynamic> json) {
+    return ActiveComplete(
+      id: json['id'] as String,
+      teh112id: json['teh112id'] as String,
+      activeTypeID: json['activeTypeID'] as String,
+      activeDescription: json['activeDescription'] as String,
+      completedDate: json['completedDate'] as int,
+    );
+  }
 
 }
 
 
-
-List<OpisanieTipaList> opisanieTipaList = [];
+ActiveComplete activeComplete = new ActiveComplete();
+List<ActiveComplete> activeCompleteList = [];
 
 
 
@@ -27,10 +43,10 @@ class Report {
    String opisanieZadachi;
    String resultat;
 
-   String tipZadachiID;
-   String opisanieTipa;
+   String activeTypeID;
+   String activeDescription;
 
-   String opisanieTipaList;
+   String reserveField1;
 
    int activeSign;
 
@@ -50,10 +66,10 @@ class Report {
     this.opisanieZadachi,
     this.resultat,
 
-    this.tipZadachiID,
-    this.opisanieTipa,
+    this.activeTypeID,
+    this.activeDescription,
 
-    this.opisanieTipaList,
+    this.reserveField1,
 
     this.activeSign,
 
@@ -76,10 +92,10 @@ class Report {
       opisanieZadachi: json['opisanieZadachi'] as String,
       resultat: json['resultat'] as String,
 
-      tipZadachiID: json['tipZadachiID'] as String,
-      opisanieTipa: json['opisanieTipa'] as String,
+      activeTypeID: json['activeTypeID'] as String,
+      activeDescription: json['activeDescription'] as String,
 
-      opisanieTipaList: json['opisanieTipaList'] as String,
+      reserveField1: json['reserveField1'] as String,
 
       activeSign: json['activeSign'] as int,
 
@@ -106,9 +122,9 @@ oneReportCLEAR()  {
   oneReport.opisanieRabot  = null;
   oneReport.opisanieZadachi  = null;
   oneReport.resultat  = null;
-  oneReport.tipZadachiID  = null;
-  oneReport.opisanieTipa  = null;
-  oneReport.opisanieTipaList = null;
+  oneReport.activeTypeID  = null;
+  oneReport.activeDescription  = null;
+  oneReport.reserveField1 = null;
   oneReport.activeSign  = null;
   oneReport.subyektID  = null;
   oneReport.rayonID  = null;

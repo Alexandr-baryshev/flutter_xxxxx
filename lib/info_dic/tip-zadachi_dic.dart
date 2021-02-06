@@ -22,7 +22,7 @@ class _TipZadachiDicState extends State<TipZadachiDic> {
   TipZadachi currentValue;
 
   _loadItem() {
-    currentItemID = oneReport.tipZadachiID;
+    currentItemID = oneReport.activeTypeID;
 
     for (var oneData in tipZadachiList) {
       if (oneData.tipZadachiId == currentItemID) {
@@ -37,7 +37,7 @@ class _TipZadachiDicState extends State<TipZadachiDic> {
       currentValue = newValue;
     });
 
-    oneReport.tipZadachiID = currentValue.tipZadachiId;
+    oneReport.activeTypeID = currentValue.tipZadachiId;
   }
 
   @override
