@@ -23,7 +23,7 @@ class _RayonDicState extends State<RayonDic> {
     currentValue = LocationDicData.rayonValueF;
     print('RayonDic - loadAsFilter');
   }
-
+// TODO ДЛЯ ACTIVE > загрузить из коллекции с параметром teh11id
   _loadAsInput() {
     currentItemID = oneReport.rayonID;
 
