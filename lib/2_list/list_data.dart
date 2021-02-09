@@ -40,7 +40,7 @@ class ListPgButtons {
   static List<FlatButton> buttonsList(BuildContext context) {
     newReport() {
       print('Новый');
-      oneReportCLEAR();
+      oneReport.clear();
       ReportKEY.deleteReportID();
       Navigator.pushNamed(context,  PageRout.INPUT);
     }

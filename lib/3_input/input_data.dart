@@ -83,7 +83,31 @@ class InputButtonSelector {
 
 
 class InputFieldSelector {
-  static bool tehActiveVisible = false;
+
+
+
+
+  static bool set1Visible = false;
+  static bool set2Visible = false;
+  static bool set3Visible = false;
+
+  static setFieldVisible() {
+    if (ReportKEY.reportKEY == ReportKEY.PPO_KEY ||
+        ReportKEY.reportKEY == ReportKEY.PROFRAB_KEY ||
+        ReportKEY.reportKEY == ReportKEY.INCIDENT_KEY) {
+      set1Visible = true;
+      set2Visible = false;
+      set3Visible = false;
+    } else if (ReportKEY.reportKEY == ReportKEY.TEH112_KEY) {
+      set1Visible = true;
+      set2Visible = true;
+      set3Visible = false;
+    } else if (ReportKEY.reportKEY == ReportKEY.ACTIVE_Z_KEY) {
+      set1Visible = false;
+      set2Visible = true;
+      set3Visible = true;
+    }
+  }
 
   static Container inputField(Function setText, String ctrl, String name, double top) {
     return Container(
@@ -170,10 +194,12 @@ class InputFieldSelector {
     );
   }
 
-  static List<Container> fieldsPrimary(BuildContext context) {
+
+
+  static List<Container> fieldsSET1(BuildContext context) {
     switch (ReportKEY.reportKEY) {
       case ReportKEY.TEH112_KEY:
-        tehActiveVisible = true;
+
         return [
           inputField(InputPgData.setOpisanieZadachi, oneReport.opisanieZadachi,
               'Описание задачи', 10),
@@ -184,7 +210,7 @@ class InputFieldSelector {
         break;
 
       case ReportKEY.PPO_KEY:
-        tehActiveVisible = false;
+
         return [
           inputField(InputPgData.setOsnovanieRabot, oneReport.osnovanieRabot,
               'Основание работ', 10),
@@ -194,51 +220,63 @@ class InputFieldSelector {
         ];
         break;
 
-      case ReportKEY.ACTIVE_Z_KEY:
-        tehActiveVisible = true;
-        return [
-          outputField('текст поля', 'Неисправность ОС, завершено 4.2.2021 12:00', 10),
-          outputField('текст поля', 'Неисправность ОС, завершено 4.2.2021 12:00', 10),
-          outputField('текст поля', 'Неисправность ОС, завершено 4.2.2021 12:00', 10),
-          outputField('текст поля', 'Неисправность ОС, завершено 4.2.2021 12:00', 10),
-        ];
-        break;
-
       default:
-        tehActiveVisible = false;
+
         return [
-          inputField(InputPgData.setOpisanieRabot, oneReport.opisanieRabot,
-              'Описание работ', 10),
+          inputField(InputPgData.setOpisanieRabot, oneReport.opisanieRabot,'Описание работ', 10),
           inputField(InputPgData.setResultatRabot, oneReport.resultat, 'Результат', 10),
         ];
         break;
     }
   }
 
-  static List<Container> fieldsSecondary(BuildContext context) {
-    switch (ReportKEY.reportKEY) {
-      case ReportKEY.ACTIVE_Z_KEY:
+
+
+
+
+
+
+
+
+
+  static List<Container> fieldsSET2(BuildContext context) {
+
         return [
           activeZ(context, InputPgData.setOpisanieTipa, oneReport.activeDescription,
               'Описание типа задачи', 10),
         ];
-        break;
 
-      case ReportKEY.TEH112_KEY:
-        return [
-          activeZ(context, InputPgData.setOpisanieTipa, oneReport.activeDescription,
-              'Описание типа задачи', 10),
-        ];
-        break;
 
-      default:
-        return [
-          Container(),
-        ];
-        break;
-    }
   }
+
+
+
+
+
+// TODO  >> TUT <<<<
+  static Container fieldsSET3(BuildContext context) {
+
+        return  Container(
+          child: Scrollbar(
+            child: ListView.builder(
+                shrinkWrap: true,
+                itemCount: activeCompleteList.length,
+                itemBuilder: (context, index) {
+                  return outputField('${activeCompleteList[index].activeDescription}', 'Неисправность ОС, завершено 4.2.2021 12:00', 10);
+                }
+            ),
+          ),
+        );
+
+    }
+
 }
+
+
+
+
+
+
 
 
 class SavePopup extends StatelessWidget {
@@ -261,7 +299,6 @@ class SavePopup extends StatelessWidget {
     );
   }
 }
-
 
 
 
@@ -291,6 +328,10 @@ class InputPgData {
   }
 
   static Future<Report> fetchReportByID({String call}) async {
+
+    await fetchActive();
+
+
     final response = await http.get(ConstructorURI.byIdURI);
     oneReport = Report.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
 
@@ -386,7 +427,6 @@ class InputPgData {
 
 
 
-
   static _saveActiveData(BuildContext context) async {
 
 
@@ -424,7 +464,6 @@ class InputPgData {
 
 
 
-
   static saveToActive(BuildContext context) async {
     _activeMessage = '';
     if (oneReport.activeSign == 0) {
@@ -440,7 +479,6 @@ class InputPgData {
 
 
   }
-
 
 
 
@@ -474,6 +512,22 @@ class InputPgData {
   }
 
 
+
+// добавить ID
+  static Future<List<ActiveComplete>> fetchActive({String call}) async {
+    final response = await http.get(ConstructorURI.getAllActiveURI);
+    String responseBody = utf8.decode(response.bodyBytes);
+
+    final parsed = jsonDecode(responseBody).cast<Map<dynamic, dynamic>>();
+    activeCompleteList = parsed.map<ActiveComplete>((json) => ActiveComplete.fromJson(json)).toList();
+
+    Logger.events(
+        class_: call, func: '******fetchActive', data: 'length ${activeCompleteList.length}');
+    //print(allReports[0].osnovanieText);
+    //await Future.delayed(Duration(milliseconds: 500));
+    return activeCompleteList;
+
+  }
 
 
 

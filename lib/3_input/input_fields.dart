@@ -54,7 +54,9 @@ Container infoLine(BuildContext context) {
 
 class InputFieldsBody extends StatelessWidget {
   @override
+
   Widget build(BuildContext context) {
+    InputFieldSelector.setFieldVisible();
     return FutureBuilder(
         future: InputPgData.fetchReportByID(),
         builder: (context, snapshot) {
@@ -66,22 +68,25 @@ class InputFieldsBody extends StatelessWidget {
                 children: [
                   infoLine(context),
 
-                  Flexible(
-                    flex: 4,
-                    child: Container(
-                      decoration: widgetContainerDecor(),
-                      margin: const EdgeInsets.fromLTRB(10, 0, 10, 10),
-                      padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-                      child: Scrollbar(
-                        child: ListView(
-                          shrinkWrap: true,
-                          children: InputFieldSelector.fieldsPrimary(context),
+                  Visibility(
+                    visible: InputFieldSelector.set1Visible,
+                    child: Flexible(
+                      flex: 4,
+                      child: Container(
+                        decoration: widgetContainerDecor(),
+                        margin: const EdgeInsets.fromLTRB(10, 0, 10, 10),
+                        padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                        child: Scrollbar(
+                          child: ListView(
+                            shrinkWrap: true,
+                            children: InputFieldSelector.fieldsSET1(context),
+                          ),
                         ),
                       ),
                     ),
                   ),
                   Visibility(
-                    visible: InputFieldSelector.tehActiveVisible,
+                    visible: InputFieldSelector.set2Visible,
                     child: Flexible(
                       flex: 2,
                       child: Container(
@@ -90,8 +95,21 @@ class InputFieldsBody extends StatelessWidget {
                         padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
                         child: ListView(
                           shrinkWrap: true,
-                          children: InputFieldSelector.fieldsSecondary(context),
+                          children: InputFieldSelector.fieldsSET2(context),
                         ),
+                      ),
+                    ),
+                  ),
+                  Visibility(
+                    visible: InputFieldSelector.set3Visible,
+                    child: Flexible(
+                      flex: 4,
+                      child: Container(
+                        decoration: widgetContainerDecor(),
+                        margin: const EdgeInsets.fromLTRB(10, 0, 10, 10),
+                        padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                        child: InputFieldSelector.fieldsSET3(context),
+
                       ),
                     ),
                   ),
