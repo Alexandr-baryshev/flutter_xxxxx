@@ -2,12 +2,12 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import '../utility/utility_export.dart';
 import '../info_dic/tip-zadachi_dic.dart';
 
 import '../model/key_controller.dart';
 import '../model/report.dart';
-import '../utility/style.dart';
-import '../utility/logger.dart';
 import '../widgets/buttons.dart';
 
 class InputState with ChangeNotifier {
@@ -52,6 +52,7 @@ class InputButtonSelector {
     closeActive() async {
       await InputPgData.saveToComplete(context);
       context.read<InputState>().infoLineUpdate();
+      context.read<InputState>().inputFieldUpdate();
 
     }
 
@@ -262,8 +263,11 @@ class InputFieldSelector {
                 shrinkWrap: true,
                 itemCount: activeCompleteList.length,
                 itemBuilder: (context, index) {
-                  return outputField('${activeCompleteList[index].activeDescription}', 'Неисправность ОС, завершено 4.2.2021 12:00', 10);
-                }
+                  return outputField(
+                  '${activeCompleteList[index].activeDescription}',
+                  '${activeCompleteList[index].activeTypeID} ${time(activeCompleteList[index].completedDate, 'd.M.yyyy  H:mm')}',
+                  10);
+            }
             ),
           ),
         );
@@ -271,11 +275,6 @@ class InputFieldSelector {
     }
 
 }
-
-
-
-
-
 
 
 
@@ -299,6 +298,7 @@ class SavePopup extends StatelessWidget {
     );
   }
 }
+
 
 
 

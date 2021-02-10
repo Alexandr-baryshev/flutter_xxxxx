@@ -56,6 +56,7 @@ class InputFieldsBody extends StatelessWidget {
   @override
 
   Widget build(BuildContext context) {
+    bool inputFieldState = context.select((InputState st) => st.inputFieldState);
     InputFieldSelector.setFieldVisible();
     return FutureBuilder(
         future: InputPgData.fetchReportByID(),

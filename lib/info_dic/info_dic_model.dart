@@ -1,16 +1,16 @@
 class TipZadachi {
   String tipZadachiId;
-  String tipZadachiText;
+  String tipZadachiCaption;
 
   TipZadachi({
     this.tipZadachiId,
-    this.tipZadachiText,
+    this.tipZadachiCaption,
   });
 
   factory TipZadachi.fromJson(Map<String, dynamic> json) {
     return TipZadachi(
       tipZadachiId: json['tipZadachiId'] as String,
-      tipZadachiText: json['tipZadachiText'] as String,
+      tipZadachiCaption: json['tipZadachiCaption'] as String,
     );
   }
 }

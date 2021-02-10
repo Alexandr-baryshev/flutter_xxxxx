@@ -68,7 +68,7 @@ class _TipZadachiDicState extends State<TipZadachiDic> {
                   items: tipZadachiList.map((TipZadachi tipZadachi) {
                     return DropdownMenuItem<TipZadachi>(
                       value: tipZadachi,
-                      child: Text(tipZadachi.tipZadachiText),
+                      child: Text(tipZadachi.tipZadachiCaption),
                     );
                   }).toList(),
                 ),
