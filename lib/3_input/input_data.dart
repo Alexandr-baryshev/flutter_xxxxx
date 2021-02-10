@@ -515,7 +515,7 @@ class InputPgData {
 
 // добавить ID
   static Future<List<ActiveComplete>> fetchActive({String call}) async {
-    final response = await http.get(ConstructorURI.getAllActiveURI);
+    final response = await http.get(ConstructorURI.activeByIdURI);
     String responseBody = utf8.decode(response.bodyBytes);
 
     final parsed = jsonDecode(responseBody).cast<Map<dynamic, dynamic>>();

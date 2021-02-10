@@ -142,6 +142,7 @@ class ReportKEY {
     Logger.events(func: 'getReportID', data: reportID);
 
     print('byIdURI ${ConstructorURI.byIdURI}');
+    print('activeByIdURI ${ConstructorURI.activeByIdURI}');
   }
 
   static _getIDFromLocal(String rID) {
@@ -202,7 +203,8 @@ class ConstructorURI {
   static String _byIdURIBase;
   static String saveURI;
   static String saveActiveURI;
-  static String getAllActiveURI;
+  static String activeByIdURI;
+  static String _activeByIdURIBase;
   static String getAllURI;
 
   static int _start = 0;
@@ -216,7 +218,7 @@ class ConstructorURI {
     _byIdURIBase = '$_host/ByID?collectionX=$collection&idX=';
     saveURI = '$_host/SAVE?collectionX=$collection';
     saveActiveURI = '$_host/SAVE_active';
-    getAllActiveURI = '$_host/ALL_active';
+    _activeByIdURIBase = '$_host/Replace_active?teh112id=';
     getAllURI = '$_host/ALL?collectionX=$collection';
     _listURIBase = '$_host/Replace?collectionX=$collection';
     setRequestFilter();
@@ -225,9 +227,17 @@ class ConstructorURI {
   static setReportIdURI({String rID}) {
     if (rID != null) {
       byIdURI = _byIdURIBase + rID;
-    } else
+      activeByIdURI = _activeByIdURIBase + rID;
+    } else {
       byIdURI = _byIdURIBase;
+      activeByIdURI = _activeByIdURIBase;
+    }
+
+
   }
+
+
+
 
   static setRequestFilter({
     String subyekt,
