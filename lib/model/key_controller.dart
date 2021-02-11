@@ -15,7 +15,9 @@ final String finalHOST = HOST2;
 /// +++++++++++++++++++++++++++++++++++++++++++++++
 /// HOST2 и HOME = ''
 /// http.cors().disable(); и  http.csrf().disable();
+///
 /// в этом случае работает, но переход на service worker
+///
 class PageRout {
   static const String HOME = '';
   static const String LIST = 'list';
