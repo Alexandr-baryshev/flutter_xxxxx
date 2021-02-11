@@ -10,12 +10,14 @@ import '../utility/all_page.dart';
 const String HOST1 = 'http://localhost:9999';
 const String HOST2 = '';
 
-final String finalHOST = HOST1;
+final String finalHOST = HOST2;
 
 /// +++++++++++++++++++++++++++++++++++++++++++++++
-
+/// HOST2 и HOME = ''
+/// http.cors().disable(); и  http.csrf().disable();
+/// в этом случае работает, но переход на service worker
 class PageRout {
-  static const String HOME = 'home';
+  static const String HOME = '';
   static const String LIST = 'list';
   static const String INPUT = 'input';
   static const String VOID = 'void';
