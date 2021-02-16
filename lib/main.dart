@@ -7,6 +7,7 @@ import '2_list/list_page_layout.dart';
 import '2_list/list_data.dart';
 import '3_input/input_page_layout.dart';
 import '3_input/input_data.dart';
+import 'z_prototype/test_out_pg.dart';
 import 'location_dic/location_dic_data.dart';
 
 void main() => runApp(ReportsMain());
@@ -41,6 +42,7 @@ class ReportsMain extends StatelessWidget {
           PageRout.LIST: (context) => ListPgLayout(),
           PageRout.INPUT: (context) => InputPgLayout(),
           PageRout.VOID: (context) => VoidMainCLASS(),
+          PageRout.TEST: (context) => TestOutPg(),
         },
         onUnknownRoute: (RouteSettings settings) {
           return MaterialPageRoute<void>(

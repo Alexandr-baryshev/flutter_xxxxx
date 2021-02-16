@@ -55,9 +55,13 @@ class Sluzhba {
   }
 }
 
-List<Subyekt> allSubyekt = [];
-List<Rayon> allRayons = [];
-List<Sluzhba> allSluzhba = [];
+List<Subyekt> subyektALL = [];
+List<Subyekt> subyektFILTER = [];
 
-List<Rayon> filterRayons = [];
-List<Sluzhba> filterCitiesSluzhba = [];
+List<Rayon> rayonsALL = [];
+List<Rayon> rayonsFILTER = [];
+
+List<Sluzhba> sluzhbaALL = [];
+
+
+

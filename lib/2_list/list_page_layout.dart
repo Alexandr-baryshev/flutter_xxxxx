@@ -27,7 +27,7 @@ class ListPgLayout extends StatelessWidget {
                 } else if (snapshot.connectionState == ConnectionState.done) {
                   return Column(
                     children: [
-                      TopBar(ReportKEY.reportNAME, PageRout.HOME),
+                      TopBar(ReportKEY.reportNAME, PageRout.HOME, ReportKEY.userFIO),
                       DateFilter(),
                       LocationDicLayout(type: 'filter'),
                       ListTable(),

@@ -26,7 +26,7 @@ class InputPgLayout extends StatelessWidget {
                 } else if (snapshot.connectionState == ConnectionState.done) {
                   return Column(
                     children: [
-                      TopBar(ReportKEY.reportNAME, PageRout.LIST),
+                      TopBar(ReportKEY.reportNAME, PageRout.LIST, ReportKEY.userFIO),
                       LocationDicLayout(type: 'input'),
                       InputFieldsBody(),
                      //BottomBar(InputPgButtons.buttonsList(context)),

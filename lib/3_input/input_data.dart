@@ -265,7 +265,9 @@ class InputFieldSelector {
                 itemBuilder: (context, index) {
                   return outputField(
                   '${activeCompleteList[index].activeDescription}',
-                  '${activeCompleteList[index].activeTypeID} ${time(activeCompleteList[index].completedDate, 'd.M.yyyy  H:mm')}',
+                  '${activeCompleteList[index].activeTypeID} | '
+                  'Завершил ${activeCompleteList[index].whoCompleted} '
+                  'в ${time(activeCompleteList[index].completedDate, 'd.M.yyyy  H:mm')}',
                   10);
             }
             ),
@@ -362,6 +364,7 @@ class InputPgData {
       }
 
       oneReport.completedDate = DateTime.now().millisecondsSinceEpoch;
+      oneReport.whoCreated = ReportKEY.userFIO;
 
 
 
@@ -394,7 +397,7 @@ class InputPgData {
       'activeTypeID': oneReport.activeTypeID,
       'activeDescription': oneReport.activeDescription,
 
-      'opisanieTipaList': oneReport.reserveField1,
+      'whoCreated': oneReport.whoCreated,
       'activeSign': oneReport.activeSign,
       'subyektID': oneReport.subyektID,
       'rayonID': oneReport.rayonID,
@@ -435,6 +438,7 @@ class InputPgData {
       'teh112id': activeComplete.teh112id,
       'activeTypeID': activeComplete.activeTypeID,
       'activeDescription': activeComplete.activeDescription,
+      'whoCompleted': activeComplete.whoCompleted,
       'completedDate': DateTime.now().millisecondsSinceEpoch,
 
     });
@@ -491,6 +495,7 @@ class InputPgData {
       activeComplete.teh112id = oneReport.id;
       activeComplete.activeTypeID = oneReport.activeTypeID;
       activeComplete.activeDescription = oneReport.activeDescription;
+      activeComplete.whoCompleted = ReportKEY.userFIO;
 
       await _saveActiveData(context);
       oneReport.activeSign = 0;

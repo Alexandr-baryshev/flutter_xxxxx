@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 
+
 import '../model/report.dart';
 import 'input_data.dart';
 import '../utility/style.dart';
@@ -17,26 +18,38 @@ Container infoLine(BuildContext context) {
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Container(
-            alignment: Alignment.centerLeft,
-            width: 60,
-            height: 50,
-            child: Text(
-              '№ ${oneReport.serialNumber == null ? '' : oneReport.serialNumber}',
-              style: TextStyle(
-                  color: Colors.blueGrey, fontSize: 16, fontWeight: FontWeight.w500),
-            )),
+        Flexible(
+          flex: 2,
+          child: Container(
+              alignment: Alignment.centerLeft,
+              height: 50,
+              child: Text(
+                '№ ${oneReport.serialNumber == null ? '' : oneReport.serialNumber}',
+                style: infoLineStyle()
+              )),
+        ),
+        Flexible(
+          flex: 3,
+          child: Container( 
+              alignment: Alignment.center,
+
+              height: 50,
+              child: Text('${oneReport.whoCreated}',
+                style: infoLineStyle()
+              )),
+        ),
         // # id
-        Container(
-            alignment: Alignment.centerRight,
-            width: 200,
-            height: 50,
-            child: Text(
-              '${time(oneReport.completedDate, 'd.M.yyyy  H:mm')}',
-              textAlign: TextAlign.right,
-              style: TextStyle(
-                  color: Colors.blueGrey, fontSize: 16, fontWeight: FontWeight.w500),
-            )),
+        Flexible(
+          flex: 2,
+          child: Container(
+              alignment: Alignment.centerRight,
+              height: 50,
+              child: Text(
+                '${time(oneReport.completedDate, 'd.M.yyyy  H:mm')}',
+                textAlign: TextAlign.right,
+                style: infoLineStyle()
+              )),
+        ),
         // # date
       ],
     ),
@@ -64,7 +77,7 @@ class InputFieldsBody extends StatelessWidget {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());
           } else if (snapshot.connectionState == ConnectionState.done) {
-            return        Expanded(
+            return Expanded(
               child: Column(
                 children: [
                   infoLine(context),

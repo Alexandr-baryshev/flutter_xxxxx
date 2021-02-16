@@ -50,9 +50,26 @@ class ListPgButtons {
       context.read<ListPgState>().listTableUpdate();
     }
 
-    return [
-      bottomBarButton(text: 'Новый', icon: Icons.add_box_outlined, fun: newReport),
-      bottomBarButton(text: 'Обновить', icon: Icons.update_outlined, fun: updatePg),
-    ];
+
+
+
+
+    switch (ReportKEY.reportKEY) {
+
+
+      case ReportKEY.ACTIVE_Z_KEY:
+        return [
+          bottomBarButton(text: 'Обновить', icon: Icons.update_outlined, fun: updatePg),
+        ];
+        break;
+
+      default:
+        return [
+          bottomBarButton(text: 'Новый', icon: Icons.add_box_outlined, fun: newReport),
+          bottomBarButton(text: 'Обновить', icon: Icons.update_outlined, fun: updatePg),
+        ];
+        break;
+    }
+
   }
 }

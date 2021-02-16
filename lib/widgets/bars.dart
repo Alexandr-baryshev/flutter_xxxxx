@@ -8,8 +8,9 @@ import '../utility/logger.dart';
 class TopBar extends StatelessWidget {
   final String _reportNAME;
   final String _rout;
+  final String _userFIO;
 
-  TopBar(this._reportNAME, this._rout);
+  TopBar(this._reportNAME, this._rout, this._userFIO);
 
   @override
   Widget build(BuildContext context) {
@@ -38,12 +39,26 @@ class TopBar extends StatelessWidget {
                 ),
               ),
               Flexible(
+                flex: 2,
                 child: Container(
+                  //color: Colors.green,
                   padding: EdgeInsets.only(bottom: 5, top: 5),
                   alignment: Alignment.centerLeft,
                   child: Text(
                     _reportNAME,
                     style: TextStyle(color: Colors.white, fontSize: 19),
+                  ),
+                ), // NAME
+              ),
+              Flexible(
+                flex: 1,
+                child: Container(
+                  //color: Colors.redAccent,
+                  padding: EdgeInsets.only(bottom: 5, top: 5),
+                  alignment: Alignment.centerRight,
+                  child: Text(
+                    _userFIO,
+                    style: TextStyle(color: Colors.white, fontSize: 15),
                   ),
                 ), // NAME
               ),

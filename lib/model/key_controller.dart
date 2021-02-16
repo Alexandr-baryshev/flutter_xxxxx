@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import '../utility/local_storage.dart';
 import '../utility/logger.dart';
 import '../utility/all_page.dart';
@@ -10,7 +11,7 @@ import '../utility/all_page.dart';
 const String HOST1 = 'http://localhost:9999';
 const String HOST2 = '';
 
-final String finalHOST = HOST2;
+final String finalHOST = HOST1;
 
 /// +++++++++++++++++++++++++++++++++++++++++++++++
 /// HOST2 и HOME = ''
@@ -23,6 +24,7 @@ class PageRout {
   static const String LIST = 'list';
   static const String INPUT = 'input';
   static const String VOID = 'void';
+  static const String TEST = 'test';
   static String currentRout;
   static String _currentLocalRout;
 
@@ -100,6 +102,16 @@ class ReportKEY {
   static String reportID;
   static String _reportLocalID;
 
+  static String userROLE;
+  static String userFIO;
+
+  static const String ADMIN = "ADMIN";
+  static const String PROG = "PROG";
+  static const String userPRIM = "userPRIM";
+  static const String userHAB = "userHAB";
+  static const String testROLE = "testROLE";
+
+
   static setReportKEY({String rKEY}) async {
     reportKEY = rKEY;
     _setBaseParameters(rKEY: reportKEY);
@@ -119,6 +131,7 @@ class ReportKEY {
     Logger.events(func: 'getReportKEY', data: reportKEY);
 
     //logger.events(func: 'getCollection()', event: '$collection');
+    await _getUserDetail();
   }
 
   static _getKEYFromLocal(String rKEY) {
@@ -194,6 +207,18 @@ class ReportKEY {
     }
 
     ConstructorURI.setBaseURI(collection: reportCOLL);
+  }
+
+
+  static _getUserDetail() async {
+    final response = await http.get('http://localhost:9999/GetName');
+    String responseBody = utf8.decode(response.bodyBytes);
+
+    var parsed = jsonDecode(responseBody);
+
+    userROLE = parsed[0];
+    userFIO = parsed[1];
+
   }
 }
 

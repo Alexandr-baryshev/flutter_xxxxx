@@ -3,6 +3,9 @@ class ActiveComplete {
   String teh112id;
   String activeTypeID;
   String activeDescription;
+  String whoCompleted;
+
+
   int completedDate;
 
   ActiveComplete({
@@ -11,6 +14,7 @@ class ActiveComplete {
     this.activeDescription,
     this.teh112id,
     this.completedDate,
+    this.whoCompleted,
   });
 
   factory ActiveComplete.fromJson(Map<String, dynamic> json) {
@@ -19,6 +23,7 @@ class ActiveComplete {
       teh112id: json['teh112id'] as String,
       activeTypeID: json['activeTypeID'] as String,
       activeDescription: json['activeDescription'] as String,
+      whoCompleted: json['whoCompleted'] as String,
       completedDate: json['completedDate'] as int,
     );
   }
@@ -43,7 +48,7 @@ class Report {
   String activeTypeID;
   String activeDescription;
 
-  String reserveField1;
+  String whoCreated;
 
   int activeSign;
 
@@ -52,6 +57,10 @@ class Report {
   String sluzhbaID;
 
   int completedDate;
+
+  String reserveField1;
+  String reserveField2;
+  String reserveField3;
 
   Report({
     this.id,
@@ -62,12 +71,16 @@ class Report {
     this.resultat,
     this.activeTypeID,
     this.activeDescription,
-    this.reserveField1,
+    this.whoCreated,    //
     this.activeSign,
     this.subyektID,
     this.rayonID,
     this.sluzhbaID,
     this.completedDate,
+
+    this.reserveField1,
+    this.reserveField2,
+    this.reserveField3,
   });
 
   factory Report.fromJson(Map<String, dynamic> json) {
@@ -80,12 +93,15 @@ class Report {
       resultat: json['resultat'] as String,
       activeTypeID: json['activeTypeID'] as String,
       activeDescription: json['activeDescription'] as String,
-      reserveField1: json['reserveField1'] as String,
+      whoCreated: json['whoCreated'] as String,
       activeSign: json['activeSign'] as int,
       subyektID: json['subyektID'] as String,
       rayonID: json['rayonID'] as String,
       sluzhbaID: json['sluzhbaID'] as String,
       completedDate: json['completedDate'] as int,
+      reserveField1: json['reserveField1'] as String,
+      reserveField2: json['reserveField2'] as String,
+      reserveField3: json['reserveField3'] as String,
     );
   }
 
@@ -98,7 +114,7 @@ class Report {
     resultat = null;
     activeTypeID = null;
     activeDescription = null;
-    reserveField1 = null;
+    whoCreated = null;
     activeSign = null;
     subyektID = null;
     rayonID = null;

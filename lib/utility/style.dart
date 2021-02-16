@@ -45,6 +45,14 @@ TextStyle dropDownStyle() {
       color: Color.fromARGB(255, 51, 100, 135), fontSize: 14, fontWeight: FontWeight.w500);
 }
 
+
+
+
+TextStyle infoLineStyle() {
+  return TextStyle(
+      color: Colors.blueGrey, fontSize: 16, fontWeight: FontWeight.w500);
+}
+
 TextStyle dataColumnStyle() {
   return TextStyle(
       color: Color.fromARGB(255, 30, 70, 100),
