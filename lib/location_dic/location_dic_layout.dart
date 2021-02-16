@@ -61,7 +61,7 @@ class LocationDicLayout extends StatelessWidget {
           Expanded(
             child: SubyektDic(),
           ),
-          SizedBox(width: 5),
+/*          SizedBox(width: 5),
           Expanded(
             child: RayonDic(),
           ),
@@ -69,7 +69,7 @@ class LocationDicLayout extends StatelessWidget {
           Expanded(
             //child: CityDic(),
             child: SluzhbaDic(),
-          ),
+          ),*/
           Visibility(
             visible: LocationDicData.dicType == 'filter',
             child: IconButton(

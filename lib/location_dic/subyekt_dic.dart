@@ -27,7 +27,7 @@ class _SubyektDicState extends State<SubyektDic> {
   loadAsInput() {
     currentItemID = oneReport.subyektID;
 
-    for (var oneData in allSubyekt) {
+    for (var oneData in subyektALL) {
       if (oneData.subyektId == currentItemID) {
         currentValue = oneData;
         break;
@@ -81,7 +81,7 @@ class _SubyektDicState extends State<SubyektDic> {
         onChanged: (Subyekt newValue) {
           setChange(newValue);
         },
-        items: allSubyekt.map((Subyekt subyekt) {
+        items: subyektALL.map((Subyekt subyekt) {
           return DropdownMenuItem<Subyekt>(
             value: subyekt,
             child: Text(subyekt.subyektName),

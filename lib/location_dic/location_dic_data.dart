@@ -123,9 +123,9 @@ class LocationDicData {
 
   static loadLocationDic() async {
 
-    await loadSubyekt();
-    await loadRayons();
-    await loadSluzhba();
+    await loadSubyekt(id: '4ff758f5-eaff-4dd2-bef1-324c5d617609');
+    //await loadRayons();
+    //await loadSluzhba();
     await Future.delayed(Duration(milliseconds: 250));
 
     dicLoadStatus = true;
@@ -134,24 +134,95 @@ class LocationDicData {
     return dicLoadStatus;
   }
 
-  static loadSubyekt() async {
-    Uri uri = Uri.parse(allSubyektsURI);
-    final response = await http.get(uri);
-    String responseBody = utf8.decode(response.bodyBytes);
 
-    final parsed = jsonDecode(responseBody).cast<Map<dynamic, dynamic>>();
-    allSubyekt = parsed.map<Subyekt>((json) => Subyekt.fromJson(json)).toList();
+
+
+
+
+
+
+
+  static loadSubyekt({String id}) async {
+    if (dicLoadStatus == false) {
+      Uri uri = Uri.parse(allSubyektsURI);
+      final response = await http.get(uri);
+      String responseBody = utf8.decode(response.bodyBytes);
+
+      final parsed = jsonDecode(responseBody).cast<Map<dynamic, dynamic>>();
+      subyektALL = parsed.map<Subyekt>((json) => Subyekt.fromJson(json)).toList();
+      print('@@@@@@@@@@@@@@@@@@@@@ subyektALL.length  ${subyektALL.length}');
+    }
+
+    if (id != null) {
+      subyektFILTER.clear();
+      for (var subyekt in subyektALL) {
+        if (id == subyekt.subyektId) {
+          print('>>> $id');
+          print('>>> ${subyekt.subyektId}');
+          subyektFILTER.add(subyekt);
+        }
+      }
+      print('@@@@@@@@@@@@@@@@@@ subyektFILTER.length  ${subyektFILTER.length}');
+    }
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  /// Район фильтруется по [rayon.subyektId]
+  ///
+  static loadRayons({String id}) async {
+    if (dicLoadStatus == false) {
+      Uri uri = Uri.parse(allRayonsURI);
+      final response = await http.get(uri);
+      String responseBody = utf8.decode(response.bodyBytes);
+
+      final parsed = jsonDecode(responseBody).cast<Map<dynamic, dynamic>>();
+      rayonsALL = parsed.map<Rayon>((json) => Rayon.fromJson(json)).toList();
+      print('@@@@@@@@@@@@@@@@@@@@@ rayonsALL.length  ${rayonsALL.length}');
+    }
+
+    if (id != null) {
+      rayonsFILTER.clear();
+      for (var rayon in rayonsALL) {
+        if (id == rayon.subyektId) {
+          print('>>> $id');
+          print('>>> ${rayon.subyektId}');
+          rayonsFILTER.add(rayon);
+        }
+      }
+      print('@@@@@@@@@@@@@@@@@@ rayonsFILTER.length  ${rayonsFILTER.length}');
+    }
 
   }
 
-  static loadRayons() async {
-    Uri uri = Uri.parse(allRayonsURI);
-    final response = await http.get(uri);
-    String responseBody = utf8.decode(response.bodyBytes);
 
-    final parsed = jsonDecode(responseBody).cast<Map<dynamic, dynamic>>();
-    allRayons = parsed.map<Rayon>((json) => Rayon.fromJson(json)).toList();
-  }
+
+
+
+
+
+
+
+
+
+
+
+
 
   static loadSluzhba() async {
     Uri uri = Uri.parse(allSluzhbaURI);
@@ -159,6 +230,6 @@ class LocationDicData {
     String responseBody = utf8.decode(response.bodyBytes);
 
     final parsed = jsonDecode(responseBody).cast<Map<dynamic, dynamic>>();
-    allSluzhba = parsed.map<Sluzhba>((json) => Sluzhba.fromJson(json)).toList();
+    sluzhbaALL = parsed.map<Sluzhba>((json) => Sluzhba.fromJson(json)).toList();
   }
 }
