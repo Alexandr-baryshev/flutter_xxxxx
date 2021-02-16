@@ -29,7 +29,7 @@ class InputPgLayout extends StatelessWidget {
                       TopBar(ReportKEY.reportNAME, PageRout.LIST, ReportKEY.userFIO),
                       LocationDicLayout(type: 'input'),
                       InputFieldsBody(),
-                     //BottomBar(InputPgButtons.buttonsList(context)),
+
                     ],
                   );
                 } else {

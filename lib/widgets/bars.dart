@@ -24,7 +24,7 @@ class TopBar extends StatelessWidget {
             mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              FlatButton(
+              TextButton(
                 onPressed: () => Navigator.pushNamed(context, _rout),
                 //onPressed: () => PageRout.goToPage(context, _rout),
                 child: Column(
@@ -69,7 +69,7 @@ class TopBar extends StatelessWidget {
 
 
 class BottomBar extends StatelessWidget {
-  final List<FlatButton> _buttonsList;
+  final List<Widget> _buttonsList;
 
   BottomBar(this._buttonsList);
 

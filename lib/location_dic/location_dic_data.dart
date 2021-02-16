@@ -122,6 +122,7 @@ class LocationDicData {
   static bool dicLoadStatus = false;
 
   static loadLocationDic() async {
+
     await loadSubyekt();
     await loadRayons();
     await loadSluzhba();
@@ -133,52 +134,31 @@ class LocationDicData {
     return dicLoadStatus;
   }
 
-
-
   static loadSubyekt() async {
-    final response = await http.get(allSubyektsURI);
+    Uri uri = Uri.parse(allSubyektsURI);
+    final response = await http.get(uri);
     String responseBody = utf8.decode(response.bodyBytes);
 
     final parsed = jsonDecode(responseBody).cast<Map<dynamic, dynamic>>();
-    subyektALL = parsed.map<Subyekt>((json) => Subyekt.fromJson(json)).toList();
-   // subyektFILTER = parsed.map<Subyekt>((json) => Subyekt.fromJson(json)).toList();
-
-
-
-
-
+    allSubyekt = parsed.map<Subyekt>((json) => Subyekt.fromJson(json)).toList();
 
   }
-
-
-
-
 
   static loadRayons() async {
-    final response = await http.get(allRayonsURI);
+    Uri uri = Uri.parse(allRayonsURI);
+    final response = await http.get(uri);
     String responseBody = utf8.decode(response.bodyBytes);
 
     final parsed = jsonDecode(responseBody).cast<Map<dynamic, dynamic>>();
-    rayonsALL = parsed.map<Rayon>((json) => Rayon.fromJson(json)).toList();
-
-
-/*    rayonsFILTER.clear();
-    for (var oneRayon in rayonsALL) {
-      if (oneRayon.subyektId == subyektFILTER[0].subyektId) {
-        rayonsFILTER.add(oneRayon);
-      }
-
-    }*/
-
+    allRayons = parsed.map<Rayon>((json) => Rayon.fromJson(json)).toList();
   }
 
-
-
   static loadSluzhba() async {
-    final response = await http.get(allSluzhbaURI);
+    Uri uri = Uri.parse(allSluzhbaURI);
+    final response = await http.get(uri);
     String responseBody = utf8.decode(response.bodyBytes);
 
     final parsed = jsonDecode(responseBody).cast<Map<dynamic, dynamic>>();
-    sluzhbaALL = parsed.map<Sluzhba>((json) => Sluzhba.fromJson(json)).toList();
+    allSluzhba = parsed.map<Sluzhba>((json) => Sluzhba.fromJson(json)).toList();
   }
 }

@@ -103,14 +103,13 @@ class ReportKEY {
   static String _reportLocalID;
 
   static String userROLE;
-  static String userFIO;
+  static String userFIO = '-';
 
   static const String ADMIN = "ADMIN";
   static const String PROG = "PROG";
   static const String userPRIM = "userPRIM";
   static const String userHAB = "userHAB";
   static const String testROLE = "testROLE";
-
 
   static setReportKEY({String rKEY}) async {
     reportKEY = rKEY;
@@ -211,7 +210,8 @@ class ReportKEY {
 
 
   static _getUserDetail() async {
-    final response = await http.get('http://localhost:9999/GetName');
+    Uri uri = Uri.parse('http://localhost:9999/GetName');
+    final response = await http.get( uri);
     String responseBody = utf8.decode(response.bodyBytes);
 
     var parsed = jsonDecode(responseBody);

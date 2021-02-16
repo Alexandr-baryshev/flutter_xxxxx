@@ -18,35 +18,26 @@ class _RayonDicState extends State<RayonDic> {
   String currentItemID;
   Rayon currentValue;
 
-
-
-
-
-
-
-
   _loadAsFilter() {
     currentItemID = LocationDicData.rayonIdF;
     currentValue = LocationDicData.rayonValueF;
     print('RayonDic - loadAsFilter');
   }
-
-
 // TODO ДЛЯ ACTIVE > загрузить из коллекции с параметром teh11id
   _loadAsInput() {
     currentItemID = oneReport.rayonID;
 
     int x = 0;
-    rayonsFILTER.clear();
-    for (var oneData in rayonsALL) {
+    filterRayons.clear();
+    for (var oneData in allRayons) {
       if (oneData.subyektId == oneReport.subyektID) {
-        rayonsFILTER.add(oneData);
+        filterRayons.add(oneData);
 
         x++;
       }
     }
 
-    for (var oneData in rayonsFILTER) {
+    for (var oneData in filterRayons) {
       if (oneData.rayonId == currentItemID) {
         currentValue = oneData;
         break;
@@ -56,8 +47,6 @@ class _RayonDicState extends State<RayonDic> {
     }
     print('RayonDic - loadAsInput');
   }
-
-
 
   _setChangeAsFilter() {
     LocationDicData.rayonValueF = currentValue;
@@ -82,15 +71,15 @@ class _RayonDicState extends State<RayonDic> {
 
 
   _filterLocation() async {
+    int x = 0;
+    filterRayons.clear();
+    //String id;
 
-    rayonsFILTER.clear();
-
-
-    for (var oneData in rayonsALL) {
+    for (var oneData in allRayons) {
       if (oneData.subyektId == LocationDicData.subyektIdF) {
-        rayonsFILTER.add(oneData);
+        filterRayons.add(oneData);
 
-
+        x++;
       }
     }
 
@@ -122,7 +111,7 @@ class _RayonDicState extends State<RayonDic> {
                 onChanged: (Rayon newValue) {
                   _setChange(newValue);
                 },
-                items: rayonsFILTER.map((Rayon rayon) {
+                items: filterRayons.map((Rayon rayon) {
                   return DropdownMenuItem<Rayon>(
                     value: rayon,
                     child: Text(rayon.rayonName),

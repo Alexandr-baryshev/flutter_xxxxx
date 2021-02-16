@@ -18,38 +18,34 @@ Container infoLine(BuildContext context) {
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Flexible(
-          flex: 2,
-          child: Container(
-              alignment: Alignment.centerLeft,
-              height: 50,
-              child: Text(
-                '№ ${oneReport.serialNumber == null ? '' : oneReport.serialNumber}',
-                style: infoLineStyle()
-              )),
-        ),
-        Flexible(
-          flex: 3,
-          child: Container( 
-              alignment: Alignment.center,
-
-              height: 50,
-              child: Text('${oneReport.whoCreated}',
-                style: infoLineStyle()
-              )),
-        ),
+        Container(
+            alignment: Alignment.centerLeft,
+            width: 60,
+            height: 50,
+            child: Text(
+              '№ ${oneReport.serialNumber == null ? '' : oneReport.serialNumber}',
+              style: TextStyle(
+                  color: Colors.blueGrey, fontSize: 16, fontWeight: FontWeight.w500),
+            )),
+        Container(
+            alignment: Alignment.center,
+            width: 200,
+            height: 50,
+            child: Text('${oneReport.whoCreated}',
+              style: TextStyle(
+                  color: Colors.blueGrey, fontSize: 16, fontWeight: FontWeight.w500),
+            )),
         // # id
-        Flexible(
-          flex: 2,
-          child: Container(
-              alignment: Alignment.centerRight,
-              height: 50,
-              child: Text(
-                '${time(oneReport.completedDate, 'd.M.yyyy  H:mm')}',
-                textAlign: TextAlign.right,
-                style: infoLineStyle()
-              )),
-        ),
+        Container(
+            alignment: Alignment.centerRight,
+            width: 200,
+            height: 50,
+            child: Text(
+              '${time(oneReport.completedDate, 'd.M.yyyy  H:mm')}',
+              textAlign: TextAlign.right,
+              style: TextStyle(
+                  color: Colors.blueGrey, fontSize: 16, fontWeight: FontWeight.w500),
+            )),
         // # date
       ],
     ),
@@ -77,7 +73,7 @@ class InputFieldsBody extends StatelessWidget {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());
           } else if (snapshot.connectionState == ConnectionState.done) {
-            return Expanded(
+            return        Expanded(
               child: Column(
                 children: [
                   infoLine(context),

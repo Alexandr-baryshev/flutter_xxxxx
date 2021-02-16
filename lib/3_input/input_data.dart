@@ -28,7 +28,7 @@ class InputState with ChangeNotifier {
 
 
 class InputButtonSelector {
-  static List<FlatButton> buttonsList(BuildContext context) {
+  static List<Widget> buttonsList(BuildContext context) {
     saveReport() async {
 
       await InputPgData.saveReportData(context);
@@ -330,11 +330,12 @@ class InputPgData {
   }
 
   static Future<Report> fetchReportByID({String call}) async {
+    Uri uri = Uri.parse(ConstructorURI.byIdURI);
 
     await fetchActive();
 
 
-    final response = await http.get(ConstructorURI.byIdURI);
+    final response = await http.get( uri);
     oneReport = Report.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
 
     await Future.delayed(Duration(milliseconds: 500));
@@ -345,10 +346,10 @@ class InputPgData {
 
 
   static _getLastNumber() async {
-
+    Uri uri = Uri.parse(ConstructorURI.getAllURI);
     if (oneReport.serialNumber == null) {
 
-      var response = await http.get(ConstructorURI.getAllURI);
+      var response = await http.get(uri);
       List<dynamic> parse = jsonDecode(utf8.decode(response.bodyBytes));
 
       /// СУТЬ:
@@ -384,6 +385,7 @@ class InputPgData {
 
 
   static saveReportData(BuildContext context) async {
+    Uri uri = Uri.parse(ConstructorURI.saveURI);
     await _getLastNumber();
 
     var jsonObject = jsonEncode({
@@ -406,7 +408,7 @@ class InputPgData {
     });
 
     var response = await http.post(
-      ConstructorURI.saveURI,
+      uri,
       headers: {"Content-Type": "application/json"},
       body: jsonObject,
     );
@@ -431,7 +433,7 @@ class InputPgData {
 
 
   static _saveActiveData(BuildContext context) async {
-
+    Uri uri = Uri.parse(ConstructorURI.saveActiveURI);
 
     var jsonObject = jsonEncode({
       'id': activeComplete.id,
@@ -444,7 +446,7 @@ class InputPgData {
     });
 
     var response = await http.post(
-      ConstructorURI.saveActiveURI,
+       uri,
       headers: {"Content-Type": "application/json"},
       body: jsonObject,
     );
@@ -520,7 +522,8 @@ class InputPgData {
 
 // добавить ID
   static Future<List<ActiveComplete>> fetchActive({String call}) async {
-    final response = await http.get(ConstructorURI.activeByIdURI);
+    Uri uri = Uri.parse(ConstructorURI.activeByIdURI);
+    final response = await http.get( uri);
     String responseBody = utf8.decode(response.bodyBytes);
 
     final parsed = jsonDecode(responseBody).cast<Map<dynamic, dynamic>>();

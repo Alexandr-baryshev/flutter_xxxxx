@@ -16,22 +16,18 @@ class SubyektDic extends StatefulWidget {
 
 class _SubyektDicState extends State<SubyektDic> {
   String currentItemID;
-  String currentName = "Субъект";
   Subyekt currentValue;
 
-
-
-
-  _loadAsFilter() {
+  loadAsFilter() {
     currentItemID = LocationDicData.subyektIdF;
     currentValue = LocationDicData.subyektValueF;
     print('SubyektDic - loadAsFilter');
   }
 
-  _loadAsInput() {
+  loadAsInput() {
     currentItemID = oneReport.subyektID;
 
-    for (var oneData in subyektALL) {
+    for (var oneData in allSubyekt) {
       if (oneData.subyektId == currentItemID) {
         currentValue = oneData;
         break;
@@ -40,7 +36,7 @@ class _SubyektDicState extends State<SubyektDic> {
     print('SubyektDic - loadAsInput');
   }
 
-  _setChangeAsFilter() {
+  setChangeAsFilter() {
     LocationDicData.subyektValueF = currentValue;
     LocationDicData.subyektIdF = currentValue.subyektId;
 
@@ -49,17 +45,17 @@ class _SubyektDicState extends State<SubyektDic> {
     context.read<ListPgState>().listTableUpdate();
   }
 
-  _setChangeAsInput() {
+  setChangeAsInput() {
     oneReport.subyektID = currentValue.subyektId;
     oneReport.rayonID = null;
   }
 
-  _setChange(Subyekt newValue) {
+  setChange(Subyekt newValue) {
     setState(() {
       currentValue = newValue;
     });
 
-    LocationDicData.funcTypeSelector(_setChangeAsFilter, _setChangeAsInput);
+    LocationDicData.funcTypeSelector(setChangeAsFilter, setChangeAsInput);
 
     LocationDicData.rayonCLEAR();
     context.read<LocationState>().rayonUpdate();
@@ -69,7 +65,7 @@ class _SubyektDicState extends State<SubyektDic> {
   @override
   Widget build(BuildContext context) {
     Logger.events(class_: '${context.widget}', func: 'Widget build', data: '');
-    LocationDicData.funcTypeSelector(_loadAsFilter, _loadAsInput);
+    LocationDicData.funcTypeSelector(loadAsFilter, loadAsInput);
 
     bool subyektState = context.select((LocationState ls) => ls.subyektState);
 
@@ -78,16 +74,14 @@ class _SubyektDicState extends State<SubyektDic> {
       decoration: dicBoxDecor(),
       child: DropdownButton(
         isExpanded: true,
-
-        hint: Text(currentName),
-        disabledHint: Text(currentName),
+        hint: Text('Субъект'),
         underline: Container(),
         value: currentValue,
         style: dropDownStyle(),
         onChanged: (Subyekt newValue) {
-          _setChange(newValue);
+          setChange(newValue);
         },
-        items: subyektALL.map((Subyekt subyekt) {
+        items: allSubyekt.map((Subyekt subyekt) {
           return DropdownMenuItem<Subyekt>(
             value: subyekt,
             child: Text(subyekt.subyektName),

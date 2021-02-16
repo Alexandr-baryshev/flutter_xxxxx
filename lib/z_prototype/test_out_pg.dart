@@ -45,7 +45,8 @@ class TestOutPg extends StatelessWidget {
 
 
 getUserDetail() async {
-  final response = await http.get('http://localhost:9999/GetName');
+
+  final response = await http.get('http://localhost:9999/GetName' as Uri);
   String responseBody = utf8.decode(response.bodyBytes);
 
   var parsed = jsonDecode(responseBody);

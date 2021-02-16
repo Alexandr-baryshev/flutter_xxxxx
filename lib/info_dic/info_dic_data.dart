@@ -24,7 +24,8 @@ class InfoDicData {
   }
 
   static loadTipZadachi() async {
-    final response = await http.get(allTipZadachiURI);
+    Uri uri = Uri.parse(allTipZadachiURI);
+    final response = await http.get(uri);
     String responseBody = utf8.decode(response.bodyBytes);
 
     final parsed = jsonDecode(responseBody).cast<Map<dynamic, dynamic>>();

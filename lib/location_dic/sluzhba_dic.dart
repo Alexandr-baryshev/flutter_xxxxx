@@ -32,7 +32,7 @@ class _SluzhbaDicState extends State<SluzhbaDic> {
 
   _loadAsInput() {
     currentItemID = oneReport.sluzhbaID;
-    for (var oneData in sluzhbaALL) {
+    for (var oneData in allSluzhba) {
       if (oneData.sluzhbaId == currentItemID) {
         currentValue = oneData;
         break;
@@ -80,7 +80,7 @@ class _SluzhbaDicState extends State<SluzhbaDic> {
         onChanged: (Sluzhba newValue) {
           _setChange(newValue);
         },
-        items: sluzhbaALL.map((Sluzhba sluzhba) {
+        items: allSluzhba.map((Sluzhba sluzhba) {
           return DropdownMenuItem<Sluzhba>(
             value: sluzhba,
             child: Text(sluzhba.sluzhbaName),

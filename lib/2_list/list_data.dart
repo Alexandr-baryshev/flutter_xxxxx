@@ -20,7 +20,8 @@ class ListPgState extends ChangeNotifier {
 class ListPgNetwork {
 
   static Future<List<Report>> fetchReports({String call}) async {
-    final response = await http.get(ConstructorURI.listURI);
+    Uri uri = Uri.parse(ConstructorURI.listURI);
+    final response = await http.get(uri);
     String responseBody = utf8.decode(response.bodyBytes);
 
     final parsed = jsonDecode(responseBody).cast<Map<dynamic, dynamic>>();
@@ -37,7 +38,7 @@ class ListPgNetwork {
 
 class ListPgButtons {
 
-  static List<FlatButton> buttonsList(BuildContext context) {
+  static List<Widget> buttonsList(BuildContext context) {
     newReport() {
       print('Новый');
       oneReport.clear();
