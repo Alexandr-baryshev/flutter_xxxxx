@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:reports_flutter/model/report.dart';
 
-import '../utility/logger.dart';
+
 import '../model/key_controller.dart';
-import '../utility/style.dart';
+
+import '../utility/utility_export.dart';
 
 import '../2_list/list_data.dart';
 
@@ -24,23 +26,22 @@ class LocationDicLayout extends StatelessWidget {
         func: 'Widget build',
         data: 'type $type | dicLoadStatus - ${LocationDicData.dicLoadStatus}');
 
+
     LocationDicData.dicType = type;
 
-    // Данный if else определяет, загружен ли справочник.
-    if (LocationDicData.dicLoadStatus == false) {
+
       return FutureBuilder(
-          future: LocationDicData.loadLocationDic(),
+          future: inputLoadPriority(),
           builder: (context, snapshot) {
             if (snapshot.hasData == true) {
               return getScreenSizeLB(context, vertical(context), horizontal(context));
             } else
               return Center(child: LinearProgressIndicator());
           });
-    } else
-      return getScreenSizeLB(context, vertical(context), horizontal(context));
-  }
+    }
 
   Container horizontal(BuildContext context) {
+    print('horizontal @@@@@@@@@@@@@ ${oneReport.rayonID}');
     clearLocationFilter() {
       if (LocationDicData.dicType == 'filter') {
         ConstructorURI.setRequestFilter(subyekt: '', rayon: '', sluzhba: '');
@@ -87,6 +88,7 @@ class LocationDicLayout extends StatelessWidget {
   }
 
   Container vertical(BuildContext context) {
+    print('vertical @@@@@@@@@@@@@ ${oneReport.rayonID}');
     clearLocationFilter() {
       if (LocationDicData.dicType == 'filter') {
         ConstructorURI.setRequestFilter(subyekt: '', rayon: '', sluzhba: '');

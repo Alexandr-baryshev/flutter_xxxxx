@@ -15,15 +15,38 @@ class RayonDic extends StatefulWidget {
 }
 
 class _RayonDicState extends State<RayonDic> {
-  String currentItemID;
+  //String currentItemID;
   Rayon currentValue;
+
+  _loadAsInput()  {
+    print(' *** _asInput');
+    //LocationDicData.getOneRayon(id: oneReport.rayonID);
+    print(' *** ${oneReport.rayonID}');
+    currentValue = LocationDicData.rayonValueI;
+
+  }
+
+  _loadAsFilter()  {
+
+    currentValue = LocationDicData.rayonValueF;
+
+  }
+
+
+
+
 
 
 
 
   _setChange(Rayon newValue) {
     setState(() {
+      print('rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr');
       currentValue = newValue;
+      //LocationDicData.rayonValueF = newValue;
+      //oneReport.rayonID = newValue.rayonId;
+      //print(currentValue.rayonName);
+      print(newValue.rayonId);
     });
 
     //LocationDicData.funcTypeSelector(_setChangeAsFilter, _setChangeAsInput);
@@ -40,11 +63,12 @@ class _RayonDicState extends State<RayonDic> {
     String bySubyektID = context.select((LocationState ls) => ls.bySubyektID);
 
     return FutureBuilder(
-        future: LocationDicData.filterRayons(id: bySubyektID),
+        future: LocationDicData.filterRayons(subyektID: bySubyektID, rayonID: oneReport.rayonID),
         builder: (context, snapshot) {
           if (snapshot.hasData == true) {
 
-            //LocationDicData.funcTypeSelector(_loadAsFilter, _loadAsInput);
+            //_loadAsInput();
+            LocationDicData.funcTypeSelector(_loadAsFilter, _loadAsInput);
 
             return Container(
               padding: const EdgeInsets.symmetric(horizontal: 10),

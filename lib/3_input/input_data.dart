@@ -330,6 +330,7 @@ class InputPgData {
   }
 
   static Future<Report> fetchReportByID({String call}) async {
+    print('----------- № № № 1');
     Uri uri = Uri.parse(ConstructorURI.byIdURI);
 
     await fetchActive();
@@ -338,7 +339,7 @@ class InputPgData {
     final response = await http.get( uri);
     oneReport = Report.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
 
-    await Future.delayed(Duration(milliseconds: 500));
+    await Future.delayed(Duration(milliseconds: 250));
 
     return oneReport;
   }
