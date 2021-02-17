@@ -42,7 +42,7 @@ class SluzhbaState with ChangeNotifier {
 
 class LocationState with ChangeNotifier {
   bool subyektState = false;
-  bool rayonState = false;
+  String bySubyektID;
   bool sluzhbaState = false;
 
   subyektUpdate() {
@@ -50,8 +50,8 @@ class LocationState with ChangeNotifier {
     notifyListeners();
   }
 
-  rayonUpdate() {
-    rayonState = !rayonState;
+  rayonUpdate({String subyektID}) {
+    bySubyektID = subyektID;
     notifyListeners();
   }
 
@@ -62,7 +62,7 @@ class LocationState with ChangeNotifier {
 
   allLocDicUpdate() {
     subyektState = !subyektState;
-    rayonState = !rayonState;
+    //bySubyektID = !bySubyektID;
     sluzhbaState = !sluzhbaState;
     notifyListeners();
   }
@@ -123,8 +123,8 @@ class LocationDicData {
 
   static loadLocationDic() async {
 
-    await loadSubyekt(id: '4ff758f5-eaff-4dd2-bef1-324c5d617609');
-    //await loadRayons();
+    //await loadSubyekt();
+    await loadRayons();
     //await loadSluzhba();
     await Future.delayed(Duration(milliseconds: 250));
 
@@ -142,28 +142,26 @@ class LocationDicData {
 
 
 
-  static loadSubyekt({String id}) async {
-    if (dicLoadStatus == false) {
+  static loadSubyekt() async {
+
       Uri uri = Uri.parse(allSubyektsURI);
       final response = await http.get(uri);
       String responseBody = utf8.decode(response.bodyBytes);
 
       final parsed = jsonDecode(responseBody).cast<Map<dynamic, dynamic>>();
       subyektALL = parsed.map<Subyekt>((json) => Subyekt.fromJson(json)).toList();
-      print('@@@@@@@@@@@@@@@@@@@@@ subyektALL.length  ${subyektALL.length}');
-    }
 
-    if (id != null) {
-      subyektFILTER.clear();
-      for (var subyekt in subyektALL) {
-        if (id == subyekt.subyektId) {
-          print('>>> $id');
-          print('>>> ${subyekt.subyektId}');
-          subyektFILTER.add(subyekt);
-        }
+
+  }
+
+  static filterSubyekt ({String id}) {
+    subyektFILTER.clear();
+    for (var subyekt in subyektALL) {
+      if (id == subyekt.subyektId) {
+        subyektFILTER.add(subyekt);
       }
-      print('@@@@@@@@@@@@@@@@@@ subyektFILTER.length  ${subyektFILTER.length}');
     }
+    //print('@@@@@@@@@@@@@@@@@@ subyektFILTER.length  ${subyektFILTER.length}');
   }
 
 
@@ -181,37 +179,38 @@ class LocationDicData {
 
 
 
+
+
+
+
+  static loadRayons() async {
+    Uri uri = Uri.parse(allRayonsURI);
+    final response = await http.get(uri);
+    String responseBody = utf8.decode(response.bodyBytes);
+
+    final parsed = jsonDecode(responseBody).cast<Map<dynamic, dynamic>>();
+    rayonsALL = parsed.map<Rayon>((json) => Rayon.fromJson(json)).toList();
+    //print('@@@@@@@@@@@@@@@@@@@@@ rayonsALL.length  ${rayonsALL.length}');
+  }
 
 
   /// Район фильтруется по [rayon.subyektId]
-  ///
-  static loadRayons({String id}) async {
-    if (dicLoadStatus == false) {
-      Uri uri = Uri.parse(allRayonsURI);
-      final response = await http.get(uri);
-      String responseBody = utf8.decode(response.bodyBytes);
-
-      final parsed = jsonDecode(responseBody).cast<Map<dynamic, dynamic>>();
-      rayonsALL = parsed.map<Rayon>((json) => Rayon.fromJson(json)).toList();
-      print('@@@@@@@@@@@@@@@@@@@@@ rayonsALL.length  ${rayonsALL.length}');
-    }
-
-    if (id != null) {
+  static filterRayons({String id}) async {
+    if (id != null ) {
       rayonsFILTER.clear();
       for (var rayon in rayonsALL) {
         if (id == rayon.subyektId) {
-          print('>>> $id');
-          print('>>> ${rayon.subyektId}');
+          //print('>>> $id');
+          //print('>>> ${rayon.subyektId}');
           rayonsFILTER.add(rayon);
         }
       }
-      print('@@@@@@@@@@@@@@@@@@ rayonsFILTER.length  ${rayonsFILTER.length}');
+    } else {
+      rayonsFILTER = rayonsALL;
     }
-
+    //print('@@@@@@@@@@@@@@@@@@ rayonsFILTER.length  ${rayonsFILTER.length}');
+    return true;
   }
-
-
-
 
 
 

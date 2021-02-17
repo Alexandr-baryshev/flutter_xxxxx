@@ -18,86 +18,33 @@ class _RayonDicState extends State<RayonDic> {
   String currentItemID;
   Rayon currentValue;
 
-  _loadAsFilter() {
-    currentItemID = LocationDicData.rayonIdF;
-    currentValue = LocationDicData.rayonValueF;
-    print('RayonDic - loadAsFilter');
-  }
-// TODO ДЛЯ ACTIVE > загрузить из коллекции с параметром teh11id
-  _loadAsInput() {
-    currentItemID = oneReport.rayonID;
 
-    int x = 0;
-    rayonsFILTER.clear();
-    for (var oneData in rayonsALL) {
-      if (oneData.subyektId == oneReport.subyektID) {
-        rayonsFILTER.add(oneData);
 
-        x++;
-      }
-    }
-
-    for (var oneData in rayonsFILTER) {
-      if (oneData.rayonId == currentItemID) {
-        currentValue = oneData;
-        break;
-      } else {
-        currentValue = null;
-      }
-    }
-    print('RayonDic - loadAsInput');
-  }
-
-  _setChangeAsFilter() {
-    LocationDicData.rayonValueF = currentValue;
-    LocationDicData.rayonIdF = currentValue.rayonId;
-    ConstructorURI.setRequestFilter(rayon: LocationDicData.rayonIdF);
-    context.read<ListPgState>().listTableUpdate();
-  }
-
-  _setChangeAsInput() {
-    oneReport.rayonID = currentValue.rayonId;
-  }
 
   _setChange(Rayon newValue) {
     setState(() {
       currentValue = newValue;
     });
 
-    LocationDicData.funcTypeSelector(_setChangeAsFilter, _setChangeAsInput);
+    //LocationDicData.funcTypeSelector(_setChangeAsFilter, _setChangeAsInput);
 
-    //LocationData.sluzhbaCLEAR();
   }
 
 
-  _filterLocation() async {
-    int x = 0;
-    rayonsFILTER.clear();
-    //String id;
-
-    for (var oneData in rayonsALL) {
-      if (oneData.subyektId == LocationDicData.subyektIdF) {
-        rayonsFILTER.add(oneData);
-
-        x++;
-      }
-    }
-
-    return true;
-  }
 
   @override
   Widget build(BuildContext context) {
     Logger.events(class_: '${context.widget}', func: 'Widget build', data: '');
 
 
-    bool rayonState = context.select((LocationState ls) => ls.rayonState);
+    String bySubyektID = context.select((LocationState ls) => ls.bySubyektID);
 
     return FutureBuilder(
-        future: _filterLocation(),
+        future: LocationDicData.filterRayons(id: bySubyektID),
         builder: (context, snapshot) {
           if (snapshot.hasData == true) {
-            LocationDicData.funcTypeSelector(_loadAsFilter, _loadAsInput);
+
+            //LocationDicData.funcTypeSelector(_loadAsFilter, _loadAsInput);
 
             return Container(
               padding: const EdgeInsets.symmetric(horizontal: 10),

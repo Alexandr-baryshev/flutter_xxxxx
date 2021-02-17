@@ -58,16 +58,16 @@ class LocationDicLayout extends StatelessWidget {
         //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Expanded(
+/*          Expanded(
             child: SubyektDic(),
-          ),
-/*          SizedBox(width: 5),
+          ),*/
+          SizedBox(width: 5),
           Expanded(
             child: RayonDic(),
           ),
           SizedBox(width: 5),
-          Expanded(
-            //child: CityDic(),
+/*          Expanded(
+
             child: SluzhbaDic(),
           ),*/
           Visibility(
@@ -107,11 +107,11 @@ class LocationDicLayout extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SubyektDic(),
+                //SubyektDic(),
                 SizedBox(height: 5),
                 RayonDic(),
                 SizedBox(height: 5),
-                SluzhbaDic(),
+                //SluzhbaDic(),
               ],
             ),
           ),
